@@ -18,7 +18,6 @@ let package = Package(
             .product(name: "ArgumentParser", package: "swift-argument-parser"),
             "DumpPackageService",
             "DumpPackageServiceLive",
-            "Graph",
             "PackageSwiftFileParser",
             "PackageSwiftFileParserLive",
             "ShellCommandRunner",
@@ -26,7 +25,6 @@ let package = Package(
             "XcodeProjectParser",
             "XcodeProjectParserLive"
         ]),
-        .target(name: "Graph"),
         .target(name: "PackageSwiftFile"),
         .target(name: "PackageSwiftFileParser", dependencies: [
             "PackageSwiftFile"
