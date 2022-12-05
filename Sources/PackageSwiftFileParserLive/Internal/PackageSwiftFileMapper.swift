@@ -1,13 +1,10 @@
-import DumpPackageService
 import Foundation
 import PackageSwiftFileParser
 
 struct PackageSwiftFileMapper {
-    private let dumpPackageService: DumpPackageService
     private let packageSwiftFileParser: PackageSwiftFileParser
 
-    init(dumpPackageService: DumpPackageService, packageSwiftFileParser: PackageSwiftFileParser) {
-        self.dumpPackageService = dumpPackageService
+    init(packageSwiftFileParser: PackageSwiftFileParser) {
         self.packageSwiftFileParser = packageSwiftFileParser
     }
 
@@ -39,7 +36,6 @@ private extension PackageSwiftFileMapper {
             return .sourceControl(identity: parameters.identity)
         case .fileSystem(let parameters):
             let fileURL = URL(filePath: parameters.path).appending(path: "Package.swift")
-            let contents = try dumpPackageService.dumpPackageForSwiftPackageFile(at: fileURL)
             let packageSwiftFile = try packageSwiftFileParser.parseFile(at: fileURL)
             return .fileSystem(identity: parameters.identity, path: parameters.path, packageSwiftFile: packageSwiftFile)
         }

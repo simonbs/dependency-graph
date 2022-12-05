@@ -13,7 +13,7 @@ public struct PackageSwiftFileParserLive: PackageSwiftFileParser {
         let contents = try dumpPackageService.dumpPackageForSwiftPackageFile(at: fileURL)
         let decoder = JSONDecoder()
         let intermediate = try decoder.decode(IntermediatePackageSwiftFile.self, from: contents)
-        let mapper = PackageSwiftFileMapper(dumpPackageService: dumpPackageService, packageSwiftFileParser: self)
+        let mapper = PackageSwiftFileMapper(packageSwiftFileParser: self)
         return try mapper.map(intermediate)
     }
 }
