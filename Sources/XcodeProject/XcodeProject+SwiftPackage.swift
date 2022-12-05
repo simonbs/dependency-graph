@@ -1,8 +1,8 @@
 import Foundation
 
 public extension XcodeProject {
-    enum SwiftPackage {
-        public struct LocalParameters {
+    enum SwiftPackage: Equatable {
+        public struct LocalParameters: Equatable {
             public let name: String
             public let fileURL: URL
 
@@ -12,7 +12,7 @@ public extension XcodeProject {
             }
         }
 
-        public struct RemoteParameters {
+        public struct RemoteParameters: Equatable {
             public let name: String
             public let repositoryURL: URL
 
@@ -24,5 +24,24 @@ public extension XcodeProject {
 
         case local(LocalParameters)
         case remote(RemoteParameters)
+
+        public var name: String {
+            switch self {
+            case .local(let parameters):
+                return parameters.name
+            case .remote(let parameters):
+                return parameters.name
+            }
+        }
+
+        public static func local(name: String, fileURL: URL) -> Self {
+            let parameters = LocalParameters(name: name, fileURL: fileURL)
+            return .local(parameters)
+        }
+
+        public static func remote(name: String, repositoryURL: URL) -> Self {
+            let parameters = RemoteParameters(name: name, repositoryURL: repositoryURL)
+            return .remote(parameters)
+        }
     }
 }

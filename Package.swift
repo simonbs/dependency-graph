@@ -58,6 +58,10 @@ let package = Package(
             "DumpPackageService",
             "PackageSwiftFileParser",
             "PackageSwiftFileParserLive"
-        ], resources: [.copy("MockData")])
+        ], resources: [.copy("MockData")]),
+        .testTarget(name: "XcodeProjectParserLiveTests", dependencies: [
+            "XcodeProject",
+            "XcodeProjectParserLive"
+        ], resources: [.copy("Example")])
     ]
 )

@@ -1,7 +1,7 @@
 import Foundation
 
 extension XcodeProject {
-    public struct Target {
+    public struct Target: Equatable {
         public let name: String
         public let packageProductDependencies: [String]
 

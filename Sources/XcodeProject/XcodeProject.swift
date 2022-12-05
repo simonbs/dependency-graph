@@ -1,6 +1,6 @@
 import Foundation
 
-public struct XcodeProject {
+public struct XcodeProject: Equatable {
     public let name: String
     public let targets: [Target]
     public let swiftPackages: [SwiftPackage]
