@@ -27,9 +27,13 @@ let package = Package(
             "XcodeProjectParserLive"
         ]),
         .target(name: "Graph"),
-        .target(name: "PackageSwiftFileParser"),
+        .target(name: "PackageSwiftFile"),
+        .target(name: "PackageSwiftFileParser", dependencies: [
+            "PackageSwiftFile"
+        ]),
         .target(name: "PackageSwiftFileParserLive", dependencies: [
             "DumpPackageService",
+            "PackageSwiftFile",
             "PackageSwiftFileParser"
         ]),
         .target(name: "DumpPackageService"),

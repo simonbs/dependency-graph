@@ -1,4 +1,5 @@
 import Foundation
+import PackageSwiftFile
 import PackageSwiftFileParser
 
 struct PackageSwiftFileMapper {

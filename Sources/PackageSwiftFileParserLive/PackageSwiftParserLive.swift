@@ -1,5 +1,6 @@
 import DumpPackageService
 import Foundation
+import PackageSwiftFile
 import PackageSwiftFileParser
 
 public struct PackageSwiftFileParserLive: PackageSwiftFileParser {

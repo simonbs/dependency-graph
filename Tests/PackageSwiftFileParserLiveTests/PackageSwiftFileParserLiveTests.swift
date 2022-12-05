@@ -1,3 +1,4 @@
+import PackageSwiftFile
 import PackageSwiftFileParser
 @testable import PackageSwiftFileParserLive
 import XCTest
