@@ -9,7 +9,7 @@ import XcodeProjectParserLive
 
 public enum CompositionRoot {
     static var xcodeProjectParser: XcodeProjectParser {
-        return XcodeProjectParserLive(packageSwiftFileParser: packageSwiftFileParser)
+        return XcodeProjectParserLive()
     }
 }
 
