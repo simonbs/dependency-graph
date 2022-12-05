@@ -47,6 +47,7 @@ let package = Package(
         ]),
         .target(name: "XcodeProjectParserLive", dependencies: [
             .product(name: "XcodeProj", package: "XcodeProj"),
+            "XcodeProject",
             "XcodeProjectParser"
         ]),
         .testTarget(name: "DumpPackageServiceLiveTests", dependencies: [
