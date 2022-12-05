@@ -1,0 +1,622 @@
+{
+  "cLanguageStandard" : null,
+  "cxxLanguageStandard" : null,
+  "dependencies" : [
+    {
+      "sourceControl" : [
+        {
+          "identity" : "runestone",
+          "location" : {
+            "remote" : [
+              "git@github.com:simonbs/Runestone.git"
+            ]
+          },
+          "productFilter" : null,
+          "requirement" : {
+            "branch" : [
+              "main"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "fileSystem" : [
+        {
+          "identity" : "hexcolor",
+          "path" : "/Users/simon/Developer/Foo/HexColor",
+          "productFilter" : null
+        }
+      ]
+    }
+  ],
+  "name" : "ScriptBrowserFeature",
+  "packageKind" : {
+    "root" : [
+      "/Users/simon/Developer/Foo/ScriptBrowserFeature"
+    ]
+  },
+  "pkgConfig" : null,
+  "platforms" : [
+    {
+      "options" : [
+
+      ],
+      "platformName" : "ios",
+      "version" : "16.0"
+    },
+    {
+      "options" : [
+
+      ],
+      "platformName" : "maccatalyst",
+      "version" : "16.0"
+    }
+  ],
+  "products" : [
+    {
+      "name" : "ScriptBrowserEntities",
+      "settings" : [
+
+      ],
+      "targets" : [
+        "ScriptBrowserEntities"
+      ],
+      "type" : {
+        "library" : [
+          "automatic"
+        ]
+      }
+    },
+    {
+      "name" : "ScriptBrowserGroupsService",
+      "settings" : [
+
+      ],
+      "targets" : [
+        "ScriptBrowserGroupsService"
+      ],
+      "type" : {
+        "library" : [
+          "automatic"
+        ]
+      }
+    },
+    {
+      "name" : "ScriptBrowserGroupsServiceMock",
+      "settings" : [
+
+      ],
+      "targets" : [
+        "ScriptBrowserGroupsServiceMock"
+      ],
+      "type" : {
+        "library" : [
+          "automatic"
+        ]
+      }
+    },
+    {
+      "name" : "ScriptBrowserListService",
+      "settings" : [
+
+      ],
+      "targets" : [
+        "ScriptBrowserListService"
+      ],
+      "type" : {
+        "library" : [
+          "automatic"
+        ]
+      }
+    },
+    {
+      "name" : "ScriptBrowserListServiceLive",
+      "settings" : [
+
+      ],
+      "targets" : [
+        "ScriptBrowserListServiceLive"
+      ],
+      "type" : {
+        "library" : [
+          "automatic"
+        ]
+      }
+    },
+    {
+      "name" : "ScriptBrowserListServiceFactory",
+      "settings" : [
+
+      ],
+      "targets" : [
+        "ScriptBrowserListServiceFactory"
+      ],
+      "type" : {
+        "library" : [
+          "automatic"
+        ]
+      }
+    },
+    {
+      "name" : "ScriptBrowserListServiceFactoryLive",
+      "settings" : [
+
+      ],
+      "targets" : [
+        "ScriptBrowserListServiceFactoryLive"
+      ],
+      "type" : {
+        "library" : [
+          "automatic"
+        ]
+      }
+    },
+    {
+      "name" : "ScriptBrowserSearchService",
+      "settings" : [
+
+      ],
+      "targets" : [
+        "ScriptBrowserSearchService"
+      ],
+      "type" : {
+        "library" : [
+          "automatic"
+        ]
+      }
+    },
+    {
+      "name" : "ScriptBrowserSidebarService",
+      "settings" : [
+
+      ],
+      "targets" : [
+        "ScriptBrowserSidebarService"
+      ],
+      "type" : {
+        "library" : [
+          "automatic"
+        ]
+      }
+    },
+    {
+      "name" : "ScriptBrowserSidebarServiceLive",
+      "settings" : [
+
+      ],
+      "targets" : [
+        "ScriptBrowserSidebarServiceLive"
+      ],
+      "type" : {
+        "library" : [
+          "automatic"
+        ]
+      }
+    },
+    {
+      "name" : "ScriptBrowserUI",
+      "settings" : [
+
+      ],
+      "targets" : [
+        "ScriptBrowserUI"
+      ],
+      "type" : {
+        "library" : [
+          "automatic"
+        ]
+      }
+    }
+  ],
+  "providers" : null,
+  "swiftLanguageVersions" : null,
+  "targets" : [
+    {
+      "dependencies" : [
+
+      ],
+      "exclude" : [
+
+      ],
+      "name" : "ScriptBrowserEntities",
+      "resources" : [
+
+      ],
+      "settings" : [
+
+      ],
+      "type" : "regular"
+    },
+    {
+      "dependencies" : [
+        {
+          "byName" : [
+            "ScriptBrowserEntities",
+            null
+          ]
+        }
+      ],
+      "exclude" : [
+
+      ],
+      "name" : "ScriptBrowserGroupsService",
+      "resources" : [
+
+      ],
+      "settings" : [
+
+      ],
+      "type" : "regular"
+    },
+    {
+      "dependencies" : [
+        {
+          "byName" : [
+            "ScriptBrowserEntities",
+            null
+          ]
+        },
+        {
+          "byName" : [
+            "ScriptBrowserGroupsService",
+            null
+          ]
+        }
+      ],
+      "exclude" : [
+
+      ],
+      "name" : "ScriptBrowserGroupsServiceMock",
+      "resources" : [
+
+      ],
+      "settings" : [
+
+      ],
+      "type" : "regular"
+    },
+    {
+      "dependencies" : [
+        {
+          "byName" : [
+            "ScriptBrowserEntities",
+            null
+          ]
+        }
+      ],
+      "exclude" : [
+
+      ],
+      "name" : "ScriptBrowserListService",
+      "resources" : [
+
+      ],
+      "settings" : [
+
+      ],
+      "type" : "regular"
+    },
+    {
+      "dependencies" : [
+        {
+          "byName" : [
+            "ScriptBrowserEntities",
+            null
+          ]
+        },
+        {
+          "byName" : [
+            "ScriptBrowserGroupsService",
+            null
+          ]
+        },
+        {
+          "byName" : [
+            "ScriptBrowserListService",
+            null
+          ]
+        },
+        {
+          "byName" : [
+            "ScriptBrowserSearchService",
+            null
+          ]
+        }
+      ],
+      "exclude" : [
+
+      ],
+      "name" : "ScriptBrowserListServiceLive",
+      "resources" : [
+
+      ],
+      "settings" : [
+
+      ],
+      "type" : "regular"
+    },
+    {
+      "dependencies" : [
+        {
+          "byName" : [
+            "ScriptBrowserEntities",
+            null
+          ]
+        },
+        {
+          "byName" : [
+            "ScriptBrowserListService",
+            null
+          ]
+        }
+      ],
+      "exclude" : [
+
+      ],
+      "name" : "ScriptBrowserListServiceFactory",
+      "resources" : [
+
+      ],
+      "settings" : [
+
+      ],
+      "type" : "regular"
+    },
+    {
+      "dependencies" : [
+        {
+          "byName" : [
+            "ScriptBrowserEntities",
+            null
+          ]
+        },
+        {
+          "byName" : [
+            "ScriptBrowserGroupsService",
+            null
+          ]
+        },
+        {
+          "byName" : [
+            "ScriptBrowserListServiceFactory",
+            null
+          ]
+        },
+        {
+          "byName" : [
+            "ScriptBrowserListService",
+            null
+          ]
+        },
+        {
+          "byName" : [
+            "ScriptBrowserListServiceLive",
+            null
+          ]
+        },
+        {
+          "byName" : [
+            "ScriptBrowserSearchService",
+            null
+          ]
+        }
+      ],
+      "exclude" : [
+
+      ],
+      "name" : "ScriptBrowserListServiceFactoryLive",
+      "resources" : [
+
+      ],
+      "settings" : [
+
+      ],
+      "type" : "regular"
+    },
+    {
+      "dependencies" : [
+
+      ],
+      "exclude" : [
+
+      ],
+      "name" : "ScriptBrowserSearchService",
+      "resources" : [
+
+      ],
+      "settings" : [
+
+      ],
+      "type" : "regular"
+    },
+    {
+      "dependencies" : [
+        {
+          "byName" : [
+            "ScriptBrowserEntities",
+            null
+          ]
+        }
+      ],
+      "exclude" : [
+
+      ],
+      "name" : "ScriptBrowserSidebarService",
+      "resources" : [
+        {
+          "path" : "Resources/Localizable.strings",
+          "rule" : {
+            "process" : {
+
+            }
+          }
+        }
+      ],
+      "settings" : [
+
+      ],
+      "type" : "regular"
+    },
+    {
+      "dependencies" : [
+        {
+          "byName" : [
+            "ScriptBrowserGroupsService",
+            null
+          ]
+        },
+        {
+          "byName" : [
+            "ScriptBrowserSidebarService",
+            null
+          ]
+        }
+      ],
+      "exclude" : [
+
+      ],
+      "name" : "ScriptBrowserSidebarServiceLive",
+      "resources" : [
+        {
+          "path" : "Resources/Localizable.strings",
+          "rule" : {
+            "process" : {
+
+            }
+          }
+        }
+      ],
+      "settings" : [
+
+      ],
+      "type" : "regular"
+    },
+    {
+      "dependencies" : [
+        {
+          "byName" : [
+            "ScriptBrowserEntities",
+            null
+          ]
+        },
+        {
+          "byName" : [
+            "ScriptBrowserListService",
+            null
+          ]
+        },
+        {
+          "byName" : [
+            "ScriptBrowserListServiceFactory",
+            null
+          ]
+        },
+        {
+          "byName" : [
+            "ScriptBrowserSidebarService",
+            null
+          ]
+        },
+        {
+          "product" : [
+            "ColorCategories",
+            "HexColor",
+            null,
+            null
+          ]
+        }
+      ],
+      "exclude" : [
+
+      ],
+      "name" : "ScriptBrowserUI",
+      "resources" : [
+        {
+          "path" : "Resources/Localizable.strings",
+          "rule" : {
+            "process" : {
+
+            }
+          }
+        }
+      ],
+      "settings" : [
+
+      ],
+      "type" : "regular"
+    },
+    {
+      "dependencies" : [
+        {
+          "byName" : [
+            "ScriptBrowserEntities",
+            null
+          ]
+        },
+        {
+          "byName" : [
+            "ScriptBrowserGroupsService",
+            null
+          ]
+        },
+        {
+          "byName" : [
+            "ScriptBrowserGroupsServiceMock",
+            null
+          ]
+        },
+        {
+          "byName" : [
+            "ScriptBrowserListService",
+            null
+          ]
+        },
+        {
+          "byName" : [
+            "ScriptBrowserListServiceFactory",
+            null
+          ]
+        },
+        {
+          "byName" : [
+            "ScriptBrowserListServiceLive",
+            null
+          ]
+        },
+        {
+          "byName" : [
+            "ScriptBrowserSearchService",
+            null
+          ]
+        },
+        {
+          "byName" : [
+            "ScriptBrowserSidebarServiceLive",
+            null
+          ]
+        },
+        {
+          "byName" : [
+            "ScriptBrowserUI",
+            null
+          ]
+        }
+      ],
+      "exclude" : [
+
+      ],
+      "name" : "ScriptBrowserUITests",
+      "resources" : [
+
+      ],
+      "settings" : [
+
+      ],
+      "type" : "test"
+    }
+  ],
+  "toolsVersion" : {
+    "_version" : "5.7.0"
+  }
+}
