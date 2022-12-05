@@ -1,16 +1,11 @@
 import Foundation
-import PackageSwiftFileParser
 import PathKit
 import XcodeProj
 import XcodeProject
 import XcodeProjectParser
 
 public struct XcodeProjectParserLive: XcodeProjectParser {
-    private let packageSwiftFileParser: PackageSwiftFileParser
-
-    public init(packageSwiftFileParser: PackageSwiftFileParser) {
-        self.packageSwiftFileParser = packageSwiftFileParser
-    }
+    public init() {}
 
     public func parseProject(at fileURL: URL) throws -> XcodeProject {
         let path = Path(fileURL.relativePath)
@@ -49,6 +44,18 @@ private extension XcodeProjectParserLive {
     }
 
     func localSwiftPackages(in project: XcodeProj, atSourceRoot sourceRoot: URL) throws -> [XcodeProject.SwiftPackage] {
-        return []
+        return project.pbxproj.fileReferences.compactMap { fileReference in
+            guard fileReference.lastKnownFileType == "folder" else {
+                return nil
+            }
+            guard let packageName = fileReference.name, let path = fileReference.path else {
+                return nil
+            }
+            let packageSwiftFileURL = sourceRoot.appending(path: path).appending(path: "Package.swift")
+            guard FileManager.default.fileExists(atPath: packageSwiftFileURL.relativePath) else {
+                return nil
+            }
+            return .local(.init(name: packageName, fileURL: packageSwiftFileURL))
+        }
     }
 }
