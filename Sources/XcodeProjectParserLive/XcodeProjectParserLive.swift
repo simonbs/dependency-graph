@@ -2,6 +2,7 @@ import Foundation
 import PackageSwiftFileParser
 import PathKit
 import XcodeProj
+import XcodeProject
 import XcodeProjectParser
 
 public struct XcodeProjectParserLive: XcodeProjectParser {

@@ -41,7 +41,10 @@ let package = Package(
         .target(name: "ShellCommandRunnerLive", dependencies: [
             "ShellCommandRunner"
         ]),
-        .target(name: "XcodeProjectParser"),
+        .target(name: "XcodeProject"),
+        .target(name: "XcodeProjectParser", dependencies: [
+            "XcodeProject"
+        ]),
         .target(name: "XcodeProjectParserLive", dependencies: [
             .product(name: "XcodeProj", package: "XcodeProj"),
             "XcodeProjectParser"
