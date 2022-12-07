@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "keyboardtoolbar",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:simonbs/KeyboardToolbar.git",
+      "state" : {
+        "revision" : "5f95f8e9af98f6163a58caaceaadc3bf720fd7bd",
+        "version" : "0.1.1"
+      }
+    },
+    {
+      "identity" : "runestone",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/simonbs/Runestone",
+      "state" : {
+        "branch" : "main",
+        "revision" : "e9d220ae1a00b5ef00a7b6146d77f660f9e5dbe2"
+      }
+    }
+  ],
+  "version" : 2
+}
