@@ -4,138 +4,50 @@ import PackageSwiftFileParser
 import XCTest
 
 final class PackageSwiftFileParserLiveTests: XCTestCase {
-    private var dumpPackageService: DumpPackageServiceMock {
-        return DumpPackageServiceMock(fileURLMap: [
-            URL.Mock.root: Bundle.module.url(forMockDumpPackageNamed: "root"),
-            URL.Mock.hexColor: Bundle.module.url(forMockDumpPackageNamed: "hexcolor")
-        ])
-    }
-
     func testParsesName() throws {
+        let dumpPackageService = DumpPackageServiceMock()
         let parser = PackageSwiftFileParserLive(dumpPackageService: dumpPackageService)
-        let swiftPackageFile = try parser.parseFile(at: URL.Mock.root)
-        XCTAssertEqual(swiftPackageFile.name, "ScriptBrowserFeature")
+        let swiftPackageFile = try parser.parseFile(at: URL.Mock.examplePackageA)
+        XCTAssertEqual(swiftPackageFile.name, "ExamplePackageA")
     }
 
-    func testParsesTargetNames() throws {
+    func testParsesProducts() throws {
+        let dumpPackageService = DumpPackageServiceMock()
         let parser = PackageSwiftFileParserLive(dumpPackageService: dumpPackageService)
-        let swiftPackageFile = try parser.parseFile(at: URL.Mock.root)
-        let targetNames = swiftPackageFile.targets.map(\.name)
-        XCTAssertEqual(targetNames, [
-            "ScriptBrowserEntities",
-            "ScriptBrowserGroupsService",
-            "ScriptBrowserGroupsServiceMock",
-            "ScriptBrowserListService",
-            "ScriptBrowserListServiceLive",
-            "ScriptBrowserListServiceFactory",
-            "ScriptBrowserListServiceFactoryLive",
-            "ScriptBrowserSearchService",
-            "ScriptBrowserSidebarService",
-            "ScriptBrowserSidebarServiceLive",
-            "ScriptBrowserUI",
-            "ScriptBrowserUITests"
+        let swiftPackageFile = try parser.parseFile(at: URL.Mock.examplePackageA)
+        XCTAssertEqual(swiftPackageFile.products, [
+            PackageSwiftFile.Product(name: "ExampleLibraryA", targets: ["ExampleLibraryA"])
         ])
     }
 
-    // swiftlint:disable:next function_body_length
     func testParsesTargets() throws {
+        let dumpPackageService = DumpPackageServiceMock()
         let parser = PackageSwiftFileParserLive(dumpPackageService: dumpPackageService)
-        let swiftPackageFile = try parser.parseFile(at: URL.Mock.root)
+        let swiftPackageFile = try parser.parseFile(at: URL.Mock.examplePackageA)
         XCTAssertEqual(swiftPackageFile.targets, [
-            .init(name: "ScriptBrowserEntities", dependencies: []),
-            .init(name: "ScriptBrowserGroupsService", dependencies: [
-                .name("ScriptBrowserEntities")
-            ]),
-            .init(name: "ScriptBrowserGroupsServiceMock", dependencies: [
-                .name("ScriptBrowserEntities"),
-                .name("ScriptBrowserGroupsService")
-            ]),
-            .init(name: "ScriptBrowserListService", dependencies: [
-                .name("ScriptBrowserEntities")
-            ]),
-            .init(name: "ScriptBrowserListServiceLive", dependencies: [
-                .name("ScriptBrowserEntities"),
-                .name("ScriptBrowserGroupsService"),
-                .name("ScriptBrowserListService"),
-                .name("ScriptBrowserSearchService")
-            ]),
-            .init(name: "ScriptBrowserListServiceFactory", dependencies: [
-                .name("ScriptBrowserEntities"),
-                .name("ScriptBrowserListService")
-            ]),
-            .init(name: "ScriptBrowserListServiceFactoryLive", dependencies: [
-                .name("ScriptBrowserEntities"),
-                .name("ScriptBrowserGroupsService"),
-                .name("ScriptBrowserListServiceFactory"),
-                .name("ScriptBrowserListService"),
-                .name("ScriptBrowserListServiceLive"),
-                .name("ScriptBrowserSearchService")
-            ]),
-            .init(name: "ScriptBrowserSearchService", dependencies: []),
-            .init(name: "ScriptBrowserSidebarService", dependencies: [
-                .name("ScriptBrowserEntities")
-            ]),
-            .init(name: "ScriptBrowserSidebarServiceLive", dependencies: [
-                .name("ScriptBrowserGroupsService"),
-                .name("ScriptBrowserSidebarService")
-            ]),
-            .init(name: "ScriptBrowserUI", dependencies: [
-                .name("ScriptBrowserEntities"),
-                .name("ScriptBrowserListService"),
-                .name("ScriptBrowserListServiceFactory"),
-                .name("ScriptBrowserSidebarService"),
-                .product("ColorCategories", inPackage: "HexColor")
-            ]),
-            .init(name: "ScriptBrowserUITests", dependencies: [
-                .name("ScriptBrowserEntities"),
-                .name("ScriptBrowserGroupsService"),
-                .name("ScriptBrowserGroupsServiceMock"),
-                .name("ScriptBrowserListService"),
-                .name("ScriptBrowserListServiceFactory"),
-                .name("ScriptBrowserListServiceLive"),
-                .name("ScriptBrowserSearchService"),
-                .name("ScriptBrowserSidebarServiceLive"),
-                .name("ScriptBrowserUI")
-            ])
+            PackageSwiftFile.Target(name: "ExampleLibraryA")
         ])
     }
 
     func testParsesDependencies() throws {
+        let dumpPackageService = DumpPackageServiceMock()
         let parser = PackageSwiftFileParserLive(dumpPackageService: dumpPackageService)
-        let swiftPackageFile = try parser.parseFile(at: URL.Mock.root)
+        let swiftPackageFile = try parser.parseFile(at: URL.Mock.examplePackageB)
         XCTAssertEqual(swiftPackageFile.dependencies, [
-            .sourceControl(identity: "runestone"),
             .fileSystem(
-                identity: "hexcolor",
-                path: "/Users/simon/Developer/Foo/HexColor",
+                identity: "examplepackagec",
+                path: "/Users/simon/Developer/Example/ExamplePackageC",
                 packageSwiftFile: PackageSwiftFile(
-                    name: "HexColor",
+                    name: "ExamplePackageC",
+                    products: [
+                        .init(name: "ExampleLibraryC", targets: ["ExampleLibraryC"])
+                    ],
                     targets: [
-                        .init(name: "ColorCategories"),
-                        .init(name: "ColorCategoriesTests", dependencies: [
-                            .name("ColorCategories")
-                        ])
+                        .init(name: "ExampleLibraryC")
                     ]
                 )
-            )
+            ),
+            .sourceControl(identity: "keyboardtoolbar")
         ])
-    }
-}
-
-private extension URL {
-    enum Mock {
-        static var root: URL {
-            return URL(filePath: "/Users/simon/Developer/Foo/root/Package.swift")
-        }
-
-        static var hexColor: URL {
-            return URL(filePath: "/Users/simon/Developer/Foo/HexColor/Package.swift")
-        }
-    }
-}
-
-private extension Bundle {
-    func url(forMockDumpPackageNamed filename: String) -> URL {
-        return url(forResource: "MockData/" + filename, withExtension: "json")!
     }
 }

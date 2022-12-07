@@ -12,11 +12,22 @@ final class XcodeProjectParserLiveTests: XCTestCase {
     func testParsesTargets() throws {
         let parser = XcodeProjectParserLive()
         let xcodeProject = try parser.parseProject(at: URL.Mock.exampleXcodeProject)
-        XCTAssertEqual(xcodeProject.targets, [
-            .init(name: "Example", packageProductDependencies: ["Runestone"]),
-            .init(name: "ExampleTests", packageProductDependencies: []),
-            .init(name: "ExampleUITests", packageProductDependencies: [])
-        ])
+        let exampleTarget = xcodeProject.targets.first { $0.name == "Example" }
+        let exampleTestsTarget = xcodeProject.targets.first { $0.name == "ExampleTests" }
+        let exampleUITestsTarget = xcodeProject.targets.first { $0.name == "ExampleUITests" }
+        XCTAssertNotNil(exampleTarget)
+        XCTAssertNotNil(exampleTestsTarget)
+        XCTAssertNotNil(exampleUITestsTarget)
+    }
+
+    func testParsesTargetPackageProductDependencies() throws {
+        let parser = XcodeProjectParserLive()
+        let xcodeProject = try parser.parseProject(at: URL.Mock.exampleXcodeProject)
+        let exampleTarget = xcodeProject.targets.first { $0.name == "Example" }
+        let packageProductDependencies = exampleTarget?.packageProductDependencies ?? []
+        XCTAssertTrue(packageProductDependencies.contains("Runestone"))
+        XCTAssertTrue(packageProductDependencies.contains("ExampleLibraryA"))
+        XCTAssertTrue(packageProductDependencies.contains("ExampleLibraryB"))
     }
 
     func testSwiftPackageCount() throws {

@@ -5,10 +5,18 @@ import PackageDescription
 
 let package = Package(
     name: "ExamplePackageB",
+    platforms: [.iOS(.v14)],
     products: [
-        .library(name: "ExampleLibrary", targets: ["ExampleLibrary"])
+        .library(name: "ExampleLibraryB", targets: ["ExampleLibraryB"])
+    ],
+    dependencies: [
+        .package(path: "../ExamplePackageC"),
+        .package(url: "git@github.com:simonbs/KeyboardToolbar.git", from: "0.1.1")
     ],
     targets: [
-        .target(name: "ExampleLibrary")
+        .target(name: "ExampleLibraryB", dependencies: [
+            .product(name: "ExampleLibraryC", package: "ExamplePackageC"),
+            .product(name: "KeyboardToolbar", package: "KeyboardToolbar")
+        ])
     ]
 )

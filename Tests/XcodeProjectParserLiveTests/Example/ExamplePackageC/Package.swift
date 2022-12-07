@@ -4,12 +4,12 @@
 import PackageDescription
 
 let package = Package(
-    name: "ExamplePackageA",
+    name: "ExamplePackageC",
     platforms: [.iOS(.v14)],
     products: [
-        .library(name: "ExampleLibraryA", targets: ["ExampleLibraryA"])
+        .library(name: "ExampleLibraryC", targets: ["ExampleLibraryC"])
     ],
     targets: [
-        .target(name: "ExampleLibraryA")
+        .target(name: "ExampleLibraryC")
     ]
 )

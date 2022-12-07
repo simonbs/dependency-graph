@@ -1,0 +1,106 @@
+{
+  "cLanguageStandard" : null,
+  "cxxLanguageStandard" : null,
+  "dependencies" : [
+    {
+      "fileSystem" : [
+        {
+          "identity" : "examplepackagec",
+          "path" : "/Users/simon/Developer/Example/ExamplePackageC",
+          "productFilter" : null
+        }
+      ]
+    },
+    {
+      "sourceControl" : [
+        {
+          "identity" : "keyboardtoolbar",
+          "location" : {
+            "remote" : [
+              "git@github.com:simonbs/KeyboardToolbar.git"
+            ]
+          },
+          "productFilter" : null,
+          "requirement" : {
+            "range" : [
+              {
+                "lowerBound" : "0.1.1",
+                "upperBound" : "1.0.0"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "name" : "ExamplePackageB",
+  "packageKind" : {
+    "root" : [
+      "/Users/simon/Developer/Example/ExamplePackageB"
+    ]
+  },
+  "pkgConfig" : null,
+  "platforms" : [
+    {
+      "options" : [
+
+      ],
+      "platformName" : "ios",
+      "version" : "14.0"
+    }
+  ],
+  "products" : [
+    {
+      "name" : "ExampleLibraryB",
+      "settings" : [
+
+      ],
+      "targets" : [
+        "ExampleLibraryB"
+      ],
+      "type" : {
+        "library" : [
+          "automatic"
+        ]
+      }
+    }
+  ],
+  "providers" : null,
+  "swiftLanguageVersions" : null,
+  "targets" : [
+    {
+      "dependencies" : [
+        {
+          "product" : [
+            "ExampleLibraryC",
+            "ExamplePackageC",
+            null,
+            null
+          ]
+        },
+        {
+          "product" : [
+            "KeyboardToolbar",
+            "KeyboardToolbar",
+            null,
+            null
+          ]
+        }
+      ],
+      "exclude" : [
+
+      ],
+      "name" : "ExampleLibraryB",
+      "resources" : [
+
+      ],
+      "settings" : [
+
+      ],
+      "type" : "regular"
+    }
+  ],
+  "toolsVersion" : {
+    "_version" : "5.7.0"
+  }
+}

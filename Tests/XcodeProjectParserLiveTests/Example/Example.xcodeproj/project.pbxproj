@@ -17,6 +17,8 @@
 		72A7F378293AB6C2004FBAB5 /* ExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A7F377293AB6C2004FBAB5 /* ExampleUITests.swift */; };
 		72A7F37A293AB6C2004FBAB5 /* ExampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A7F379293AB6C2004FBAB5 /* ExampleUITestsLaunchTests.swift */; };
 		72B5FC29293E2857007CA7EA /* Runestone in Frameworks */ = {isa = PBXBuildFile; productRef = 72B5FC28293E2857007CA7EA /* Runestone */; };
+		72DBC59729404943001D5DEF /* ExampleLibraryA in Frameworks */ = {isa = PBXBuildFile; productRef = 72DBC59629404943001D5DEF /* ExampleLibraryA */; };
+		72DBC59929404945001D5DEF /* ExampleLibraryB in Frameworks */ = {isa = PBXBuildFile; productRef = 72DBC59829404945001D5DEF /* ExampleLibraryB */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				72B5FC29293E2857007CA7EA /* Runestone in Frameworks */,
+				72DBC59929404945001D5DEF /* ExampleLibraryB in Frameworks */,
+				72DBC59729404943001D5DEF /* ExampleLibraryA in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,6 +171,8 @@
 			name = Example;
 			packageProductDependencies = (
 				72B5FC28293E2857007CA7EA /* Runestone */,
+				72DBC59629404943001D5DEF /* ExampleLibraryA */,
+				72DBC59829404945001D5DEF /* ExampleLibraryB */,
 			);
 			productName = Example;
 			productReference = 72A7F353293AB6C1004FBAB5 /* Example.app */;
@@ -647,6 +653,14 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 72B5FC27293E2857007CA7EA /* XCRemoteSwiftPackageReference "Runestone" */;
 			productName = Runestone;
+		};
+		72DBC59629404943001D5DEF /* ExampleLibraryA */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ExampleLibraryA;
+		};
+		72DBC59829404945001D5DEF /* ExampleLibraryB */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ExampleLibraryB;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

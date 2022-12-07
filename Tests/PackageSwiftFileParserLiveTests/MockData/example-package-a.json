@@ -4,10 +4,10 @@
   "dependencies" : [
 
   ],
-  "name" : "HexColor",
+  "name" : "ExamplePackageA",
   "packageKind" : {
     "root" : [
-      "/Users/simon/Developer/Foo/HexColor"
+      "/Users/simon/Developer/Example/ExamplePackageA"
     ]
   },
   "pkgConfig" : null,
@@ -17,24 +17,17 @@
 
       ],
       "platformName" : "ios",
-      "version" : "16.0"
-    },
-    {
-      "options" : [
-
-      ],
-      "platformName" : "maccatalyst",
-      "version" : "16.0"
+      "version" : "14.0"
     }
   ],
   "products" : [
     {
-      "name" : "ColorCategories",
+      "name" : "ExampleLibraryA",
       "settings" : [
 
       ],
       "targets" : [
-        "ColorCategories"
+        "ExampleLibraryA"
       ],
       "type" : {
         "library" : [
@@ -53,7 +46,7 @@
       "exclude" : [
 
       ],
-      "name" : "ColorCategories",
+      "name" : "ExampleLibraryA",
       "resources" : [
 
       ],
@@ -61,27 +54,6 @@
 
       ],
       "type" : "regular"
-    },
-    {
-      "dependencies" : [
-        {
-          "byName" : [
-            "ColorCategories",
-            null
-          ]
-        }
-      ],
-      "exclude" : [
-
-      ],
-      "name" : "ColorCategoriesTests",
-      "resources" : [
-
-      ],
-      "settings" : [
-
-      ],
-      "type" : "test"
     }
   ],
   "toolsVersion" : {
