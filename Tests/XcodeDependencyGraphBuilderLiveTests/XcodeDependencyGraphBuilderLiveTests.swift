@@ -42,7 +42,7 @@ final class XcodeDependencyGraphBuilderLiveTests: XCTestCase {
             exampleTestsTargetNode,
             exampleUITestsTargetNode
         ])
-        
+
         let expectedGraph = DirectedGraph(clusters: [
             examplePackageACluster,
             examplePackageBCluster,

@@ -2,8 +2,8 @@ import DirectedGraph
 import Foundation
 import PackageSwiftFile
 import PackageSwiftFileParser
-import XcodeProject
 import XcodeDependencyGraphBuilder
+import XcodeProject
 
 public enum XcodeDependencyGraphBuilderLiveError: LocalizedError {
     case dependencyNotFound(dendency: String, dependant: String)

@@ -13,7 +13,7 @@ public extension DirectedGraph {
         }
 
         public func node(named name: String) -> Node? {
-            return nodes.first(where: { $0.name == name })
+            return nodes.first { $0.name == name }
         }
 
         @discardableResult

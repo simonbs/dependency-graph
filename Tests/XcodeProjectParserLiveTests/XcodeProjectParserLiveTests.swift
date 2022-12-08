@@ -45,7 +45,7 @@ final class XcodeProjectParserLiveTests: XCTestCase {
         let xcodeProject = try parser.parseProject(at: URL.Mock.exampleXcodeProject)
         let swiftPackage = xcodeProject.swiftPackages.first { $0.name == "ExamplePackageA" }
         XCTAssertNotNil(swiftPackage)
-        if case let .local(parameters)  = swiftPackage {
+        if case let .local(parameters) = swiftPackage {
             XCTAssertEqual(parameters.name, "ExamplePackageA")
             let fileURLHasPackageSwiftSuffix = parameters.fileURL.absoluteString.hasSuffix("ExamplePackageA/Package.swift")
             XCTAssertTrue(fileURLHasPackageSwiftSuffix, "Expected file URL to end with the package name and Package.swift")
