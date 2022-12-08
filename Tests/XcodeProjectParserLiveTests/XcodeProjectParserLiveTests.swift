@@ -4,13 +4,13 @@ import XCTest
 
 final class XcodeProjectParserLiveTests: XCTestCase {
     func testParsesProjectName() throws {
-        let parser = XcodeProjectParserLive()
+        let parser = XcodeProjectParserLive(fileExistenceChecker: FileExistenceCheckerMock())
         let xcodeProject = try parser.parseProject(at: URL.Mock.exampleXcodeProject)
         XCTAssertEqual(xcodeProject.name, "Example.xcodeproj")
     }
 
     func testParsesTargets() throws {
-        let parser = XcodeProjectParserLive()
+        let parser = XcodeProjectParserLive(fileExistenceChecker: FileExistenceCheckerMock())
         let xcodeProject = try parser.parseProject(at: URL.Mock.exampleXcodeProject)
         let exampleTarget = xcodeProject.targets.first { $0.name == "Example" }
         let exampleTestsTarget = xcodeProject.targets.first { $0.name == "ExampleTests" }
@@ -21,7 +21,7 @@ final class XcodeProjectParserLiveTests: XCTestCase {
     }
 
     func testParsesTargetPackageProductDependencies() throws {
-        let parser = XcodeProjectParserLive()
+        let parser = XcodeProjectParserLive(fileExistenceChecker: FileExistenceCheckerMock())
         let xcodeProject = try parser.parseProject(at: URL.Mock.exampleXcodeProject)
         let exampleTarget = xcodeProject.targets.first { $0.name == "Example" }
         let packageProductDependencies = exampleTarget?.packageProductDependencies ?? []
@@ -34,14 +34,14 @@ final class XcodeProjectParserLiveTests: XCTestCase {
     }
 
     func testSwiftPackageCount() throws {
-        let parser = XcodeProjectParserLive()
+        let parser = XcodeProjectParserLive(fileExistenceChecker: FileExistenceCheckerMock())
         let xcodeProject = try parser.parseProject(at: URL.Mock.exampleXcodeProject)
         print(xcodeProject.swiftPackages)
         XCTAssertEqual(xcodeProject.swiftPackages.count, 4)
     }
 
     func testParsesLocalSwiftPackage() throws {
-        let parser = XcodeProjectParserLive()
+        let parser = XcodeProjectParserLive(fileExistenceChecker: FileExistenceCheckerMock())
         let xcodeProject = try parser.parseProject(at: URL.Mock.exampleXcodeProject)
         let swiftPackage = xcodeProject.swiftPackages.first { $0.name == "ExamplePackageA" }
         XCTAssertNotNil(swiftPackage)
@@ -55,7 +55,7 @@ final class XcodeProjectParserLiveTests: XCTestCase {
     }
 
     func testParsesRemoteSwiftPackageWithSingleProduct() throws {
-        let parser = XcodeProjectParserLive()
+        let parser = XcodeProjectParserLive(fileExistenceChecker: FileExistenceCheckerMock())
         let xcodeProject = try parser.parseProject(at: URL.Mock.exampleXcodeProject)
         let swiftPackage = xcodeProject.swiftPackages.first { $0.name == "Runestone" }
         XCTAssertNotNil(swiftPackage)
@@ -69,7 +69,7 @@ final class XcodeProjectParserLiveTests: XCTestCase {
     }
 
     func testParsesRemoteSwiftPackageWithMultipleProducts() throws {
-        let parser = XcodeProjectParserLive()
+        let parser = XcodeProjectParserLive(fileExistenceChecker: FileExistenceCheckerMock())
         let xcodeProject = try parser.parseProject(at: URL.Mock.exampleXcodeProject)
         let swiftPackage = xcodeProject.swiftPackages.first { $0.name == "TreeSitterLanguages" }
         XCTAssertNotNil(swiftPackage)

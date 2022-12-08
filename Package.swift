@@ -94,7 +94,7 @@ let package = Package(
             "XcodeProject",
             "XcodeProjectParser"
         ], path: "Sources/Library/Parsing/XcodeProjectParserLive"),
-        
+
         // Sources/Library/Utilities
         .target(name: "FileExistenceChecker", path: "Sources/Library/Utilities/FileExistenceChecker"),
         .target(name: "FileExistenceCheckerLive", dependencies: [
@@ -126,6 +126,7 @@ let package = Package(
             "XcodeProject"
         ]),
         .testTarget(name: "XcodeProjectParserLiveTests", dependencies: [
+            "FileExistenceChecker",
             "XcodeProject",
             "XcodeProjectParserLive"
         ], resources: [.copy("Example")])
