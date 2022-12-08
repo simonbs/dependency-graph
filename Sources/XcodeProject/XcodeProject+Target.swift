@@ -5,7 +5,7 @@ extension XcodeProject {
         public let name: String
         public let packageProductDependencies: [String]
 
-        public init(name: String, packageProductDependencies: [String]) {
+        public init(name: String, packageProductDependencies: [String] = []) {
             self.name = name
             self.packageProductDependencies = packageProductDependencies
         }

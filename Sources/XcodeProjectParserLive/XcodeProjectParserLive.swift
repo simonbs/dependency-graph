@@ -15,8 +15,8 @@ public struct XcodeProjectParserLive: XcodeProjectParser {
         let localSwiftPackages = try localSwiftPackages(in: project, atSourceRoot: sourceRoot)
         return XcodeProject(
             name: fileURL.lastPathComponent,
-            targets: targets(in: project).sorted { $0.name < $1.name },
-            swiftPackages: (remoteSwiftPackages + localSwiftPackages).sorted { $0.name < $1.name }
+            targets: targets(in: project),
+            swiftPackages: (remoteSwiftPackages + localSwiftPackages)
         )
     }
 }

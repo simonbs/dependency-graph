@@ -43,6 +43,18 @@ let package = Package(
         .target(name: "ShellCommandRunnerLive", dependencies: [
             "ShellCommandRunner"
         ]),
+        .target(name: "DirectedGraph"),
+        .target(name: "XcodeDependencyGraphBuilder", dependencies: [
+            "DirectedGraph",
+            "XcodeProject"
+        ]),
+        .target(name: "XcodeDependencyGraphBuilderLive", dependencies: [
+            "DirectedGraph",
+            "PackageSwiftFile",
+            "PackageSwiftFileParser",
+            "XcodeDependencyGraphBuilder",
+            "XcodeProject"
+        ]),
         .target(name: "XcodeProject"),
         .target(name: "XcodeProjectParser", dependencies: [
             "XcodeProject"
@@ -61,6 +73,12 @@ let package = Package(
             "PackageSwiftFileParser",
             "PackageSwiftFileParserLive"
         ], resources: [.copy("MockData")]),
+        .testTarget(name: "XcodeDependencyGraphBuilderLiveTests", dependencies: [
+            "DirectedGraph",
+            "PackageSwiftFileParser",
+            "XcodeDependencyGraphBuilderLive",
+            "XcodeProject"
+        ]),
         .testTarget(name: "XcodeProjectParserLiveTests", dependencies: [
             "XcodeProject",
             "XcodeProjectParserLive"

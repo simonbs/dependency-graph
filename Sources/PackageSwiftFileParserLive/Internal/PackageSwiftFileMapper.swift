@@ -10,13 +10,18 @@ struct PackageSwiftFileMapper {
     }
 
     func map(_ intermediate: IntermediatePackageSwiftFile) throws -> PackageSwiftFile {
+        let products = intermediate.products.map(map)
         let targets = intermediate.targets.map(map)
         let dependencies = try intermediate.dependencies.map(map)
-        return PackageSwiftFile(name: intermediate.name, targets: targets, dependencies: dependencies)
+        return PackageSwiftFile(name: intermediate.name, products: products, targets: targets, dependencies: dependencies)
     }
 }
 
 private extension PackageSwiftFileMapper {
+    private func map(_ intermediate: IntermediatePackageSwiftFile.Product) -> PackageSwiftFile.Product {
+        return PackageSwiftFile.Product(name: intermediate.name, targets: intermediate.targets)
+    }
+
     private func map(_ intermediate: IntermediatePackageSwiftFile.Target) -> PackageSwiftFile.Target {
         let dependencies = intermediate.dependencies.map(map)
         return PackageSwiftFile.Target(name: intermediate.name, dependencies: dependencies)
