@@ -26,6 +26,13 @@ let package = Package(
             "XcodeProjectParserLive"
         ]),
         .target(name: "DirectedGraph"),
+        .target(name: "DOTGraphTransformer", dependencies: [
+            "DirectedGraph"
+        ]),
+        .target(name: "DOTGraphTransformerLive", dependencies: [
+            "DOTGraphTransformer",
+            "DirectedGraph"
+        ]),
         .target(name: "DumpPackageService"),
         .target(name: "DumpPackageServiceLive", dependencies: [
             "DumpPackageService",
@@ -63,6 +70,10 @@ let package = Package(
             .product(name: "XcodeProj", package: "XcodeProj"),
             "XcodeProject",
             "XcodeProjectParser"
+        ]),
+        .testTarget(name: "DOTGraphTransformerLiveTests", dependencies: [
+            "DirectedGraph",
+            "DOTGraphTransformerLive"
         ]),
         .testTarget(name: "DumpPackageServiceLiveTests", dependencies: [
             "DumpPackageServiceLive",
