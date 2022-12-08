@@ -34,68 +34,78 @@ let package = Package(
             "XcodeProjectParser",
             "XcodeProjectParserLive"
         ]),
-        .target(name: "DirectedGraph"),
-        .target(name: "DOTGraphTransformer", dependencies: [
-            "DirectedGraph"
-        ]),
-        .target(name: "DOTGraphTransformerLive", dependencies: [
-            "DOTGraphTransformer",
-            "DirectedGraph"
-        ]),
-        .target(name: "DumpPackageService"),
-        .target(name: "DumpPackageServiceLive", dependencies: [
-            "DumpPackageService",
-            "ShellCommandRunner"
-        ]),
-        .target(name: "FileExistenceChecker"),
-        .target(name: "FileExistenceCheckerLive", dependencies: [
-            "FileExistenceChecker"
-        ]),
+
+        // Sources/Library/Commands
         .target(name: "GraphCommand", dependencies: [
             "DOTGraphTransformer",
             "ProjectRootClassifier",
             "XcodeProjectParser",
             "XcodeDependencyGraphBuilder"
-        ]),
-        .target(name: "PackageSwiftFile"),
-        .target(name: "PackageSwiftFileParser", dependencies: [
-            "PackageSwiftFile"
-        ]),
-        .target(name: "PackageSwiftFileParserLive", dependencies: [
-            "DumpPackageService",
-            "PackageSwiftFile",
-            "PackageSwiftFileParser"
-        ]),
-        .target(name: "ProjectRootClassifier"),
-        .target(name: "ProjectRootClassifierLive", dependencies: [
-            "FileExistenceChecker",
-            "ProjectRootClassifier"
-        ]),
-        .target(name: "ShellCommandRunner"),
-        .target(name: "ShellCommandRunnerLive", dependencies: [
-            "ShellCommandRunner"
-        ]),
+        ], path: "Sources/Library/Commands/GraphCommand"),
+
+        // Sources/Library/Graphing
+        .target(name: "DirectedGraph", path: "Sources/Library/Graphing/DirectedGraph"),
+        .target(name: "DOTGraphTransformer", dependencies: [
+            "DirectedGraph"
+        ], path: "Sources/Library/Graphing/DOTGraphTransformer"),
+        .target(name: "DOTGraphTransformerLive", dependencies: [
+            "DOTGraphTransformer",
+            "DirectedGraph"
+        ], path: "Sources/Library/Graphing/DOTGraphTransformerLive"),
         .target(name: "XcodeDependencyGraphBuilder", dependencies: [
             "DirectedGraph",
             "XcodeProject"
-        ]),
+        ], path: "Sources/Library/Graphing/XcodeDependencyGraphBuilder"),
         .target(name: "XcodeDependencyGraphBuilderLive", dependencies: [
             "DirectedGraph",
             "PackageSwiftFile",
             "PackageSwiftFileParser",
             "XcodeDependencyGraphBuilder",
             "XcodeProject"
-        ]),
-        .target(name: "XcodeProject"),
+        ], path: "Sources/Library/Graphing/XcodeDependencyGraphBuilderLive"),
+
+        // Sources/Library/Parsing
+        .target(name: "DumpPackageService", path: "Sources/Library/Parsing/DumpPackageService"),
+        .target(name: "DumpPackageServiceLive", dependencies: [
+            "DumpPackageService",
+            "ShellCommandRunner"
+        ], path: "Sources/Library/Parsing/DumpPackageServiceLive"),
+        .target(name: "PackageSwiftFile", path: "Sources/Library/Parsing/PackageSwiftFile"),
+        .target(name: "PackageSwiftFileParser", dependencies: [
+            "PackageSwiftFile"
+        ], path: "Sources/Library/Parsing/PackageSwiftFileParser"),
+        .target(name: "PackageSwiftFileParserLive", dependencies: [
+            "DumpPackageService",
+            "PackageSwiftFile",
+            "PackageSwiftFileParser"
+        ], path: "Sources/Library/Parsing/PackageSwiftFileParserLive"),
+        .target(name: "ProjectRootClassifier", path: "Sources/Library/Parsing/ProjectRootClassifier"),
+        .target(name: "ProjectRootClassifierLive", dependencies: [
+            "FileExistenceChecker",
+            "ProjectRootClassifier"
+        ], path: "Sources/Library/Parsing/ProjectRootClassifierLive"),
+        .target(name: "XcodeProject", path: "Sources/Library/Parsing/XcodeProject"),
         .target(name: "XcodeProjectParser", dependencies: [
             "XcodeProject"
-        ]),
+        ], path: "Sources/Library/Parsing/XcodeProjectParser"),
         .target(name: "XcodeProjectParserLive", dependencies: [
             "FileExistenceChecker",
             .product(name: "XcodeProj", package: "XcodeProj"),
             "XcodeProject",
             "XcodeProjectParser"
-        ]),
+        ], path: "Sources/Library/Parsing/XcodeProjectParserLive"),
+        
+        // Sources/Library/Utilities
+        .target(name: "FileExistenceChecker", path: "Sources/Library/Utilities/FileExistenceChecker"),
+        .target(name: "FileExistenceCheckerLive", dependencies: [
+            "FileExistenceChecker"
+        ], path: "Sources/Library/Utilities/FileExistenceCheckerLive"),
+        .target(name: "ShellCommandRunner", path: "Sources/Library/Utilities/ShellCommandRunner"),
+        .target(name: "ShellCommandRunnerLive", dependencies: [
+            "ShellCommandRunner"
+        ], path: "Sources/Library/Utilities/ShellCommandRunnerLive"),
+
+        // Tests
         .testTarget(name: "DOTGraphTransformerLiveTests", dependencies: [
             "DirectedGraph",
             "DOTGraphTransformerLive"
