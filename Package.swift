@@ -25,6 +25,12 @@ let package = Package(
             "XcodeProjectParser",
             "XcodeProjectParserLive"
         ]),
+        .target(name: "DirectedGraph"),
+        .target(name: "DumpPackageService"),
+        .target(name: "DumpPackageServiceLive", dependencies: [
+            "DumpPackageService",
+            "ShellCommandRunner"
+        ]),
         .target(name: "PackageSwiftFile"),
         .target(name: "PackageSwiftFileParser", dependencies: [
             "PackageSwiftFile"
@@ -34,16 +40,10 @@ let package = Package(
             "PackageSwiftFile",
             "PackageSwiftFileParser"
         ]),
-        .target(name: "DumpPackageService"),
-        .target(name: "DumpPackageServiceLive", dependencies: [
-            "DumpPackageService",
-            "ShellCommandRunner"
-        ]),
         .target(name: "ShellCommandRunner"),
         .target(name: "ShellCommandRunnerLive", dependencies: [
             "ShellCommandRunner"
         ]),
-        .target(name: "DirectedGraph"),
         .target(name: "XcodeDependencyGraphBuilder", dependencies: [
             "DirectedGraph",
             "XcodeProject"
