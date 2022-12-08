@@ -119,6 +119,10 @@ let package = Package(
             "PackageSwiftFileParser",
             "PackageSwiftFileParserLive"
         ], resources: [.copy("MockData")]),
+        .testTarget(name: "ProjectRootClassifierLiveTests", dependencies: [
+            "FileSystem",
+            "ProjectRootClassifierLive"
+        ]),
         .testTarget(name: "XcodeDependencyGraphBuilderLiveTests", dependencies: [
             "DirectedGraph",
             "PackageSwiftFileParser",
