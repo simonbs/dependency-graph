@@ -20,8 +20,8 @@ let package = Package(
             "DOTGraphTransformerLive",
             "DumpPackageService",
             "DumpPackageServiceLive",
-            "FileExistenceChecker",
-            "FileExistenceCheckerLive",
+            "FileSystem",
+            "FileSystemLive",
             "GraphCommand",
             "PackageSwiftFileParser",
             "PackageSwiftFileParserLive",
@@ -81,7 +81,7 @@ let package = Package(
         ], path: "Sources/Library/Parsing/PackageSwiftFileParserLive"),
         .target(name: "ProjectRootClassifier", path: "Sources/Library/Parsing/ProjectRootClassifier"),
         .target(name: "ProjectRootClassifierLive", dependencies: [
-            "FileExistenceChecker",
+            "FileSystem",
             "ProjectRootClassifier"
         ], path: "Sources/Library/Parsing/ProjectRootClassifierLive"),
         .target(name: "XcodeProject", path: "Sources/Library/Parsing/XcodeProject"),
@@ -89,17 +89,17 @@ let package = Package(
             "XcodeProject"
         ], path: "Sources/Library/Parsing/XcodeProjectParser"),
         .target(name: "XcodeProjectParserLive", dependencies: [
-            "FileExistenceChecker",
+            "FileSystem",
             .product(name: "XcodeProj", package: "XcodeProj"),
             "XcodeProject",
             "XcodeProjectParser"
         ], path: "Sources/Library/Parsing/XcodeProjectParserLive"),
 
         // Sources/Library/Utilities
-        .target(name: "FileExistenceChecker", path: "Sources/Library/Utilities/FileExistenceChecker"),
-        .target(name: "FileExistenceCheckerLive", dependencies: [
-            "FileExistenceChecker"
-        ], path: "Sources/Library/Utilities/FileExistenceCheckerLive"),
+        .target(name: "FileSystem", path: "Sources/Library/Utilities/FileSystem"),
+        .target(name: "FileSystemLive", dependencies: [
+            "FileSystem"
+        ], path: "Sources/Library/Utilities/FileSystemLive"),
         .target(name: "ShellCommandRunner", path: "Sources/Library/Utilities/ShellCommandRunner"),
         .target(name: "ShellCommandRunnerLive", dependencies: [
             "ShellCommandRunner"
@@ -126,7 +126,7 @@ let package = Package(
             "XcodeProject"
         ]),
         .testTarget(name: "XcodeProjectParserLiveTests", dependencies: [
-            "FileExistenceChecker",
+            "FileSystem",
             "XcodeProject",
             "XcodeProjectParserLive"
         ], resources: [.copy("Example")])

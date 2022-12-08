@@ -2,8 +2,8 @@ import DOTGraphTransformer
 import DOTGraphTransformerLive
 import DumpPackageService
 import DumpPackageServiceLive
-import FileExistenceChecker
-import FileExistenceCheckerLive
+import FileSystem
+import FileSystemLive
 import GraphCommand
 import PackageSwiftFileParser
 import PackageSwiftFileParserLive
@@ -34,8 +34,8 @@ private extension CompositionRoot {
         return DumpPackageServiceLive(shellCommandRunner: shellCommandRunner)
     }
 
-    private static var fileExistenceChecker: FileExistenceChecker {
-        return FileExistenceCheckerLive()
+    private static var fileSystem: FileSystem {
+        return FileSystemLive()
     }
 
     private static var packageSwiftFileParser: PackageSwiftFileParser {
@@ -43,7 +43,7 @@ private extension CompositionRoot {
     }
 
     private static var projectRootClassifier: ProjectRootClassifier {
-        return ProjectRootClassifierLive(fileExistenceChecker: fileExistenceChecker)
+        return ProjectRootClassifierLive(fileSystem: fileSystem)
     }
 
     private static var shellCommandRunner: ShellCommandRunner {
@@ -55,6 +55,6 @@ private extension CompositionRoot {
     }
 
     private static var xcodeProjectParser: XcodeProjectParser {
-        return XcodeProjectParserLive(fileExistenceChecker: fileExistenceChecker)
+        return XcodeProjectParserLive(fileSystem: fileSystem)
     }
 }

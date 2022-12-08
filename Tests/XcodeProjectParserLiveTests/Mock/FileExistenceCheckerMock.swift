@@ -1,8 +1,16 @@
-import FileExistenceChecker
+import FileSystem
 import Foundation
 
-struct FileExistenceCheckerMock: FileExistenceChecker {
-    func fileExists(at fileURL: URL) -> Bool {
+struct FileSystemMock: FileSystem {
+    func fileExists(at itemURL: URL) -> Bool {
         return true
+    }
+
+    func isDirectory(at itemURL: URL) -> Bool {
+        return false
+    }
+
+    func contentsOfDirectory(at directoryURL: URL) -> [String] {
+        return []
     }
 }

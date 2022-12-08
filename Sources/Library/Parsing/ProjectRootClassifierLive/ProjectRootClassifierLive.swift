@@ -1,12 +1,12 @@
-import FileExistenceChecker
+import FileSystem
 import Foundation
 import ProjectRootClassifier
 
 public struct ProjectRootClassifierLive: ProjectRootClassifier {
-    private let fileExistenceChecker: FileExistenceChecker
+    private let fileSystem: FileSystem
 
-    public init(fileExistenceChecker: FileExistenceChecker) {
-        self.fileExistenceChecker = fileExistenceChecker
+    public init(fileSystem: FileSystem) {
+        self.fileSystem = fileSystem
     }
 
     public func classifyProject(at fileURL: URL) -> ProjectRoot {
