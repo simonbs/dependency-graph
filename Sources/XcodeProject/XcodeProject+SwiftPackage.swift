@@ -15,10 +15,12 @@ public extension XcodeProject {
         public struct RemoteParameters: Equatable {
             public let name: String
             public let repositoryURL: URL
+            public let products: [String]
 
-            public init(name: String, repositoryURL: URL) {
+            public init(name: String, repositoryURL: URL, products: [String] = []) {
                 self.name = name
                 self.repositoryURL = repositoryURL
+                self.products = products
             }
         }
 
@@ -39,8 +41,8 @@ public extension XcodeProject {
             return .local(parameters)
         }
 
-        public static func remote(name: String, repositoryURL: URL) -> Self {
-            let parameters = RemoteParameters(name: name, repositoryURL: repositoryURL)
+        public static func remote(name: String, repositoryURL: URL, products: [String] = []) -> Self {
+            let parameters = RemoteParameters(name: name, repositoryURL: repositoryURL, products: products)
             return .remote(parameters)
         }
     }

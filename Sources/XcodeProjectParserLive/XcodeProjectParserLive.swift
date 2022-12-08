@@ -30,17 +30,33 @@ private extension XcodeProjectParserLive {
     }
 
     func remoteSwiftPackages(in project: XcodeProj) -> [XcodeProject.SwiftPackage] {
-        return project.pbxproj.nativeTargets.reduce(into: []) { targetResult, target in
-            targetResult += target.packageProductDependencies.compactMap { dependency in
+        struct IntermediateRemoteSwiftPackage {
+            let name: String
+            let repositoryURL: URL
+            let products: [String]
+        }
+        var swiftPackages: [IntermediateRemoteSwiftPackage] = []
+        for target in project.pbxproj.nativeTargets {
+            for dependency in target.packageProductDependencies {
                 guard let package = dependency.package, let packageName = package.name else {
-                    return nil
+                    continue
                 }
                 guard let rawRepositoryURL = package.repositoryURL, let repositoryURL = URL(string: rawRepositoryURL) else {
-                    return nil
+                    continue
                 }
-                return .remote(.init(name: packageName, repositoryURL: repositoryURL))
+                if let existingSwiftPackageIndex = swiftPackages.firstIndex(where: { $0.name == packageName }) {
+                    let existingSwiftPackage = swiftPackages[existingSwiftPackageIndex]
+                    let newProducts = existingSwiftPackage.products + [dependency.productName]
+                    let newSwiftPackage = IntermediateRemoteSwiftPackage(name: packageName, repositoryURL: repositoryURL, products: newProducts)
+                    swiftPackages[existingSwiftPackageIndex] = newSwiftPackage
+                } else {
+                    let products = [dependency.productName]
+                    let swiftPackage = IntermediateRemoteSwiftPackage(name: packageName, repositoryURL: repositoryURL, products: products)
+                    swiftPackages.append(swiftPackage)
+                }
             }
         }
+        return swiftPackages.map { .remote(name: $0.name, repositoryURL: $0.repositoryURL, products: $0.products) }
     }
 
     func localSwiftPackages(in project: XcodeProj, atSourceRoot sourceRoot: URL) throws -> [XcodeProject.SwiftPackage] {

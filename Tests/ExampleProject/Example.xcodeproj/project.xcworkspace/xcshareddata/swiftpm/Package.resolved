@@ -17,6 +17,15 @@
         "branch" : "main",
         "revision" : "e9d220ae1a00b5ef00a7b6146d77f660f9e5dbe2"
       }
+    },
+    {
+      "identity" : "treesitterlanguages",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:simonbs/TreeSitterLanguages.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "f23b8872561daf747e233ba7d6130d9e680f52e1"
+      }
     }
   ],
   "version" : 2
