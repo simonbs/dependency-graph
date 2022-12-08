@@ -7,21 +7,30 @@ let package = Package(
     name: "GraphDeps",
     platforms: [.macOS(.v13)],
     products: [
-        .executable(name: "graph-deps", targets: ["GraphDeps"])
+        .executable(name: "graph-deps", targets: ["Main"])
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "1.2.0"),
         .package(url: "https://github.com/tuist/XcodeProj.git", .upToNextMajor(from: "8.8.0"))
     ],
     targets: [
-        .executableTarget(name: "GraphDeps", dependencies: [
+        .executableTarget(name: "Main", dependencies: [
             .product(name: "ArgumentParser", package: "swift-argument-parser"),
+            "DOTGraphTransformer",
+            "DOTGraphTransformerLive",
             "DumpPackageService",
             "DumpPackageServiceLive",
+            "FileExistenceChecker",
+            "FileExistenceCheckerLive",
+            "GraphCommand",
             "PackageSwiftFileParser",
             "PackageSwiftFileParserLive",
+            "ProjectRootClassifier",
+            "ProjectRootClassifierLive",
             "ShellCommandRunner",
             "ShellCommandRunnerLive",
+            "XcodeDependencyGraphBuilder",
+            "XcodeDependencyGraphBuilderLive",
             "XcodeProjectParser",
             "XcodeProjectParserLive"
         ]),
@@ -38,6 +47,16 @@ let package = Package(
             "DumpPackageService",
             "ShellCommandRunner"
         ]),
+        .target(name: "FileExistenceChecker"),
+        .target(name: "FileExistenceCheckerLive", dependencies: [
+            "FileExistenceChecker"
+        ]),
+        .target(name: "GraphCommand", dependencies: [
+            "DOTGraphTransformer",
+            "ProjectRootClassifier",
+            "XcodeProjectParser",
+            "XcodeDependencyGraphBuilder"
+        ]),
         .target(name: "PackageSwiftFile"),
         .target(name: "PackageSwiftFileParser", dependencies: [
             "PackageSwiftFile"
@@ -46,6 +65,11 @@ let package = Package(
             "DumpPackageService",
             "PackageSwiftFile",
             "PackageSwiftFileParser"
+        ]),
+        .target(name: "ProjectRootClassifier"),
+        .target(name: "ProjectRootClassifierLive", dependencies: [
+            "FileExistenceChecker",
+            "ProjectRootClassifier"
         ]),
         .target(name: "ShellCommandRunner"),
         .target(name: "ShellCommandRunnerLive", dependencies: [
@@ -67,6 +91,7 @@ let package = Package(
             "XcodeProject"
         ]),
         .target(name: "XcodeProjectParserLive", dependencies: [
+            "FileExistenceChecker",
             .product(name: "XcodeProj", package: "XcodeProj"),
             "XcodeProject",
             "XcodeProjectParser"

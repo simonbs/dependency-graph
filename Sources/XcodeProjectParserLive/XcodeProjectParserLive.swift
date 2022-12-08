@@ -1,3 +1,4 @@
+import FileExistenceChecker
 import Foundation
 import PathKit
 import XcodeProj
@@ -5,7 +6,11 @@ import XcodeProject
 import XcodeProjectParser
 
 public struct XcodeProjectParserLive: XcodeProjectParser {
-    public init() {}
+    private let fileExistenceChecker: FileExistenceChecker
+
+    public init(fileExistenceChecker: FileExistenceChecker) {
+        self.fileExistenceChecker = fileExistenceChecker
+    }
 
     public func parseProject(at fileURL: URL) throws -> XcodeProject {
         let path = Path(fileURL.relativePath)
@@ -70,7 +75,7 @@ private extension XcodeProjectParserLive {
             guard let packageSwiftFileURL = fileReference.potentialPackageSwiftFileURL(forSourceRoot: sourceRoot) else {
                 return nil
             }
-            guard FileManager.default.fileExists(atPath: packageSwiftFileURL.relativePath) else {
+            guard fileExistenceChecker.fileExists(at: packageSwiftFileURL) else {
                 return nil
             }
             return .local(.init(name: packageName, fileURL: packageSwiftFileURL))

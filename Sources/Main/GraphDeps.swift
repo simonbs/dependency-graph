@@ -3,12 +3,14 @@ import Foundation
 
 @main
 struct GraphDeps: ParsableCommand {
-    @Argument(help: "The Xcode project to parse.")
+    @Argument(help: "The input to show dependencies for. Can be en .xcodeproj file or a Package.swift file.")
     var input: String
 
     static let configuration = CommandConfiguration(
         abstract: "A Swift command-line tool to graph package dependencies"
     )
 
-    func run() throws {}
+    func run() throws {
+        try CompositionRoot.graphCommand.run(withInput: input)
+    }
 }
