@@ -25,7 +25,9 @@ final class XcodeProjectParserLiveTests: XCTestCase {
         let xcodeProject = try parser.parseProject(at: URL.Mock.exampleXcodeProject)
         let exampleTarget = xcodeProject.targets.first { $0.name == "Example" }
         let packageProductDependencies = exampleTarget?.packageProductDependencies ?? []
+        print(packageProductDependencies)
         XCTAssertTrue(packageProductDependencies.contains("Runestone"))
+        XCTAssertTrue(packageProductDependencies.contains("TreeSitterJSONRunestone"))
         XCTAssertTrue(packageProductDependencies.contains("TreeSitterJavaScriptRunestone"))
         XCTAssertTrue(packageProductDependencies.contains("ExampleLibraryA"))
         XCTAssertTrue(packageProductDependencies.contains("ExampleLibraryB"))
@@ -52,26 +54,32 @@ final class XcodeProjectParserLiveTests: XCTestCase {
         }
     }
 
-    func testParsesRemoteSwiftPackage() throws {
+    func testParsesRemoteSwiftPackageWithSingleProduct() throws {
         let parser = XcodeProjectParserLive()
         let xcodeProject = try parser.parseProject(at: URL.Mock.exampleXcodeProject)
-        let runestoneSwiftPackage = xcodeProject.swiftPackages.first { $0.name == "Runestone" }
-        let treeSitterSwiftPackage = xcodeProject.swiftPackages.first { $0.name == "TreeSitterLanguages" }
-        XCTAssertNotNil(runestoneSwiftPackage)
-        XCTAssertNotNil(treeSitterSwiftPackage)
-        if case let .remote(parameters) = runestoneSwiftPackage {
+        let swiftPackage = xcodeProject.swiftPackages.first { $0.name == "Runestone" }
+        XCTAssertNotNil(swiftPackage)
+        if case let .remote(parameters) = swiftPackage {
             XCTAssertEqual(parameters.name, "Runestone")
             XCTAssertEqual(parameters.repositoryURL, URL(string: "https://github.com/simonbs/Runestone"))
             XCTAssertEqual(parameters.products, ["Runestone"])
         } else {
             XCTFail("Expected Runestone to be a remote package")
         }
-        if case let .remote(parameters) = treeSitterSwiftPackage {
+    }
+
+    func testParsesRemoteSwiftPackageWithMultipleProducts() throws {
+        let parser = XcodeProjectParserLive()
+        let xcodeProject = try parser.parseProject(at: URL.Mock.exampleXcodeProject)
+        let swiftPackage = xcodeProject.swiftPackages.first { $0.name == "TreeSitterLanguages" }
+        XCTAssertNotNil(swiftPackage)
+        if case let .remote(parameters) = swiftPackage {
             XCTAssertEqual(parameters.name, "TreeSitterLanguages")
             XCTAssertEqual(parameters.repositoryURL, URL(string: "git@github.com:simonbs/TreeSitterLanguages.git"))
-            XCTAssertEqual(parameters.products, ["TreeSitterJSONRunestone", "TreeSitterJavaScriptRunestone"])
+            XCTAssertTrue(parameters.products.contains("TreeSitterJSONRunestone"))
+            XCTAssertTrue(parameters.products.contains("TreeSitterJavaScriptRunestone"))
         } else {
-            XCTFail("Expected Runestone to be a remote package")
+            XCTFail("Expected TreeSitterLanguages to be a remote package")
         }
     }
 }

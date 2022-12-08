@@ -22,9 +22,16 @@ final class XcodeDependencyGraphBuilderLiveTests: XCTestCase {
             exampleLibraryBTargetNode
         ])
 
-        let runestonePackageProductNode = DirectedGraph.Node(name: NodeName.packageProduct("Runestone"), label: "Runestone")
-        let runestonePackageCluster = DirectedGraph.Cluster(name: ClusterName.package("Runestone"), label: "Runestone", nodes: [
-            runestonePackageProductNode
+        let remoteAPackageProductNode = DirectedGraph.Node(name: NodeName.packageProduct("RemoteA"), label: "RemoteA")
+        let remoteAPackageCluster = DirectedGraph.Cluster(name: ClusterName.package("RemoteA"), label: "RemoteA", nodes: [
+            remoteAPackageProductNode
+        ])
+
+        let remoteBFooPackageProductNode = DirectedGraph.Node(name: NodeName.packageProduct("RemoteBFoo"), label: "RemoteBFoo")
+        let remoteBBarPackageProductNode = DirectedGraph.Node(name: NodeName.packageProduct("RemoteBBar"), label: "RemoteBBar")
+        let remoteBPackageCluster = DirectedGraph.Cluster(name: ClusterName.package("RemoteB"), label: "RemoteB", nodes: [
+            remoteBFooPackageProductNode,
+            remoteBBarPackageProductNode
         ])
 
         let exampleTargetNode = DirectedGraph.Node(name: NodeName.target("Example"), label: "Example")
@@ -39,14 +46,17 @@ final class XcodeDependencyGraphBuilderLiveTests: XCTestCase {
         let expectedGraph = DirectedGraph(clusters: [
             examplePackageACluster,
             examplePackageBCluster,
-            runestonePackageCluster,
+            remoteAPackageCluster,
+            remoteBPackageCluster,
             projectCluster
         ], edges: [
             DirectedGraph.Edge(from: exampleLibraryAPackageProductNode, to: exampleLibraryATargetNode),
             DirectedGraph.Edge(from: exampleLibraryBPackageProductNode, to: exampleLibraryBTargetNode),
             DirectedGraph.Edge(from: exampleTargetNode, to: exampleLibraryAPackageProductNode),
             DirectedGraph.Edge(from: exampleTargetNode, to: exampleLibraryBPackageProductNode),
-            DirectedGraph.Edge(from: exampleTargetNode, to: runestonePackageProductNode)
+            DirectedGraph.Edge(from: exampleTargetNode, to: remoteAPackageProductNode),
+            DirectedGraph.Edge(from: exampleTargetNode, to: remoteBFooPackageProductNode),
+            DirectedGraph.Edge(from: exampleTargetNode, to: remoteBBarPackageProductNode)
         ])
         XCTAssertEqual(graph, expectedGraph)
     }

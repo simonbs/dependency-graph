@@ -7,14 +7,22 @@ extension XcodeProject {
             XcodeProject.Target(name: "Example", packageProductDependencies: [
                 "ExampleLibraryA",
                 "ExampleLibraryB",
-                "Runestone"
+                "RemoteA",
+                "RemoteBFoo",
+                "RemoteBBar"
             ]),
             XcodeProject.Target(name: "ExampleTests"),
             XcodeProject.Target(name: "ExampleUITests")
         ], swiftPackages: [
             .local(name: "ExamplePackageA", fileURL: URL.Mock.examplePackageA),
             .local(name: "ExamplePackageB", fileURL: URL.Mock.examplePackageB),
-            .remote(name: "Runestone", repositoryURL: URL(string: "https://github.com/simonbs/Runestone")!)
+            .remote(name: "RemoteA", repositoryURL: URL(string: "https://github.com/simonbs/RemoteA")!, products: [
+                "RemoteA"
+            ]),
+            .remote(name: "RemoteB", repositoryURL: URL(string: "git@github.com:simonbs/RemoteB.git")!, products: [
+                "RemoteBFoo",
+                "RemoteBBar"
+            ])
         ])
     }
 

@@ -51,7 +51,9 @@ private extension XcodeDependencyGraphBuilderLive {
             process(packageSwiftFile, into: graph)
         case .remote(let parameters):
             let cluster = graph.addUniqueCluster(named: ClusterName.package(parameters.name), labeled: parameters.name)
-            cluster.addUniqueNode(named: NodeName.packageProduct(parameters.name), labeled: parameters.name)
+            for product in parameters.products {
+                cluster.addUniqueNode(named: NodeName.packageProduct(product), labeled: product)
+            }
         }
     }
 
