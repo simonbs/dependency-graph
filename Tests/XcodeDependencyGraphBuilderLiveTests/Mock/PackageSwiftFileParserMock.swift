@@ -8,7 +8,7 @@ private enum PackageSwiftFileParserMockError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .fileURLNotMapped(let fileURL):
-            return "Package.swift file not mapped for \(fileURL.absoluteString)."
+            return "Package.swift file not mapped for \(fileURL.path)."
         }
     }
 }
