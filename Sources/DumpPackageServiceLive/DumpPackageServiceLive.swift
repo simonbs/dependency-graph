@@ -10,11 +10,11 @@ public enum DumpPackageServiceLiveError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .invalidPackageSwiftFileURL:
-            return "Expected URL to a Package.swift file"
+            return "Expected URL to a Package.swift file."
         case .unexpectedTerminationStatus(let status):
-            return "Unexpected termination status: \(status)"
+            return "Unexpected termination status \(status)."
         case .failedConvertingStringToData:
-            return "Failed converting string to data"
+            return "Failed converting string to data."
         }
     }
 }

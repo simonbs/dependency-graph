@@ -11,7 +11,7 @@ public enum XcodeDependencyGraphBuilderLiveError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case let .dependencyNotFound(dependency, dependant):
-            return "\(dependant) depends on \(dependency) but the dependency was not found in the graph"
+            return "\(dependant) depends on \(dependency) but the dependency was not found in the graph."
         }
     }
 }
