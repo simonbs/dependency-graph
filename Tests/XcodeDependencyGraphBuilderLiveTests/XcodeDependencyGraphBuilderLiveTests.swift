@@ -22,6 +22,11 @@ final class XcodeDependencyGraphBuilderLiveTests: XCTestCase {
             exampleLibraryBTargetNode
         ])
 
+        let runestonePackageProductNode = DirectedGraph.Node(name: NodeName.packageProduct("Runestone"), label: "Runestone")
+        let runestonePackageCluster = DirectedGraph.Cluster(name: ClusterName.package("Runestone"), label: "Runestone", nodes: [
+            runestonePackageProductNode
+        ])
+
         let exampleTargetNode = DirectedGraph.Node(name: NodeName.target("Example"), label: "Example")
         let exampleTestsTargetNode = DirectedGraph.Node(name: NodeName.target("ExampleTests"), label: "ExampleTests")
         let exampleUITestsTargetNode = DirectedGraph.Node(name: NodeName.target("ExampleUITests"), label: "ExampleUITests")
@@ -34,12 +39,14 @@ final class XcodeDependencyGraphBuilderLiveTests: XCTestCase {
         let expectedGraph = DirectedGraph(clusters: [
             examplePackageACluster,
             examplePackageBCluster,
+            runestonePackageCluster,
             projectCluster
         ], edges: [
             DirectedGraph.Edge(from: exampleLibraryAPackageProductNode, to: exampleLibraryATargetNode),
             DirectedGraph.Edge(from: exampleLibraryBPackageProductNode, to: exampleLibraryBTargetNode),
             DirectedGraph.Edge(from: exampleTargetNode, to: exampleLibraryAPackageProductNode),
-            DirectedGraph.Edge(from: exampleTargetNode, to: exampleLibraryBPackageProductNode)
+            DirectedGraph.Edge(from: exampleTargetNode, to: exampleLibraryBPackageProductNode),
+            DirectedGraph.Edge(from: exampleTargetNode, to: runestonePackageProductNode)
         ])
         XCTAssertEqual(graph, expectedGraph)
     }

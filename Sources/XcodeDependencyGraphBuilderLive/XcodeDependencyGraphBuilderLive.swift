@@ -49,8 +49,9 @@ private extension XcodeDependencyGraphBuilderLive {
         case .local(let parameters):
             let packageSwiftFile = try packageSwiftFileParser.parseFile(at: parameters.fileURL)
             process(packageSwiftFile, into: graph)
-        case .remote:
-            break
+        case .remote(let parameters):
+            let cluster = graph.addUniqueCluster(named: ClusterName.package(parameters.name), labeled: parameters.name)
+            cluster.addUniqueNode(named: NodeName.packageProduct(parameters.name), labeled: parameters.name)
         }
     }
 
