@@ -5,8 +5,7 @@ public struct DOTGraphTransformerLive: DOTGraphTransformer {
     public init() {}
 
     public func transform(_ graph: DirectedGraph) throws -> String {
-        let nodeSettings = DOTGraphSettings.Node(shape: "box")
-        let settings = DOTGraphSettings(node: nodeSettings, layout: "dot")
+        let settings = DOTGraphSettings(layout: "dot")
         return graph.stringRepresentation(withSetings: settings)
     }
 }
@@ -37,7 +36,11 @@ extension DirectedGraph.Cluster {
 
 extension DirectedGraph.Node {
     var stringRepresentation: String {
-        return name + " [label=\"\(label)\"]"
+        var settings: [String] = ["label=\"\(label)\""]
+        if let shape = shape {
+            settings += ["shape=\(shape)"]
+        }
+        return name + " [" + settings.joined(separator: ", ") + "]"
     }
 }
 

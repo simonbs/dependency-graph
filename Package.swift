@@ -23,14 +23,16 @@ let package = Package(
             "FileSystem",
             "FileSystemLive",
             "GraphCommand",
+            "PackageDependencyGraphBuilder",
+            "PackageDependencyGraphBuilderLive",
             "PackageSwiftFileParser",
             "PackageSwiftFileParserLive",
             "ProjectRootClassifier",
             "ProjectRootClassifierLive",
             "ShellCommandRunner",
             "ShellCommandRunnerLive",
-            "XcodeDependencyGraphBuilder",
-            "XcodeDependencyGraphBuilderLive",
+            "XcodeProjectDependencyGraphBuilder",
+            "XcodeProjectDependencyGraphBuilderLive",
             "XcodeProjectParser",
             "XcodeProjectParserLive"
         ]),
@@ -38,13 +40,18 @@ let package = Package(
         // Sources/Library/Commands
         .target(name: "GraphCommand", dependencies: [
             "DOTGraphTransformer",
+            "PackageDependencyGraphBuilder",
+            "PackageSwiftFileParser",
             "ProjectRootClassifier",
             "XcodeProjectParser",
-            "XcodeDependencyGraphBuilder"
+            "XcodeProjectDependencyGraphBuilder"
         ], path: "Sources/Library/Commands/GraphCommand"),
 
         // Sources/Library/Graphing
         .target(name: "DirectedGraph", path: "Sources/Library/Graphing/DirectedGraph"),
+        .target(name: "DirectedGraphXcodeHelpers", dependencies: [
+            "DirectedGraph"
+        ], path: "Sources/Library/Graphing/DirectedGraphXcodeHelpers"),
         .target(name: "DOTGraphTransformer", dependencies: [
             "DirectedGraph"
         ], path: "Sources/Library/Graphing/DOTGraphTransformer"),
@@ -52,17 +59,30 @@ let package = Package(
             "DOTGraphTransformer",
             "DirectedGraph"
         ], path: "Sources/Library/Graphing/DOTGraphTransformerLive"),
-        .target(name: "XcodeDependencyGraphBuilder", dependencies: [
+        .target(name: "PackageDependencyGraphBuilder", dependencies: [
             "DirectedGraph",
+            "PackageSwiftFile"
+        ], path: "Sources/Library/Graphing/PackageDependencyGraphBuilder"),
+        .target(name: "PackageDependencyGraphBuilderLive", dependencies: [
+            "DirectedGraph",
+            "DirectedGraphXcodeHelpers",
+            "PackageDependencyGraphBuilder",
+            "PackageSwiftFile"
+        ], path: "Sources/Library/Graphing/PackageDependencyGraphBuilderLive"),
+        .target(name: "XcodeProjectDependencyGraphBuilder", dependencies: [
+            "DirectedGraph",
+            "PackageDependencyGraphBuilder",
             "XcodeProject"
-        ], path: "Sources/Library/Graphing/XcodeDependencyGraphBuilder"),
-        .target(name: "XcodeDependencyGraphBuilderLive", dependencies: [
+        ], path: "Sources/Library/Graphing/XcodeProjectDependencyGraphBuilder"),
+        .target(name: "XcodeProjectDependencyGraphBuilderLive", dependencies: [
             "DirectedGraph",
+            "DirectedGraphXcodeHelpers",
+            "PackageDependencyGraphBuilder",
             "PackageSwiftFile",
             "PackageSwiftFileParser",
-            "XcodeDependencyGraphBuilder",
+            "XcodeProjectDependencyGraphBuilder",
             "XcodeProject"
-        ], path: "Sources/Library/Graphing/XcodeDependencyGraphBuilderLive"),
+        ], path: "Sources/Library/Graphing/XcodeProjectDependencyGraphBuilderLive"),
 
         // Sources/Library/Parsing
         .target(name: "DumpPackageService", path: "Sources/Library/Parsing/DumpPackageService"),
@@ -106,6 +126,9 @@ let package = Package(
         ], path: "Sources/Library/Utilities/ShellCommandRunnerLive"),
 
         // Tests
+        .testTarget(name: "DirectedGraphXcodeHelpersTests", dependencies: [
+            "DirectedGraphXcodeHelpers"
+        ]),
         .testTarget(name: "DOTGraphTransformerLiveTests", dependencies: [
             "DirectedGraph",
             "DOTGraphTransformerLive"
@@ -113,6 +136,12 @@ let package = Package(
         .testTarget(name: "DumpPackageServiceLiveTests", dependencies: [
             "DumpPackageServiceLive",
             "ShellCommandRunner"
+        ]),
+        .testTarget(name: "PackageDependencyGraphBuilderLiveTests", dependencies: [
+            "DirectedGraph",
+            "DirectedGraphXcodeHelpers",
+            "PackageDependencyGraphBuilderLive",
+            "PackageSwiftFile"
         ]),
         .testTarget(name: "PackageSwiftFileParserLiveTests", dependencies: [
             "DumpPackageService",
@@ -123,10 +152,12 @@ let package = Package(
             "FileSystem",
             "ProjectRootClassifierLive"
         ]),
-        .testTarget(name: "XcodeDependencyGraphBuilderLiveTests", dependencies: [
+        .testTarget(name: "XcodeProjectDependencyGraphBuilderLiveTests", dependencies: [
             "DirectedGraph",
+            "DirectedGraphXcodeHelpers",
+            "PackageDependencyGraphBuilder",
             "PackageSwiftFileParser",
-            "XcodeDependencyGraphBuilderLive",
+            "XcodeProjectDependencyGraphBuilderLive",
             "XcodeProject"
         ]),
         .testTarget(name: "XcodeProjectParserLiveTests", dependencies: [

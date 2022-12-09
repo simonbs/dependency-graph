@@ -1,6 +1,6 @@
 import DirectedGraph
 import XcodeProject
 
-public protocol XcodeDependencyGraphBuilder {
+public protocol XcodeProjectDependencyGraphBuilder {
     func buildGraph(from xcodeProject: XcodeProject) throws -> DirectedGraph
 }

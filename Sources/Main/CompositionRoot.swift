@@ -5,22 +5,26 @@ import DumpPackageServiceLive
 import FileSystem
 import FileSystemLive
 import GraphCommand
+import PackageDependencyGraphBuilder
+import PackageDependencyGraphBuilderLive
 import PackageSwiftFileParser
 import PackageSwiftFileParserLive
 import ProjectRootClassifier
 import ProjectRootClassifierLive
 import ShellCommandRunner
 import ShellCommandRunnerLive
-import XcodeDependencyGraphBuilder
-import XcodeDependencyGraphBuilderLive
+import XcodeProjectDependencyGraphBuilder
+import XcodeProjectDependencyGraphBuilderLive
 import XcodeProjectParser
 import XcodeProjectParserLive
 
 public enum CompositionRoot {
     static var graphCommand: GraphCommand {
         return GraphCommand(projectRootClassifier: projectRootClassifier,
+                            packageSwiftFileParser: packageSwiftFileParser,
                             xcodeProjectParser: xcodeProjectParser,
-                            xcodeDependencyGraphBuilder: xcodeDependencyGraphBuilder,
+                            packageDependencyGraphBuilder: packageDependencyGraphBuilder,
+                            xcodeProjectDependencyGraphBuilder: xcodeProjectDependencyGraphBuilder,
                             dotGraphTransformer: dotGraphTransformer)
     }
 }
@@ -38,6 +42,10 @@ private extension CompositionRoot {
         return FileSystemLive()
     }
 
+    private static var packageDependencyGraphBuilder: PackageDependencyGraphBuilder {
+        return PackageDependencyGraphBuilderLive()
+    }
+
     private static var packageSwiftFileParser: PackageSwiftFileParser {
         return PackageSwiftFileParserLive(dumpPackageService: dumpPackageService)
     }
@@ -50,8 +58,9 @@ private extension CompositionRoot {
         return ShellCommandRunnerLive()
     }
 
-    private static var xcodeDependencyGraphBuilder: XcodeDependencyGraphBuilder {
-        return XcodeDependencyGraphBuilderLive(packageSwiftFileParser: packageSwiftFileParser)
+    private static var xcodeProjectDependencyGraphBuilder: XcodeProjectDependencyGraphBuilder {
+        return XcodeProjectDependencyGraphBuilderLive(packageSwiftFileParser: packageSwiftFileParser,
+                                                      packageDependencyGraphBuilder: packageDependencyGraphBuilder)
     }
 
     private static var xcodeProjectParser: XcodeProjectParser {

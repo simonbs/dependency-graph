@@ -17,11 +17,10 @@ public extension DirectedGraph {
         }
 
         @discardableResult
-        public func addUniqueNode(named name: String, labeled label: String) -> Node {
-            if let node = node(named: name) {
+        public func addUniqueNode(_ node: Node) -> Node {
+            if let node = self.node(named: node.name) {
                 return node
             } else {
-                let node = Node(name: name, label: label)
                 nodes.append(node)
                 return node
             }

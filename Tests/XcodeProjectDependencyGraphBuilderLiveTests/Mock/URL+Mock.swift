@@ -9,9 +9,5 @@ extension URL {
         static var examplePackageB: URL {
             return URL(filePath: "/Users/simon/Developer/Example/ExamplePackageB/Package.swift")
         }
-
-        static var examplePackageC: URL {
-            return URL(filePath: "/Users/simon/Developer/Example/ExamplePackageC/Package.swift")
-        }
     }
 }

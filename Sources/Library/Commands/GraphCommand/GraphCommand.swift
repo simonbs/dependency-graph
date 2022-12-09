@@ -1,7 +1,9 @@
 import DOTGraphTransformer
 import Foundation
+import PackageDependencyGraphBuilder
+import PackageSwiftFileParser
 import ProjectRootClassifier
-import XcodeDependencyGraphBuilder
+import XcodeProjectDependencyGraphBuilder
 import XcodeProjectParser
 
 private enum GraphCommandError: LocalizedError {
@@ -17,17 +19,23 @@ private enum GraphCommandError: LocalizedError {
 
 public struct GraphCommand {
     private let projectRootClassifier: ProjectRootClassifier
+    private let packageSwiftFileParser: PackageSwiftFileParser
     private let xcodeProjectParser: XcodeProjectParser
-    private let xcodeDependencyGraphBuilder: XcodeDependencyGraphBuilder
+    private let packageDependencyGraphBuilder: PackageDependencyGraphBuilder
+    private let xcodeProjectDependencyGraphBuilder: XcodeProjectDependencyGraphBuilder
     private let dotGraphTransformer: DOTGraphTransformer
 
     public init(projectRootClassifier: ProjectRootClassifier,
+                packageSwiftFileParser: PackageSwiftFileParser,
                 xcodeProjectParser: XcodeProjectParser,
-                xcodeDependencyGraphBuilder: XcodeDependencyGraphBuilder,
+                packageDependencyGraphBuilder: PackageDependencyGraphBuilder,
+                xcodeProjectDependencyGraphBuilder: XcodeProjectDependencyGraphBuilder,
                 dotGraphTransformer: DOTGraphTransformer) {
         self.projectRootClassifier = projectRootClassifier
         self.xcodeProjectParser = xcodeProjectParser
-        self.xcodeDependencyGraphBuilder = xcodeDependencyGraphBuilder
+        self.packageSwiftFileParser = packageSwiftFileParser
+        self.packageDependencyGraphBuilder = packageDependencyGraphBuilder
+        self.xcodeProjectDependencyGraphBuilder = xcodeProjectDependencyGraphBuilder
         self.dotGraphTransformer = dotGraphTransformer
     }
 
@@ -37,11 +45,14 @@ public struct GraphCommand {
         switch projectRoot {
         case .xcodeproj(let xcodeprojFileURL):
             let xcodeProject = try xcodeProjectParser.parseProject(at: xcodeprojFileURL)
-            let graph = try xcodeDependencyGraphBuilder.buildGraph(from: xcodeProject)
+            let graph = try xcodeProjectDependencyGraphBuilder.buildGraph(from: xcodeProject)
             let dotGraph = try dotGraphTransformer.transform(graph)
             print(dotGraph)
         case .packageSwiftFile(let packageSwiftFileURL):
-            throw GraphCommandError.unknownProject(packageSwiftFileURL)
+            let packageSwiftFile = try packageSwiftFileParser.parseFile(at: packageSwiftFileURL)
+            let graph = try packageDependencyGraphBuilder.buildGraph(from: packageSwiftFile)
+            let dotGraph = try dotGraphTransformer.transform(graph)
+            print(dotGraph)
         case .unknown:
             throw GraphCommandError.unknownProject(fileURL)
         }

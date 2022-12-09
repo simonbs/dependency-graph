@@ -32,7 +32,7 @@ private extension PackageSwiftFile {
             PackageSwiftFile.Product(name: "ExampleLibraryA", targets: ["ExampleLibraryA"])
         ], targets: [
             PackageSwiftFile.Target(name: "ExampleLibraryA")
-        ], dependencies: [])
+        ])
     }
 
     static var mockB: PackageSwiftFile {
@@ -40,6 +40,6 @@ private extension PackageSwiftFile {
             PackageSwiftFile.Product(name: "ExampleLibraryB", targets: ["ExampleLibraryB"])
         ], targets: [
             PackageSwiftFile.Target(name: "ExampleLibraryB")
-        ], dependencies: [])
+        ])
     }
 }

@@ -7,10 +7,6 @@ final class DOTGraphTransformerLiveTests: XCTestCase {
         let string = try transformer.transform(.mock)
         let expectedString = """
 digraph g {
-  node [
-    shape=box
-  ]
-
   layout=dot
 
   subgraph Foo {

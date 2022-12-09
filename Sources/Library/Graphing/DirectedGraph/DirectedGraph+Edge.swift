@@ -10,8 +10,18 @@ public extension DirectedGraph {
             self.destinationNode = destinationNode
         }
 
+        public static func from(_ sourceNode: Node, to destinationNode: Node) -> Edge {
+            return Self(from: sourceNode, to: destinationNode)
+        }
+
         public static func == (lhs: Edge, rhs: Edge) -> Bool {
             return lhs.sourceNode == rhs.sourceNode && lhs.destinationNode == rhs.destinationNode
         }
+    }
+}
+
+extension DirectedGraph.Edge: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        return "\(sourceNode.name) ⟶ \(destinationNode.name)"
     }
 }

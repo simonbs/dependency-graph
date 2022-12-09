@@ -25,7 +25,6 @@ final class XcodeProjectParserLiveTests: XCTestCase {
         let xcodeProject = try parser.parseProject(at: URL.Mock.exampleXcodeProject)
         let exampleTarget = xcodeProject.targets.first { $0.name == "Example" }
         let packageProductDependencies = exampleTarget?.packageProductDependencies ?? []
-        print(packageProductDependencies)
         XCTAssertTrue(packageProductDependencies.contains("Runestone"))
         XCTAssertTrue(packageProductDependencies.contains("TreeSitterJSONRunestone"))
         XCTAssertTrue(packageProductDependencies.contains("TreeSitterJavaScriptRunestone"))
@@ -36,7 +35,6 @@ final class XcodeProjectParserLiveTests: XCTestCase {
     func testSwiftPackageCount() throws {
         let parser = XcodeProjectParserLive(fileSystem: FileSystemMock())
         let xcodeProject = try parser.parseProject(at: URL.Mock.exampleXcodeProject)
-        print(xcodeProject.swiftPackages)
         XCTAssertEqual(xcodeProject.swiftPackages.count, 4)
     }
 

@@ -10,21 +10,23 @@ public final class DirectedGraph: Equatable {
     }
 
     @discardableResult
-    public func addUniqueCluster(named name: String, labeled label: String) -> Cluster {
-        if let cluster = clusters.first(where: { $0.name == name }) {
+    public func addUniqueCluster(_ cluster: Cluster) -> Cluster {
+        if let cluster = clusters.first(where: { $0.name == cluster.name }) {
             return cluster
         } else {
-            let cluster = Cluster(name: name, label: label)
             clusters.append(cluster)
             return cluster
         }
     }
 
     @discardableResult
-    public func addEdge(from sourceNode: Node, to destinationNode: Node) -> Edge {
-        let edge = Edge(from: sourceNode, to: destinationNode)
-        edges.append(edge)
-        return edge
+    public func addUniqueEdge(_ edge: Edge) -> Edge {
+        if let edge = edges.first(where: { $0.sourceNode == edge.sourceNode && $0.destinationNode == edge.destinationNode }) {
+            return edge
+        } else {
+            edges.append(edge)
+            return edge
+        }
     }
 
     public func node(named name: String) -> Node? {
@@ -34,6 +36,15 @@ public final class DirectedGraph: Equatable {
             }
         }
         return nil
+    }
+
+    public func addSubgraph(_ graph: DirectedGraph) {
+        for cluster in graph.clusters {
+            addUniqueCluster(cluster)
+        }
+        for edge in graph.edges {
+            addUniqueEdge(edge)
+        }
     }
 
     public static func == (lhs: DirectedGraph, rhs: DirectedGraph) -> Bool {
@@ -46,11 +57,11 @@ extension DirectedGraph: CustomDebugStringConvertible {
         var lines = ["DirectedGraph = ("]
         lines += ["  Clusters = ("] + clusters.flatMap { cluster in
             let clusterString = "    □ \(cluster.label) (\(cluster.name))"
-            let nodesStrings = cluster.nodes.map { "          ○ \($0.label) (\($0.name))" }
+            let nodesStrings = cluster.nodes.map { "          ○ \($0)" }
             return [clusterString, "        Nodes = ("] + nodesStrings + ["        )"]
         }
         lines += ["  )"]
-        lines += ["  Edges = ("] + edges.map { "    - \($0.sourceNode.name) ⟶ \($0.destinationNode.name)" } + ["  )"]
+        lines += ["  Edges = ("] + edges.map { "    - \($0)" } + ["  )"]
         lines += [")"]
         return lines.joined(separator: "\n")
     }
