@@ -23,25 +23,26 @@ public struct GraphCommand {
     private let xcodeProjectParser: XcodeProjectParser
     private let packageDependencyGraphBuilder: PackageDependencyGraphBuilder
     private let xcodeProjectDependencyGraphBuilder: XcodeProjectDependencyGraphBuilder
-    private let directedGraphTransformer: DirectedGraphTransformer
+    private let directedGraphTransformerFactory: DirectedGraphTransformerFactory
 
     public init(projectRootClassifier: ProjectRootClassifier,
                 packageSwiftFileParser: PackageSwiftFileParser,
                 xcodeProjectParser: XcodeProjectParser,
                 packageDependencyGraphBuilder: PackageDependencyGraphBuilder,
                 xcodeProjectDependencyGraphBuilder: XcodeProjectDependencyGraphBuilder,
-                directedGraphTransformer: DirectedGraphTransformer) {
+                directedGraphTransformerFactory: DirectedGraphTransformerFactory) {
         self.projectRootClassifier = projectRootClassifier
         self.xcodeProjectParser = xcodeProjectParser
         self.packageSwiftFileParser = packageSwiftFileParser
         self.packageDependencyGraphBuilder = packageDependencyGraphBuilder
         self.xcodeProjectDependencyGraphBuilder = xcodeProjectDependencyGraphBuilder
-        self.directedGraphTransformer = directedGraphTransformer
+        self.directedGraphTransformerFactory = directedGraphTransformerFactory
     }
 
-    public func run(withInput input: String) throws {
+    public func run(withInput input: String, syntax: Syntax) throws {
         let fileURL = URL(filePath: input)
         let projectRoot = projectRootClassifier.classifyProject(at: fileURL)
+        let directedGraphTransformer = directedGraphTransformerFactory.transformer(for: syntax)
         switch projectRoot {
         case .xcodeproj(let xcodeprojFileURL):
             let xcodeProject = try xcodeProjectParser.parseProject(at: xcodeprojFileURL)

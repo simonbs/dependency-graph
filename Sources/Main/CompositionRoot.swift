@@ -26,13 +26,14 @@ public enum CompositionRoot {
                             xcodeProjectParser: xcodeProjectParser,
                             packageDependencyGraphBuilder: packageDependencyGraphBuilder,
                             xcodeProjectDependencyGraphBuilder: xcodeProjectDependencyGraphBuilder,
-                            directedGraphTransformer: directedGraphTransformer)
+                            directedGraphTransformerFactory: directedGraphTransformerFactory)
     }
 }
 
 private extension CompositionRoot {
-    private static var directedGraphTransformer: DirectedGraphTransformer {
-        return MermaidGraphTransformer()
+    private static var directedGraphTransformerFactory: DirectedGraphTransformerFactory {
+        return DirectedGraphTransformerFactory(dotGraphTransformer: DOTGraphTransformer(),
+                                               mermaidGraphTransformer: MermaidGraphTransformer())
     }
 
     private static var dumpPackageService: DumpPackageService {
