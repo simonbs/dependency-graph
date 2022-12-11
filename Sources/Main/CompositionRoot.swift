@@ -1,4 +1,4 @@
-import DOTGraphTransformer
+import DirectedGraphTransformer
 import DOTGraphTransformerLive
 import DumpPackageService
 import DumpPackageServiceLive
@@ -25,12 +25,12 @@ public enum CompositionRoot {
                             xcodeProjectParser: xcodeProjectParser,
                             packageDependencyGraphBuilder: packageDependencyGraphBuilder,
                             xcodeProjectDependencyGraphBuilder: xcodeProjectDependencyGraphBuilder,
-                            dotGraphTransformer: dotGraphTransformer)
+                            directedGraphTransformer: directedGraphTransformer)
     }
 }
 
 private extension CompositionRoot {
-    private static var dotGraphTransformer: DOTGraphTransformer {
+    private static var directedGraphTransformer: DirectedGraphTransformer {
         return DOTGraphTransformerLive()
     }
 

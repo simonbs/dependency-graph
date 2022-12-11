@@ -1,5 +1,5 @@
 import DirectedGraph
 
-public protocol DOTGraphTransformer {
+public protocol DirectedGraphTransformer {
     func transform(_ graph: DirectedGraph) throws -> String
 }

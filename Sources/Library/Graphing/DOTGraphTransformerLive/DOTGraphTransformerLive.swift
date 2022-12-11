@@ -1,7 +1,7 @@
 import DirectedGraph
-import DOTGraphTransformer
+import DirectedGraphTransformer
 
-public struct DOTGraphTransformerLive: DOTGraphTransformer {
+public struct DOTGraphTransformerLive: DirectedGraphTransformer {
     public init() {}
 
     public func transform(_ graph: DirectedGraph) throws -> String {
