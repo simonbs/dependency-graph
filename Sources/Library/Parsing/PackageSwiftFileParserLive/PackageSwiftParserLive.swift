@@ -2,6 +2,7 @@ import DumpPackageService
 import Foundation
 import PackageSwiftFile
 import PackageSwiftFileParser
+import PackageSwiftFileParserCache
 
 private enum PackageSwiftFileParserLiveError: LocalizedError {
     case failedParsing(URL, Error)
@@ -14,14 +15,28 @@ private enum PackageSwiftFileParserLiveError: LocalizedError {
     }
 }
 
-public struct PackageSwiftFileParserLive: PackageSwiftFileParser {
+public final class PackageSwiftFileParserLive: PackageSwiftFileParser {
+    private let cache: PackageSwiftFileParserCache
     private let dumpPackageService: DumpPackageService
 
-    public init(dumpPackageService: DumpPackageService) {
+    public init(cache: PackageSwiftFileParserCache, dumpPackageService: DumpPackageService) {
+        self.cache = cache
         self.dumpPackageService = dumpPackageService
     }
 
     public func parseFile(at fileURL: URL) throws -> PackageSwiftFile {
+        if let packageSwiftFile = cache.cachedPackageSwiftFile(for: fileURL) {
+            return packageSwiftFile
+        } else {
+            let packageSwiftFile = try justParseFile(at: fileURL)
+            cache.cache(packageSwiftFile, for: fileURL)
+            return packageSwiftFile
+        }
+    }
+}
+
+private extension PackageSwiftFileParserLive {
+    private func justParseFile(at fileURL: URL) throws -> PackageSwiftFile {
         do {
             let contents = try dumpPackageService.dumpPackageForSwiftPackageFile(at: fileURL)
             let decoder = JSONDecoder()

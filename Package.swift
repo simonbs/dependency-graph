@@ -29,6 +29,8 @@ let package = Package(
             "PackageDependencyGraphBuilder",
             "PackageDependencyGraphBuilderLive",
             "PackageSwiftFileParser",
+            "PackageSwiftFileParserCache",
+            "PackageSwiftFileParserCacheLive",
             "PackageSwiftFileParserLive",
             "ProjectRootClassifier",
             "ProjectRootClassifierLive",
@@ -104,10 +106,18 @@ let package = Package(
         .target(name: "PackageSwiftFileParser", dependencies: [
             "PackageSwiftFile"
         ], path: "Sources/Library/Parsing/PackageSwiftFileParser"),
+        .target(name: "PackageSwiftFileParserCache", dependencies: [
+            "PackageSwiftFile"
+        ], path: "Sources/Library/Parsing/PackageSwiftFileParserCache"),
+        .target(name: "PackageSwiftFileParserCacheLive", dependencies: [
+            "PackageSwiftFile",
+            "PackageSwiftFileParserCache"
+        ], path: "Sources/Library/Parsing/PackageSwiftFileParserCacheLive"),
         .target(name: "PackageSwiftFileParserLive", dependencies: [
             "DumpPackageService",
             "PackageSwiftFile",
-            "PackageSwiftFileParser"
+            "PackageSwiftFileParser",
+            "PackageSwiftFileParserCache"
         ], path: "Sources/Library/Parsing/PackageSwiftFileParserLive"),
         .target(name: "ProjectRootClassifier", path: "Sources/Library/Parsing/ProjectRootClassifier"),
         .target(name: "ProjectRootClassifierLive", dependencies: [
@@ -182,6 +192,7 @@ let package = Package(
         .testTarget(name: "PackageSwiftFileParserLiveTests", dependencies: [
             "DumpPackageService",
             "PackageSwiftFileParser",
+            "PackageSwiftFileParserCache",
             "PackageSwiftFileParserLive"
         ], resources: [.copy("MockData")]),
         .testTarget(name: "ProjectRootClassifierLiveTests", dependencies: [

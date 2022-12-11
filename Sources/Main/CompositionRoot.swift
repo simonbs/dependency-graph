@@ -11,6 +11,8 @@ import MermaidGraphMapper
 import PackageDependencyGraphBuilder
 import PackageDependencyGraphBuilderLive
 import PackageSwiftFileParser
+import PackageSwiftFileParserCache
+import PackageSwiftFileParserCacheLive
 import PackageSwiftFileParserLive
 import ProjectRootClassifier
 import ProjectRootClassifierLive
@@ -59,8 +61,10 @@ private extension CompositionRoot {
     }
 
     private static var packageSwiftFileParser: PackageSwiftFileParser {
-        return PackageSwiftFileParserLive(dumpPackageService: dumpPackageService)
+        return PackageSwiftFileParserLive(cache: packageSwiftFileParserCache, dumpPackageService: dumpPackageService)
     }
+
+    private static let packageSwiftFileParserCache: PackageSwiftFileParserCache = PackageSwiftFileParserCacheLive()
 
     private static var projectRootClassifier: ProjectRootClassifier {
         return ProjectRootClassifierLive(fileSystem: fileSystem)
