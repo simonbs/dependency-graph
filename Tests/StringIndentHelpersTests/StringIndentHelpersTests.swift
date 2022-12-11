@@ -1,7 +1,7 @@
-@testable import DOTGraphTransformer
+@testable import StringIndentHelpers
 import XCTest
 
-final class IndentTests: XCTestCase {
+final class StringIndentHelpersTests: XCTestCase {
     func testStringIsIndented() {
         let string = "foo".indented(by: 1)
         XCTAssertEqual(string, "  foo")

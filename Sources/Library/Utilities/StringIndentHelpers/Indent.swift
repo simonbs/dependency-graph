@@ -1,4 +1,6 @@
-extension Array where Element == String {
+import Foundation
+
+public extension Array where Element == String {
     var indented: [String] {
         return indented(by: 1)
     }
@@ -8,7 +10,7 @@ extension Array where Element == String {
     }
 }
 
-extension String {
+public extension String {
     var indented: String {
         return indented(by: 1)
     }

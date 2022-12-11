@@ -1,5 +1,6 @@
 import DirectedGraph
 import DirectedGraphTransformer
+import StringIndentHelpers
 
 public struct DOTGraphTransformer: DirectedGraphTransformer {
     public init() {}

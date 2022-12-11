@@ -58,6 +58,7 @@ let package = Package(
         .target(name: "DOTGraphTransformer", dependencies: [
             "DirectedGraph",
             "DirectedGraphTransformer",
+            "StringIndentHelpers"
         ], path: "Sources/Library/Graphing/DOTGraphTransformer"),
         .target(name: "PackageDependencyGraphBuilder", dependencies: [
             "DirectedGraph",
@@ -124,6 +125,7 @@ let package = Package(
         .target(name: "ShellCommandRunnerLive", dependencies: [
             "ShellCommandRunner"
         ], path: "Sources/Library/Utilities/ShellCommandRunnerLive"),
+        .target(name: "StringIndentHelpers", path: "Sources/Library/Utilities/StringIndentHelpers"),
 
         // Tests
         .testTarget(name: "DirectedGraphXcodeHelpersTests", dependencies: [
@@ -151,6 +153,9 @@ let package = Package(
         .testTarget(name: "ProjectRootClassifierLiveTests", dependencies: [
             "FileSystem",
             "ProjectRootClassifierLive"
+        ]),
+        .testTarget(name: "StringIndentHelpersTests", dependencies: [
+            "StringIndentHelpers"
         ]),
         .testTarget(name: "XcodeProjectDependencyGraphBuilderLiveTests", dependencies: [
             "DirectedGraph",
