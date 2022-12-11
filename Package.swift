@@ -152,6 +152,9 @@ let package = Package(
             "DumpPackageServiceLive",
             "ShellCommandRunner"
         ]),
+        .testTarget(name: "GraphCommandTests", dependencies: [
+            "GraphCommand"
+        ]),
         .testTarget(name: "MermaidGraphTransformerTests", dependencies: [
             "DirectedGraph",
             "MermaidGraphTransformer"
