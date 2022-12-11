@@ -17,13 +17,3 @@ public extension DirectedGraph {
         }
     }
 }
-
-extension DirectedGraph.Node: CustomDebugStringConvertible {
-    public var debugDescription: String {
-        var settings: [String] = ["label=\"\(label)\""]
-        if let shape = shape {
-            settings += ["shape=\(shape)"]
-        }
-        return name + " [" + settings.joined(separator: ", ") + "]"
-    }
-}
