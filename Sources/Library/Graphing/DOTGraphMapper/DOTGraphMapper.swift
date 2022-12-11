@@ -3,10 +3,13 @@ import DirectedGraphMapper
 import StringIndentHelpers
 
 public struct DOTGraphMapper: DirectedGraphMapper {
-    public init() {}
+    private let settings: DOTGraphSettings
+
+    public init(settings: DOTGraphSettings = DOTGraphSettings()) {
+        self.settings = settings
+    }
 
     public func map(_ graph: DirectedGraph) throws -> String {
-        let settings = DOTGraphSettings(layout: "dot", rankdir: "LR")
         return graph.stringRepresentation(withSetings: settings)
     }
 }

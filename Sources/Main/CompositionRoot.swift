@@ -25,7 +25,8 @@ import XcodeProjectParser
 import XcodeProjectParserLive
 
 public enum CompositionRoot {
-    static var graphCommand: GraphCommand {
+    static func graphCommand(nodeSpacing: Float?, rankSpacing: Float?) -> GraphCommand {
+        let directedGraphWriterFactory = directedGraphWriterFactory(nodeSpacing: nodeSpacing, rankSpacing: rankSpacing)
         return GraphCommand(projectRootClassifier: projectRootClassifier,
                             packageSwiftFileParser: packageSwiftFileParser,
                             xcodeProjectParser: xcodeProjectParser,
@@ -36,12 +37,16 @@ public enum CompositionRoot {
 }
 
 private extension CompositionRoot {
-    private static var directedGraphWriterFactory: DirectedGraphWriterFactory {
+    private static func directedGraphWriterFactory(nodeSpacing: Float?, rankSpacing: Float?) ->  DirectedGraphWriterFactory {
+        let dotGraphWriter = dotGraphWriter(nodesep: nodeSpacing, ranksep: rankSpacing)
+        let mermaidGraphWriter = mermaidGraphWriter(nodeSpacing: nodeSpacing.map(Int.init), rankSpacing: rankSpacing.map(Int.init))
         return DirectedGraphWriterFactory(dotGraphWriter: dotGraphWriter, mermaidGraphWriter: mermaidGraphWriter)
     }
 
-    private static var dotGraphWriter: some DirectedGraphWriter {
-        return MappingDirectedGraphWriter(mapper: DOTGraphMapper(), writer: stdoutWriter)
+    private static func dotGraphWriter(nodesep: Float?, ranksep: Float?) -> some DirectedGraphWriter {
+        let settings = DOTGraphSettings(nodesep: nodesep, ranksep: ranksep)
+        let mapper = DOTGraphMapper(settings: settings)
+        return MappingDirectedGraphWriter(mapper: mapper, writer: stdoutWriter)
     }
 
     private static var dumpPackageService: DumpPackageService {
@@ -52,8 +57,10 @@ private extension CompositionRoot {
         return FileSystemLive()
     }
 
-    private static var mermaidGraphWriter: some DirectedGraphWriter {
-        return MappingDirectedGraphWriter(mapper: MermaidGraphMapper(), writer: stdoutWriter)
+    private static func mermaidGraphWriter(nodeSpacing: Int?, rankSpacing: Int?) -> some DirectedGraphWriter {
+        let settings = MermaidGraphSettings(nodeSpacing: nodeSpacing, rankSpacing: rankSpacing)
+        let mapper = MermaidGraphMapper(settings: settings)
+        return MappingDirectedGraphWriter(mapper: mapper, writer: stdoutWriter)
     }
 
     private static var packageDependencyGraphBuilder: PackageDependencyGraphBuilder {

@@ -3,19 +3,23 @@ import DirectedGraphMapper
 import StringIndentHelpers
 
 public struct MermaidGraphMapper: DirectedGraphMapper {
-    public init() {}
+    private let settings: MermaidGraphSettings
+
+    public init(settings: MermaidGraphSettings = MermaidGraphSettings()) {
+        self.settings = settings
+    }
 
     public func map(_ graph: DirectedGraph) throws -> String {
-        return graph.stringRepresentation
+        return graph.stringRepresentation(withSettings: settings)
     }
 }
 
 extension DirectedGraph {
-    var stringRepresentation: String {
+    func stringRepresentation(withSettings settings: MermaidGraphSettings) -> String {
         return [
             "graph LR",
             [
-                clusters.stringRepresentation,
+                clusters.stringRepresentation(withSettings: settings),
                 edges.stringRepresentation
             ].indented.joined(separator: "\n\n")
         ].joined(separator: "\n")
@@ -23,8 +27,9 @@ extension DirectedGraph {
 }
 
 extension DirectedGraph.Cluster {
-    var stringRepresentation: String {
+    func stringRepresentation(withSettings settings: MermaidGraphSettings) -> String {
         var lines = ["subgraph \(name)[\(label)]"]
+        lines += [settings.stringRepresentation.indented]
         lines += nodes.map(\.stringRepresentation).indented
         lines += ["end"]
         return lines.joined(separator: "\n")
@@ -49,8 +54,8 @@ extension DirectedGraph.Edge {
 }
 
 extension Array where Element == DirectedGraph.Cluster {
-    var stringRepresentation: String {
-        return map(\.stringRepresentation).joined(separator: "\n\n")
+    func stringRepresentation(withSettings settings: MermaidGraphSettings) -> String {
+        return map { $0.stringRepresentation(withSettings: settings) }.joined(separator: "\n\n")
     }
 }
 

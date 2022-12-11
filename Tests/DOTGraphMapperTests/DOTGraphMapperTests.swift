@@ -3,12 +3,15 @@ import XCTest
 
 final class DOTGraphMapperTests: XCTestCase {
     func testMapsGraphToDotSyntax() throws {
-        let mapper = DOTGraphMapper()
+        let settings = DOTGraphSettings(nodesep: 1.5, ranksep: 1.2)
+        let mapper = DOTGraphMapper(settings: settings)
         let string = try mapper.map(.mock)
         let expectedString = """
 digraph g {
   layout=dot
   rankdir=LR
+  nodesep=1.5
+  ranksep=1.2
 
   subgraph cluster_Foo {
     label="Foo"

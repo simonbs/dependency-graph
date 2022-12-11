@@ -20,12 +20,19 @@ Valid values are:
 """)
     var syntax: Syntax = .dot
 
+    @Option(name: .long, help: "Specifies the spacing between adjacement nodes in the same rank. Supported by the DOT and Mermaid.js syntaxes. Translates to the nodesep option in DOT and the nodeSpacing option in Mermaid.js.")
+    var nodeSpacing: Float?
+
+    @Option(name: .long, help: "Specifies the spacing between nodes in different ranks. Supported by the DOT and Mermaid.js syntaxes. Translates to the ranksep option in DOT and the rankSpacing option in Mermaid.js.")
+    var rankSpacing: Float?
+
     static let configuration = CommandConfiguration(
         abstract: "A Swift command-line tool to graph package dependencies"
     )
 
     func run() throws {
-        try CompositionRoot.graphCommand.run(withInput: input, syntax: syntax)
+        let command = CompositionRoot.graphCommand(nodeSpacing: nodeSpacing, rankSpacing: rankSpacing)
+        try command.run(withInput: input, syntax: syntax)
     }
 }
 
