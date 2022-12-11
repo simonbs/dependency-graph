@@ -1,5 +1,7 @@
 .DS_Store
-.swiftpm
+.swiftpm/xcode/xcuserdata
+.swiftpm/xcode/package.xcworkspace
+Tests/**/.swiftpm
+Tests/**/xcuserdata
 .build
-xcuserdata/
 DerivedData/
