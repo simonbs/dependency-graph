@@ -3,6 +3,7 @@ import DirectedGraph
 import XCTest
 
 final class XcodeProjectDependencyGraphBuilderLiveTests: XCTestCase {
+    // swiftlint:disable:next function_body_length
     func testBuildsGraphs() throws {
         let packageSwiftFileParser = PackageSwiftFileParserMock()
         let packageDependencyGraphBuilder = PackageDependencyGraphBuilderMock()

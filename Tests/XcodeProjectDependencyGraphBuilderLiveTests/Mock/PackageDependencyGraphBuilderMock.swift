@@ -1,7 +1,7 @@
 import DirectedGraph
 import Foundation
-import PackageSwiftFile
 import PackageDependencyGraphBuilder
+import PackageSwiftFile
 
 private enum PackageDependencyGraphBuilderMockError: LocalizedError {
     case mockNotFound(PackageSwiftFile)

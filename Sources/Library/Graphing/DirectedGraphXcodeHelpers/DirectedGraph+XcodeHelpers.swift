@@ -71,4 +71,3 @@ private enum NodeName {
         return "target_" + string.safeName
     }
 }
-
