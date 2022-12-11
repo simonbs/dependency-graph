@@ -1,6 +1,6 @@
-import StdoutWriter
+import Writer
 
-public struct StdoutWriterLive: StdoutWriter {
+public struct StdoutWriter: Writer {
     public init() {}
 
     public func write(_ string: String) {

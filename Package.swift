@@ -17,12 +17,14 @@ let package = Package(
         .executableTarget(name: "Main", dependencies: [
             .product(name: "ArgumentParser", package: "swift-argument-parser"),
             "DirectedGraphMapper",
+            "DirectedGraphWriter",
             "DOTGraphMapper",
             "DumpPackageService",
             "DumpPackageServiceLive",
             "FileSystem",
             "FileSystemLive",
             "GraphCommand",
+            "MappingDirectedGraphWriter",
             "MermaidGraphMapper",
             "PackageDependencyGraphBuilder",
             "PackageDependencyGraphBuilderLive",
@@ -33,7 +35,6 @@ let package = Package(
             "ShellCommandRunner",
             "ShellCommandRunnerLive",
             "StdoutWriter",
-            "StdoutWriterLive",
             "XcodeProjectDependencyGraphBuilder",
             "XcodeProjectDependencyGraphBuilderLive",
             "XcodeProjectParser",
@@ -42,11 +43,10 @@ let package = Package(
 
         // Sources/Library/Commands
         .target(name: "GraphCommand", dependencies: [
-            "DirectedGraphMapper",
+            "DirectedGraphWriter",
             "PackageDependencyGraphBuilder",
             "PackageSwiftFileParser",
             "ProjectRootClassifier",
-            "StdoutWriter",
             "XcodeProjectParser",
             "XcodeProjectDependencyGraphBuilder"
         ], path: "Sources/Library/Commands/GraphCommand"),
@@ -125,6 +125,21 @@ let package = Package(
             "XcodeProjectParser"
         ], path: "Sources/Library/Parsing/XcodeProjectParserLive"),
 
+        // Sources/Library/Outputting
+        .target(name: "DirectedGraphWriter", dependencies: [
+            "DirectedGraph",
+            "Writer"
+        ], path: "Sources/Library/Outputting/DirectedGraphWriter"),
+        .target(name: "MappingDirectedGraphWriter", dependencies: [
+            "DirectedGraph",
+            "DirectedGraphMapper",
+            "DirectedGraphWriter"
+        ], path: "Sources/Library/Outputting/MappingDirectedGraphWriter"),
+        .target(name: "StdoutWriter", dependencies: [
+            "Writer"
+        ], path: "Sources/Library/Outputting/StdoutWriter"),
+        .target(name: "Writer", path: "Sources/Library/Outputting/Writer"),
+
         // Sources/Library/Utilities
         .target(name: "FileSystem", path: "Sources/Library/Utilities/FileSystem"),
         .target(name: "FileSystemLive", dependencies: [
@@ -134,10 +149,6 @@ let package = Package(
         .target(name: "ShellCommandRunnerLive", dependencies: [
             "ShellCommandRunner"
         ], path: "Sources/Library/Utilities/ShellCommandRunnerLive"),
-        .target(name: "StdoutWriter", path: "Sources/Library/Utilities/StdoutWriter"),
-        .target(name: "StdoutWriterLive", dependencies: [
-            "StdoutWriter"
-        ], path: "Sources/Library/Utilities/StdoutWriterLive"),
         .target(name: "StringIndentHelpers", path: "Sources/Library/Utilities/StringIndentHelpers"),
 
         // Tests
@@ -154,6 +165,9 @@ let package = Package(
         ]),
         .testTarget(name: "GraphCommandTests", dependencies: [
             "GraphCommand"
+        ]),
+        .testTarget(name: "MappingDirectedGraphWriterTests", dependencies: [
+            "MappingDirectedGraphWriter"
         ]),
         .testTarget(name: "MermaidGraphMapperTests", dependencies: [
             "DirectedGraph",

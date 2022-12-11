@@ -1,10 +1,12 @@
 import DirectedGraphMapper
+import DirectedGraphWriter
 import DOTGraphMapper
 import DumpPackageService
 import DumpPackageServiceLive
 import FileSystem
 import FileSystemLive
 import GraphCommand
+import MappingDirectedGraphWriter
 import MermaidGraphMapper
 import PackageDependencyGraphBuilder
 import PackageDependencyGraphBuilderLive
@@ -15,7 +17,6 @@ import ProjectRootClassifierLive
 import ShellCommandRunner
 import ShellCommandRunnerLive
 import StdoutWriter
-import StdoutWriterLive
 import XcodeProjectDependencyGraphBuilder
 import XcodeProjectDependencyGraphBuilderLive
 import XcodeProjectParser
@@ -28,14 +29,17 @@ public enum CompositionRoot {
                             xcodeProjectParser: xcodeProjectParser,
                             packageDependencyGraphBuilder: packageDependencyGraphBuilder,
                             xcodeProjectDependencyGraphBuilder: xcodeProjectDependencyGraphBuilder,
-                            directedGraphMapperFactory: directedGraphMapperFactory,
-                            stdoutWriter: stdoutWriter)
+                            directedGraphWriterFactory: directedGraphWriterFactory)
     }
 }
 
 private extension CompositionRoot {
-    private static var directedGraphMapperFactory: DirectedGraphMapperFactory {
-        return DirectedGraphMapperFactory()
+    private static var directedGraphWriterFactory: DirectedGraphWriterFactory {
+        return DirectedGraphWriterFactory(dotGraphWriter: dotGraphWriter, mermaidGraphWriter: mermaidGraphWriter)
+    }
+
+    private static var dotGraphWriter: some DirectedGraphWriter {
+        return MappingDirectedGraphWriter(mapper: DOTGraphMapper(), writer: stdoutWriter)
     }
 
     private static var dumpPackageService: DumpPackageService {
@@ -44,6 +48,10 @@ private extension CompositionRoot {
 
     private static var fileSystem: FileSystem {
         return FileSystemLive()
+    }
+
+    private static var mermaidGraphWriter: some DirectedGraphWriter {
+        return MappingDirectedGraphWriter(mapper: MermaidGraphMapper(), writer: stdoutWriter)
     }
 
     private static var packageDependencyGraphBuilder: PackageDependencyGraphBuilder {
@@ -63,7 +71,7 @@ private extension CompositionRoot {
     }
 
     private static var stdoutWriter: StdoutWriter {
-        return StdoutWriterLive()
+        return StdoutWriter()
     }
 
     private static var xcodeProjectDependencyGraphBuilder: XcodeProjectDependencyGraphBuilder {
