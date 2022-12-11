@@ -1,5 +1,5 @@
 import DirectedGraphTransformer
-import DOTGraphTransformerLive
+import DOTGraphTransformer
 import DumpPackageService
 import DumpPackageServiceLive
 import FileSystem
@@ -31,7 +31,7 @@ public enum CompositionRoot {
 
 private extension CompositionRoot {
     private static var directedGraphTransformer: DirectedGraphTransformer {
-        return DOTGraphTransformerLive()
+        return DOTGraphTransformer()
     }
 
     private static var dumpPackageService: DumpPackageService {

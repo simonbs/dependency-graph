@@ -1,9 +1,9 @@
-@testable import DOTGraphTransformerLive
+@testable import DOTGraphTransformer
 import XCTest
 
-final class DOTGraphTransformerLiveTests: XCTestCase {
+final class DOTGraphTransformerTests: XCTestCase {
     func testTransformsGraphToDotSyntax() throws {
-        let transformer = DOTGraphTransformerLive()
+        let transformer = DOTGraphTransformer()
         let string = try transformer.transform(.mock)
         let expectedString = """
 digraph g {

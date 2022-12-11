@@ -1,4 +1,4 @@
-@testable import DOTGraphTransformerLive
+@testable import DOTGraphTransformer
 import XCTest
 
 final class IndentTests: XCTestCase {

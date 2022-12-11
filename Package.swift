@@ -17,7 +17,7 @@ let package = Package(
         .executableTarget(name: "Main", dependencies: [
             .product(name: "ArgumentParser", package: "swift-argument-parser"),
             "DirectedGraphTransformer",
-            "DOTGraphTransformerLive",
+            "DOTGraphTransformer",
             "DumpPackageService",
             "DumpPackageServiceLive",
             "FileSystem",
@@ -55,10 +55,10 @@ let package = Package(
         .target(name: "DirectedGraphTransformer", dependencies: [
             "DirectedGraph"
         ], path: "Sources/Library/Graphing/DirectedGraphTransformer"),
-        .target(name: "DOTGraphTransformerLive", dependencies: [
+        .target(name: "DOTGraphTransformer", dependencies: [
             "DirectedGraph",
             "DirectedGraphTransformer",
-        ], path: "Sources/Library/Graphing/DOTGraphTransformerLive"),
+        ], path: "Sources/Library/Graphing/DOTGraphTransformer"),
         .target(name: "PackageDependencyGraphBuilder", dependencies: [
             "DirectedGraph",
             "PackageSwiftFile"
@@ -129,9 +129,9 @@ let package = Package(
         .testTarget(name: "DirectedGraphXcodeHelpersTests", dependencies: [
             "DirectedGraphXcodeHelpers"
         ]),
-        .testTarget(name: "DOTGraphTransformerLiveTests", dependencies: [
+        .testTarget(name: "DOTGraphTransformerTests", dependencies: [
             "DirectedGraph",
-            "DOTGraphTransformerLive"
+            "DOTGraphTransformer"
         ]),
         .testTarget(name: "DumpPackageServiceLiveTests", dependencies: [
             "DumpPackageServiceLive",
