@@ -32,6 +32,8 @@ let package = Package(
             "ProjectRootClassifierLive",
             "ShellCommandRunner",
             "ShellCommandRunnerLive",
+            "StdoutWriter",
+            "StdoutWriterLive",
             "XcodeProjectDependencyGraphBuilder",
             "XcodeProjectDependencyGraphBuilderLive",
             "XcodeProjectParser",
@@ -44,6 +46,7 @@ let package = Package(
             "PackageDependencyGraphBuilder",
             "PackageSwiftFileParser",
             "ProjectRootClassifier",
+            "StdoutWriter",
             "XcodeProjectParser",
             "XcodeProjectDependencyGraphBuilder"
         ], path: "Sources/Library/Commands/GraphCommand"),
@@ -131,6 +134,10 @@ let package = Package(
         .target(name: "ShellCommandRunnerLive", dependencies: [
             "ShellCommandRunner"
         ], path: "Sources/Library/Utilities/ShellCommandRunnerLive"),
+        .target(name: "StdoutWriter", path: "Sources/Library/Utilities/StdoutWriter"),
+        .target(name: "StdoutWriterLive", dependencies: [
+            "StdoutWriter"
+        ], path: "Sources/Library/Utilities/StdoutWriterLive"),
         .target(name: "StringIndentHelpers", path: "Sources/Library/Utilities/StringIndentHelpers"),
 
         // Tests

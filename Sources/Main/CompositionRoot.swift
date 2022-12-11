@@ -14,6 +14,8 @@ import ProjectRootClassifier
 import ProjectRootClassifierLive
 import ShellCommandRunner
 import ShellCommandRunnerLive
+import StdoutWriter
+import StdoutWriterLive
 import XcodeProjectDependencyGraphBuilder
 import XcodeProjectDependencyGraphBuilderLive
 import XcodeProjectParser
@@ -26,7 +28,8 @@ public enum CompositionRoot {
                             xcodeProjectParser: xcodeProjectParser,
                             packageDependencyGraphBuilder: packageDependencyGraphBuilder,
                             xcodeProjectDependencyGraphBuilder: xcodeProjectDependencyGraphBuilder,
-                            directedGraphTransformerFactory: directedGraphTransformerFactory)
+                            directedGraphTransformerFactory: directedGraphTransformerFactory,
+                            stdoutWriter: stdoutWriter)
     }
 }
 
@@ -58,6 +61,10 @@ private extension CompositionRoot {
 
     private static var shellCommandRunner: ShellCommandRunner {
         return ShellCommandRunnerLive()
+    }
+
+    private static var stdoutWriter: StdoutWriter {
+        return StdoutWriterLive()
     }
 
     private static var xcodeProjectDependencyGraphBuilder: XcodeProjectDependencyGraphBuilder {
