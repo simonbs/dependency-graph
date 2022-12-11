@@ -20,9 +20,11 @@ Valid values are:
 """)
     var syntax: Syntax = .dot
 
+    // swiftlint:disable:next line_length
     @Option(name: .long, help: "Specifies the spacing between adjacement nodes in the same rank. Supported by the DOT and Mermaid.js syntaxes. Translates to the nodesep option in DOT and the nodeSpacing option in Mermaid.js.")
     var nodeSpacing: Float?
 
+    // swiftlint:disable:next line_length
     @Option(name: .long, help: "Specifies the spacing between nodes in different ranks. Supported by the DOT and Mermaid.js syntaxes. Translates to the ranksep option in DOT and the rankSpacing option in Mermaid.js.")
     var rankSpacing: Float?
 

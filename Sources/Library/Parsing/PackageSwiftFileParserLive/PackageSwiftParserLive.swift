@@ -9,7 +9,7 @@ private enum PackageSwiftFileParserLiveError: LocalizedError {
 
     var errorDescription: String? {
         switch self {
-        case .failedParsing(let fileURL, let decodingError):
+        case let .failedParsing(fileURL, decodingError):
             return "Failed parsing dumped Package.swift file at \(fileURL.path): \(decodingError)"
         }
     }

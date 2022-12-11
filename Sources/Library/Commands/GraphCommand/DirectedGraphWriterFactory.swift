@@ -8,7 +8,7 @@ public struct DirectedGraphWriterFactory {
         self.dotGraphWriter = dotGraphWriter
         self.mermaidGraphWriter = mermaidGraphWriter
     }
-    
+
     func writer(for syntax: Syntax) -> any DirectedGraphWriter {
         switch syntax {
         case .dot:

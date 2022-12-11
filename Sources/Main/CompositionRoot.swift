@@ -37,7 +37,7 @@ public enum CompositionRoot {
 }
 
 private extension CompositionRoot {
-    private static func directedGraphWriterFactory(nodeSpacing: Float?, rankSpacing: Float?) ->  DirectedGraphWriterFactory {
+    private static func directedGraphWriterFactory(nodeSpacing: Float?, rankSpacing: Float?) -> DirectedGraphWriterFactory {
         let dotGraphWriter = dotGraphWriter(nodesep: nodeSpacing, ranksep: rankSpacing)
         let mermaidGraphWriter = mermaidGraphWriter(nodeSpacing: nodeSpacing.map(Int.init), rankSpacing: rankSpacing.map(Int.init))
         return DirectedGraphWriterFactory(dotGraphWriter: dotGraphWriter, mermaidGraphWriter: mermaidGraphWriter)
