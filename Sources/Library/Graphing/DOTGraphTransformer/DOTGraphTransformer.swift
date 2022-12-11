@@ -27,7 +27,7 @@ extension DirectedGraph {
 
 extension DirectedGraph.Cluster {
     var stringRepresentation: String {
-        var lines = ["subgraph \(name) {"]
+        var lines = ["subgraph cluster_\(name) {"]
         lines += ["label=\"\(label)\""].indented
         lines += nodes.map(\.stringRepresentation).indented
         lines += ["}"]
