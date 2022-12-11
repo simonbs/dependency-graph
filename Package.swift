@@ -16,14 +16,14 @@ let package = Package(
     targets: [
         .executableTarget(name: "Main", dependencies: [
             .product(name: "ArgumentParser", package: "swift-argument-parser"),
-            "DirectedGraphTransformer",
-            "DOTGraphTransformer",
+            "DirectedGraphMapper",
+            "DOTGraphMapper",
             "DumpPackageService",
             "DumpPackageServiceLive",
             "FileSystem",
             "FileSystemLive",
             "GraphCommand",
-            "MermaidGraphTransformer",
+            "MermaidGraphMapper",
             "PackageDependencyGraphBuilder",
             "PackageDependencyGraphBuilderLive",
             "PackageSwiftFileParser",
@@ -42,7 +42,7 @@ let package = Package(
 
         // Sources/Library/Commands
         .target(name: "GraphCommand", dependencies: [
-            "DirectedGraphTransformer",
+            "DirectedGraphMapper",
             "PackageDependencyGraphBuilder",
             "PackageSwiftFileParser",
             "ProjectRootClassifier",
@@ -56,19 +56,19 @@ let package = Package(
         .target(name: "DirectedGraphXcodeHelpers", dependencies: [
             "DirectedGraph"
         ], path: "Sources/Library/Graphing/DirectedGraphXcodeHelpers"),
-        .target(name: "DirectedGraphTransformer", dependencies: [
+        .target(name: "DirectedGraphMapper", dependencies: [
             "DirectedGraph"
-        ], path: "Sources/Library/Graphing/DirectedGraphTransformer"),
-        .target(name: "DOTGraphTransformer", dependencies: [
+        ], path: "Sources/Library/Graphing/DirectedGraphMapper"),
+        .target(name: "DOTGraphMapper", dependencies: [
             "DirectedGraph",
-            "DirectedGraphTransformer",
+            "DirectedGraphMapper",
             "StringIndentHelpers"
-        ], path: "Sources/Library/Graphing/DOTGraphTransformer"),
-        .target(name: "MermaidGraphTransformer", dependencies: [
+        ], path: "Sources/Library/Graphing/DOTGraphMapper"),
+        .target(name: "MermaidGraphMapper", dependencies: [
             "DirectedGraph",
-            "DirectedGraphTransformer",
+            "DirectedGraphMapper",
             "StringIndentHelpers"
-        ], path: "Sources/Library/Graphing/MermaidGraphTransformer"),
+        ], path: "Sources/Library/Graphing/MermaidGraphMapper"),
         .target(name: "PackageDependencyGraphBuilder", dependencies: [
             "DirectedGraph",
             "PackageSwiftFile"
@@ -144,9 +144,9 @@ let package = Package(
         .testTarget(name: "DirectedGraphXcodeHelpersTests", dependencies: [
             "DirectedGraphXcodeHelpers"
         ]),
-        .testTarget(name: "DOTGraphTransformerTests", dependencies: [
+        .testTarget(name: "DOTGraphMapperTests", dependencies: [
             "DirectedGraph",
-            "DOTGraphTransformer"
+            "DOTGraphMapper"
         ]),
         .testTarget(name: "DumpPackageServiceLiveTests", dependencies: [
             "DumpPackageServiceLive",
@@ -155,9 +155,9 @@ let package = Package(
         .testTarget(name: "GraphCommandTests", dependencies: [
             "GraphCommand"
         ]),
-        .testTarget(name: "MermaidGraphTransformerTests", dependencies: [
+        .testTarget(name: "MermaidGraphMapperTests", dependencies: [
             "DirectedGraph",
-            "MermaidGraphTransformer"
+            "MermaidGraphMapper"
         ]),
         .testTarget(name: "PackageDependencyGraphBuilderLiveTests", dependencies: [
             "DirectedGraph",

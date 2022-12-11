@@ -1,10 +1,10 @@
-@testable import DOTGraphTransformer
+@testable import DOTGraphMapper
 import XCTest
 
-final class DOTGraphTransformerTests: XCTestCase {
-    func testTransformsGraphToDotSyntax() throws {
-        let transformer = DOTGraphTransformer()
-        let string = try transformer.transform(.mock)
+final class DOTGraphMapperTests: XCTestCase {
+    func testMapsGraphToDotSyntax() throws {
+        let mapper = DOTGraphMapper()
+        let string = try mapper.map(.mock)
         let expectedString = """
 digraph g {
   layout=dot

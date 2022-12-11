@@ -1,10 +1,10 @@
-@testable import MermaidGraphTransformer
+@testable import MermaidGraphMapper
 import XCTest
 
-final class MermaidGraphTransformerTests: XCTestCase {
-    func testTransformsGraphToMermaidSyntax() throws {
-        let transformer = MermaidGraphTransformer()
-        let string = try transformer.transform(.mock)
+final class MermaidGraphMapperTests: XCTestCase {
+    func testMapsGraphToMermaidSyntax() throws {
+        let mapper = MermaidGraphMapper()
+        let string = try mapper.map(.mock)
         let expectedString = """
 graph TB
   subgraph Foo[Foo]

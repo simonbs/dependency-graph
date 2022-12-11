@@ -2,54 +2,54 @@
 import XCTest
 
 final class GraphCommandTests: XCTestCase {
-    func testInvokesOnlyDotGraphTransformer() throws {
-        let dotGraphTransformer = DirectedGraphTransformerMock()
-        let mermaidGraphTransformer = DirectedGraphTransformerMock()
-        let directedGraphTransformerFactory = DirectedGraphTransformerFactory(dotGraphTransformer: dotGraphTransformer,
-                                                                              mermaidGraphTransformer: mermaidGraphTransformer)
+    func testInvokesOnlyDotGraphMapper() throws {
+        let dotGraphMapper = DirectedGraphMapperMock()
+        let mermaidGraphMapper = DirectedGraphMapperMock()
+        let directedGraphMapperFactory = DirectedGraphMapperFactory(dotGraphMapper: dotGraphMapper,
+                                                                              mermaidGraphMapper: mermaidGraphMapper)
         let command = GraphCommand(projectRootClassifier: ProjectRootClassifierMock(),
                                    packageSwiftFileParser: PackageSwiftFileParserMock(),
                                    xcodeProjectParser: XcodeProjectParserMock(),
                                    packageDependencyGraphBuilder: PackageDependencyGraphBuilderMock(),
                                    xcodeProjectDependencyGraphBuilder: XcodeProjectDependencyGraphBuilderMock(),
-                                   directedGraphTransformerFactory: directedGraphTransformerFactory,
+                                   directedGraphMapperFactory: directedGraphMapperFactory,
                                    stdoutWriter: StdoutWriterMock())
         let fileURL = URL(filePath: "/Users/simon/Developer/Example")
         try command.run(withInput: fileURL.path, syntax: .dot)
-        XCTAssertTrue(dotGraphTransformer.didTransform)
-        XCTAssertFalse(mermaidGraphTransformer.didTransform)
+        XCTAssertTrue(dotGraphMapper.didTransform)
+        XCTAssertFalse(mermaidGraphMapper.didTransform)
     }
 
-    func testInvokesOnlyMermaidGraphTransformer() throws {
-        let dotGraphTransformer = DirectedGraphTransformerMock()
-        let mermaidGraphTransformer = DirectedGraphTransformerMock()
-        let directedGraphTransformerFactory = DirectedGraphTransformerFactory(dotGraphTransformer: dotGraphTransformer,
-                                                                              mermaidGraphTransformer: mermaidGraphTransformer)
+    func testInvokesOnlyMermaidGraphMapper() throws {
+        let dotGraphMapper = DirectedGraphMapperMock()
+        let mermaidGraphMapper = DirectedGraphMapperMock()
+        let directedGraphMapperFactory = DirectedGraphMapperFactory(dotGraphMapper: dotGraphMapper,
+                                                                              mermaidGraphMapper: mermaidGraphMapper)
         let command = GraphCommand(projectRootClassifier: ProjectRootClassifierMock(),
                                    packageSwiftFileParser: PackageSwiftFileParserMock(),
                                    xcodeProjectParser: XcodeProjectParserMock(),
                                    packageDependencyGraphBuilder: PackageDependencyGraphBuilderMock(),
                                    xcodeProjectDependencyGraphBuilder: XcodeProjectDependencyGraphBuilderMock(),
-                                   directedGraphTransformerFactory: directedGraphTransformerFactory,
+                                   directedGraphMapperFactory: directedGraphMapperFactory,
                                    stdoutWriter: StdoutWriterMock())
         let fileURL = URL(filePath: "/Users/simon/Developer/Example")
         try command.run(withInput: fileURL.path, syntax: .mermaid)
-        XCTAssertTrue(mermaidGraphTransformer.didTransform)
-        XCTAssertFalse(dotGraphTransformer.didTransform)
+        XCTAssertTrue(mermaidGraphMapper.didTransform)
+        XCTAssertFalse(dotGraphMapper.didTransform)
     }
 
     func testCallsStdoutWriter() throws {
-        let dotGraphTransformer = DirectedGraphTransformerMock()
-        let mermaidGraphTransformer = DirectedGraphTransformerMock()
-        let directedGraphTransformerFactory = DirectedGraphTransformerFactory(dotGraphTransformer: dotGraphTransformer,
-                                                                              mermaidGraphTransformer: mermaidGraphTransformer)
+        let dotGraphMapper = DirectedGraphMapperMock()
+        let mermaidGraphMapper = DirectedGraphMapperMock()
+        let directedGraphMapperFactory = DirectedGraphMapperFactory(dotGraphMapper: dotGraphMapper,
+                                                                              mermaidGraphMapper: mermaidGraphMapper)
         let stdoutWriter = StdoutWriterMock()
         let command = GraphCommand(projectRootClassifier: ProjectRootClassifierMock(),
                                    packageSwiftFileParser: PackageSwiftFileParserMock(),
                                    xcodeProjectParser: XcodeProjectParserMock(),
                                    packageDependencyGraphBuilder: PackageDependencyGraphBuilderMock(),
                                    xcodeProjectDependencyGraphBuilder: XcodeProjectDependencyGraphBuilderMock(),
-                                   directedGraphTransformerFactory: directedGraphTransformerFactory,
+                                   directedGraphMapperFactory: directedGraphMapperFactory,
                                    stdoutWriter: stdoutWriter)
         let fileURL = URL(filePath: "/Users/simon/Developer/Example")
         try command.run(withInput: fileURL.path, syntax: .mermaid)

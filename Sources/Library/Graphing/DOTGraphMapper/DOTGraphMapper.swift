@@ -1,11 +1,11 @@
 import DirectedGraph
-import DirectedGraphTransformer
+import DirectedGraphMapper
 import StringIndentHelpers
 
-public struct DOTGraphTransformer: DirectedGraphTransformer {
+public struct DOTGraphMapper: DirectedGraphMapper {
     public init() {}
 
-    public func transform(_ graph: DirectedGraph) throws -> String {
+    public func map(_ graph: DirectedGraph) throws -> String {
         let settings = DOTGraphSettings(layout: "dot")
         return graph.stringRepresentation(withSetings: settings)
     }

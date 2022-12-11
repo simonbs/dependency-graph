@@ -1,11 +1,11 @@
 import DirectedGraph
-import DirectedGraphTransformer
+import DirectedGraphMapper
 import StringIndentHelpers
 
-public struct MermaidGraphTransformer: DirectedGraphTransformer {
+public struct MermaidGraphMapper: DirectedGraphMapper {
     public init() {}
 
-    public func transform(_ graph: DirectedGraph) throws -> String {
+    public func map(_ graph: DirectedGraph) throws -> String {
         return graph.stringRepresentation
     }
 }

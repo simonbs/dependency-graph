@@ -1,11 +1,11 @@
-import DirectedGraphTransformer
-import DOTGraphTransformer
+import DirectedGraphMapper
+import DOTGraphMapper
 import DumpPackageService
 import DumpPackageServiceLive
 import FileSystem
 import FileSystemLive
 import GraphCommand
-import MermaidGraphTransformer
+import MermaidGraphMapper
 import PackageDependencyGraphBuilder
 import PackageDependencyGraphBuilderLive
 import PackageSwiftFileParser
@@ -28,15 +28,14 @@ public enum CompositionRoot {
                             xcodeProjectParser: xcodeProjectParser,
                             packageDependencyGraphBuilder: packageDependencyGraphBuilder,
                             xcodeProjectDependencyGraphBuilder: xcodeProjectDependencyGraphBuilder,
-                            directedGraphTransformerFactory: directedGraphTransformerFactory,
+                            directedGraphMapperFactory: directedGraphMapperFactory,
                             stdoutWriter: stdoutWriter)
     }
 }
 
 private extension CompositionRoot {
-    private static var directedGraphTransformerFactory: DirectedGraphTransformerFactory {
-        return DirectedGraphTransformerFactory(dotGraphTransformer: DOTGraphTransformer(),
-                                               mermaidGraphTransformer: MermaidGraphTransformer())
+    private static var directedGraphMapperFactory: DirectedGraphMapperFactory {
+        return DirectedGraphMapperFactory()
     }
 
     private static var dumpPackageService: DumpPackageService {
