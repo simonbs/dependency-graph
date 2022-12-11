@@ -13,7 +13,7 @@ public struct MermaidGraphMapper: DirectedGraphMapper {
 extension DirectedGraph {
     var stringRepresentation: String {
         return [
-            "graph TB",
+            "graph LR",
             [
                 clusters.stringRepresentation,
                 edges.stringRepresentation

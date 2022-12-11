@@ -6,7 +6,7 @@ final class MermaidGraphMapperTests: XCTestCase {
         let mapper = MermaidGraphMapper()
         let string = try mapper.map(.mock)
         let expectedString = """
-graph TB
+graph LR
   subgraph Foo[Foo]
     Foo[Foo]
   end

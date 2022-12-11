@@ -6,7 +6,7 @@ public struct DOTGraphMapper: DirectedGraphMapper {
     public init() {}
 
     public func map(_ graph: DirectedGraph) throws -> String {
-        let settings = DOTGraphSettings(layout: "dot")
+        let settings = DOTGraphSettings(layout: "dot", rankdir: "LR")
         return graph.stringRepresentation(withSetings: settings)
     }
 }

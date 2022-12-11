@@ -8,6 +8,7 @@ final class DOTGraphMapperTests: XCTestCase {
         let expectedString = """
 digraph g {
   layout=dot
+  rankdir=LR
 
   subgraph cluster_Foo {
     label="Foo"
