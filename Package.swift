@@ -23,6 +23,7 @@ let package = Package(
             "FileSystem",
             "FileSystemLive",
             "GraphCommand",
+            "MermaidGraphTransformer",
             "PackageDependencyGraphBuilder",
             "PackageDependencyGraphBuilderLive",
             "PackageSwiftFileParser",
@@ -60,6 +61,11 @@ let package = Package(
             "DirectedGraphTransformer",
             "StringIndentHelpers"
         ], path: "Sources/Library/Graphing/DOTGraphTransformer"),
+        .target(name: "MermaidGraphTransformer", dependencies: [
+            "DirectedGraph",
+            "DirectedGraphTransformer",
+            "StringIndentHelpers"
+        ], path: "Sources/Library/Graphing/MermaidGraphTransformer"),
         .target(name: "PackageDependencyGraphBuilder", dependencies: [
             "DirectedGraph",
             "PackageSwiftFile"
@@ -138,6 +144,10 @@ let package = Package(
         .testTarget(name: "DumpPackageServiceLiveTests", dependencies: [
             "DumpPackageServiceLive",
             "ShellCommandRunner"
+        ]),
+        .testTarget(name: "MermaidGraphTransformerTests", dependencies: [
+            "DirectedGraph",
+            "MermaidGraphTransformer"
         ]),
         .testTarget(name: "PackageDependencyGraphBuilderLiveTests", dependencies: [
             "DirectedGraph",

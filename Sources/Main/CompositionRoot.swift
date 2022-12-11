@@ -5,6 +5,7 @@ import DumpPackageServiceLive
 import FileSystem
 import FileSystemLive
 import GraphCommand
+import MermaidGraphTransformer
 import PackageDependencyGraphBuilder
 import PackageDependencyGraphBuilderLive
 import PackageSwiftFileParser
@@ -31,7 +32,7 @@ public enum CompositionRoot {
 
 private extension CompositionRoot {
     private static var directedGraphTransformer: DirectedGraphTransformer {
-        return DOTGraphTransformer()
+        return MermaidGraphTransformer()
     }
 
     private static var dumpPackageService: DumpPackageService {
