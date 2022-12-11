@@ -44,11 +44,11 @@ public extension DirectedGraph.Cluster {
 
 public extension DirectedGraph.Node {
     static func packageProduct(labeled label: String) -> DirectedGraph.Node {
-        return Self(name: NodeName.packageProduct(label), label: label, shape: "box")
+        return Self(name: NodeName.packageProduct(label), label: label, shape: .box)
     }
 
     static func target(labeled label: String) -> DirectedGraph.Node {
-        return Self(name: NodeName.target(label), label: label, shape: "hexagon")
+        return Self(name: NodeName.target(label), label: label, shape: .ellipse)
     }
 }
 

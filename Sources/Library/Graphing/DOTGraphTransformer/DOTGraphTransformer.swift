@@ -38,8 +38,11 @@ extension DirectedGraph.Cluster {
 extension DirectedGraph.Node {
     var stringRepresentation: String {
         var settings: [String] = ["label=\"\(label)\""]
-        if let shape = shape {
-            settings += ["shape=\(shape)"]
+        switch shape {
+        case .ellipse:
+            settings += ["shape=ellipse"]
+        case .box:
+            settings += ["shape=box"]
         }
         return name + " [" + settings.joined(separator: ", ") + "]"
     }

@@ -9,19 +9,19 @@ final class DOTGraphTransformerTests: XCTestCase {
 digraph g {
   layout=dot
 
-  subgraph Foo {
+  subgraph cluster_Foo {
     label="Foo"
-    Foo [label="Foo"]
+    Foo [label="Foo", shape=box]
   }
 
-  subgraph Bar {
+  subgraph cluster_Bar {
     label="Bar"
-    Bar [label="Bar"]
+    Bar [label="Bar", shape=box]
   }
 
-  subgraph Baz {
+  subgraph cluster_Baz {
     label="Baz"
-    Baz [label="Baz"]
+    Baz [label="Baz", shape=ellipse]
   }
 
   Foo -> Bar
