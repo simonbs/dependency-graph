@@ -9,7 +9,6 @@ public struct ShellCommandRunnerLive: ShellCommandRunner {
         let pipe = Pipe()
         task.currentDirectoryURL = directoryURL
         task.standardOutput = pipe
-        task.standardError = pipe
         task.arguments = ["-c", arguments.joined(separator: " ")]
         task.launchPath = "/bin/zsh"
         task.standardInput = nil
