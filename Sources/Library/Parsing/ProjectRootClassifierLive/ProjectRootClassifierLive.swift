@@ -28,10 +28,10 @@ private extension ProjectRootClassifierLive {
     private func classifyDirectory(at directoryURL: URL) -> ProjectRoot {
         let filenames = fileSystem.contentsOfDirectory(at: directoryURL)
         if let filename = filenames.first(where: { $0.hasSuffix("." + xcodeprojPathExtension) }) {
-            let xcodeprojFileURL = directoryURL.appending(path: filename)
+            let xcodeprojFileURL = (directoryURL as NSURL).appendingPathComponent(filename)!
             return .xcodeproj(xcodeprojFileURL)
         } else if filenames.contains(where: { $0 == packageSwiftFilename }) {
-            let packageSwiftFileURL = directoryURL.appending(path: packageSwiftFilename)
+            let packageSwiftFileURL = (directoryURL as NSURL).appendingPathComponent(packageSwiftFilename)!
             return .packageSwiftFile(packageSwiftFileURL)
         } else {
             return .unknown

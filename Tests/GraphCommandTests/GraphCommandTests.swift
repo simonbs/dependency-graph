@@ -12,7 +12,7 @@ final class GraphCommandTests: XCTestCase {
                                    packageDependencyGraphBuilder: PackageDependencyGraphBuilderMock(),
                                    xcodeProjectDependencyGraphBuilder: XcodeProjectDependencyGraphBuilderMock(),
                                    directedGraphWriterFactory: directedGraphWriterFactory)
-        let fileURL = URL(filePath: "/Users/simon/Developer/Example")
+        let fileURL = NSURL.fileURL(withPath: "/Users/simon/Developer/Example")
         try command.run(withInput: fileURL.path, syntax: .dot)
         XCTAssertTrue(dotGraphWriter.didWrite)
         XCTAssertFalse(mermaidGraphWriter.didWrite)
@@ -28,7 +28,7 @@ final class GraphCommandTests: XCTestCase {
                                    packageDependencyGraphBuilder: PackageDependencyGraphBuilderMock(),
                                    xcodeProjectDependencyGraphBuilder: XcodeProjectDependencyGraphBuilderMock(),
                                    directedGraphWriterFactory: directedGraphWriterFactory)
-        let fileURL = URL(filePath: "/Users/simon/Developer/Example")
+        let fileURL = NSURL.fileURL(withPath: "/Users/simon/Developer/Example")
         try command.run(withInput: fileURL.path, syntax: .mermaid)
         XCTAssertTrue(mermaidGraphWriter.didWrite)
         XCTAssertFalse(dotGraphWriter.didWrite)

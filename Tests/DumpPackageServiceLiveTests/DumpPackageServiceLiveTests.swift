@@ -22,6 +22,6 @@ final class DumpPackageServiceLiveTests: XCTestCase {
         let service = DumpPackageServiceLive(shellCommandRunner: shellCommandRunner)
         let fileURL = URL(fileURLWithPath: "/Users/john/Mock/Package.swift")
         _ = try service.dumpPackageForSwiftPackageFile(at: fileURL)
-        XCTAssertEqual(shellCommandRunner.latestDirectoryURL, URL(filePath: "/Users/john/Mock/"))
+        XCTAssertEqual(shellCommandRunner.latestDirectoryURL, NSURL.fileURL(withPath: "/Users/john/Mock/"))
     }
 }

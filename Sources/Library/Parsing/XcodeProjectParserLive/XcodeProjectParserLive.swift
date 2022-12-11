@@ -96,6 +96,6 @@ private extension PBXFileReference {
         guard let path = path else {
             return nil
         }
-        return sourceRoot.appending(path: path).appending(path: "Package.swift")
+        return ((sourceRoot as NSURL).appendingPathComponent(path) as? NSURL)?.appendingPathComponent("Package.swift")
     }
 }

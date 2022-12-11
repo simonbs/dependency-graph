@@ -41,7 +41,7 @@ public struct GraphCommand {
     }
 
     public func run(withInput input: String, syntax: Syntax) throws {
-        let fileURL = URL(filePath: input)
+        let fileURL = NSURL.fileURL(withPath: input)
         let projectRoot = projectRootClassifier.classifyProject(at: fileURL)
         let directedGraphWriter = directedGraphWriterFactory.writer(for: syntax)
         switch projectRoot {

@@ -6,7 +6,7 @@ final class ProjectRootClassifierLiveTests: XCTestCase {
     func testClassifiesPathToProject() {
         let fileSystem = FileSystemMock()
         let classifier = ProjectRootClassifierLive(fileSystem: fileSystem)
-        let fileURL = URL(filePath: "/Users/simon/Developer/Example/Example.xcodeproj")
+        let fileURL = NSURL.fileURL(withPath: "/Users/simon/Developer/Example/Example.xcodeproj")
         let projectRoot = classifier.classifyProject(at: fileURL)
         XCTAssertEqual(projectRoot, .xcodeproj(fileURL))
     }
@@ -14,7 +14,7 @@ final class ProjectRootClassifierLiveTests: XCTestCase {
     func testClassifiesPathToPackageSwiftFile() {
         let fileSystem = FileSystemMock()
         let classifier = ProjectRootClassifierLive(fileSystem: fileSystem)
-        let fileURL = URL(filePath: "/Users/simon/Developer/Example/Package.swift")
+        let fileURL = NSURL.fileURL(withPath: "/Users/simon/Developer/Example/Package.swift")
         let projectRoot = classifier.classifyProject(at: fileURL)
         XCTAssertEqual(projectRoot, .packageSwiftFile(fileURL))
     }
@@ -24,8 +24,8 @@ final class ProjectRootClassifierLiveTests: XCTestCase {
         fileSystem.isDirectory = true
         fileSystem.directoryContents = [".gitignore", "README.md", "Example.xcodeproj"]
         let classifier = ProjectRootClassifierLive(fileSystem: fileSystem)
-        let directoryURL = URL(filePath: "/Users/simon/Developer/Example")
-        let expectedFileURL = URL(filePath: "/Users/simon/Developer/Example/Example.xcodeproj")
+        let directoryURL = NSURL.fileURL(withPath: "/Users/simon/Developer/Example")
+        let expectedFileURL = NSURL.fileURL(withPath: "/Users/simon/Developer/Example/Example.xcodeproj")
         let projectRoot = classifier.classifyProject(at: directoryURL)
         XCTAssertEqual(projectRoot, .xcodeproj(expectedFileURL))
     }
@@ -35,8 +35,8 @@ final class ProjectRootClassifierLiveTests: XCTestCase {
         fileSystem.isDirectory = true
         fileSystem.directoryContents = [".gitignore", "README.md", "Package.swift"]
         let classifier = ProjectRootClassifierLive(fileSystem: fileSystem)
-        let directoryURL = URL(filePath: "/Users/simon/Developer/Example")
-        let expectedFileURL = URL(filePath: "/Users/simon/Developer/Example/Package.swift")
+        let directoryURL = NSURL.fileURL(withPath: "/Users/simon/Developer/Example")
+        let expectedFileURL = NSURL.fileURL(withPath: "/Users/simon/Developer/Example/Package.swift")
         let projectRoot = classifier.classifyProject(at: directoryURL)
         XCTAssertEqual(projectRoot, .packageSwiftFile(expectedFileURL))
     }
@@ -44,7 +44,7 @@ final class ProjectRootClassifierLiveTests: XCTestCase {
     func testFailsClassifyingUnknownFile() {
         let fileSystem = FileSystemMock()
         let classifier = ProjectRootClassifierLive(fileSystem: fileSystem)
-        let directoryURL = URL(filePath: "/Users/simon/Developer/Example/README.md")
+        let directoryURL = NSURL.fileURL(withPath: "/Users/simon/Developer/Example/README.md")
         let projectRoot = classifier.classifyProject(at: directoryURL)
         XCTAssertEqual(projectRoot, .unknown)
     }
@@ -54,7 +54,7 @@ final class ProjectRootClassifierLiveTests: XCTestCase {
         fileSystem.isDirectory = true
         fileSystem.directoryContents = [".gitignore", "README.md"]
         let classifier = ProjectRootClassifierLive(fileSystem: fileSystem)
-        let directoryURL = URL(filePath: "/Users/simon/Developer/Example")
+        let directoryURL = NSURL.fileURL(withPath: "/Users/simon/Developer/Example")
         let projectRoot = classifier.classifyProject(at: directoryURL)
         XCTAssertEqual(projectRoot, .unknown)
     }
@@ -64,7 +64,7 @@ final class ProjectRootClassifierLiveTests: XCTestCase {
         fileSystem.fileExists = false
         fileSystem.directoryContents = [".gitignore", "README.md"]
         let classifier = ProjectRootClassifierLive(fileSystem: fileSystem)
-        let directoryURL = URL(filePath: "/Users/simon/Developer/Example/README.md")
+        let directoryURL = NSURL.fileURL(withPath: "/Users/simon/Developer/Example/README.md")
         let projectRoot = classifier.classifyProject(at: directoryURL)
         XCTAssertEqual(projectRoot, .unknown)
     }

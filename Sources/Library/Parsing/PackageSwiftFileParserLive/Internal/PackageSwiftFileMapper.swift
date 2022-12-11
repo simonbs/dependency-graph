@@ -41,7 +41,7 @@ private extension PackageSwiftFileMapper {
         case .sourceControl(let parameters):
             return .sourceControl(identity: parameters.identity)
         case .fileSystem(let parameters):
-            let fileURL = URL(filePath: parameters.path).appending(path: "Package.swift")
+            let fileURL = (NSURL.fileURL(withPath: parameters.path) as NSURL).appendingPathComponent("Package.swift")!
             let packageSwiftFile = try packageSwiftFileParser.parseFile(at: fileURL)
             return .fileSystem(identity: parameters.identity, path: parameters.path, packageSwiftFile: packageSwiftFile)
         }

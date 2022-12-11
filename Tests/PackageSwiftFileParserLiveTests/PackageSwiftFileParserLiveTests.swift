@@ -57,7 +57,7 @@ final class PackageSwiftFileParserLiveTests: XCTestCase {
 
     func testReadsPackageSwiftFileFromCache() throws {
         let cachedPackageSwiftFile = PackageSwiftFile(name: "foo")
-        let fileURL = URL(filePath: "/Users/simonbs/Developer/foo")
+        let fileURL = NSURL.fileURL(withPath: "/Users/simonbs/Developer/foo")
         let cache = PackageSwiftFileParserCacheMock()
         cache.cache(cachedPackageSwiftFile, for: fileURL)
         let dumpPackageService = DumpPackageServiceMock()

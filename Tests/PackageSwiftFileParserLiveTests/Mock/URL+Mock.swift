@@ -3,15 +3,15 @@ import Foundation
 extension URL {
     enum Mock {
         static var examplePackageA: URL {
-            return URL(filePath: "/Users/simon/Developer/Example/ExamplePackageA/Package.swift")
+            return NSURL.fileURL(withPath: "/Users/simon/Developer/Example/ExamplePackageA/Package.swift")
         }
 
         static var examplePackageB: URL {
-            return URL(filePath: "/Users/simon/Developer/Example/ExamplePackageB/Package.swift")
+            return NSURL.fileURL(withPath: "/Users/simon/Developer/Example/ExamplePackageB/Package.swift")
         }
 
         static var examplePackageC: URL {
-            return URL(filePath: "/Users/simon/Developer/Example/ExamplePackageC/Package.swift")
+            return NSURL.fileURL(withPath: "/Users/simon/Developer/Example/ExamplePackageC/Package.swift")
         }
     }
 }
