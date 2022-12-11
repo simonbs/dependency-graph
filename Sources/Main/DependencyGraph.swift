@@ -3,7 +3,7 @@ import Foundation
 import GraphCommand
 
 @main
-struct GraphDeps: ParsableCommand {
+struct DependencyGraph: ParsableCommand {
     @Argument(help: "The input to show dependencies for. Can be en .xcodeproj file or a Package.swift file.")
     var input: String
 

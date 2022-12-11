@@ -4,10 +4,10 @@
 import PackageDescription
 
 let package = Package(
-    name: "GraphDeps",
+    name: "DependencyGraph",
     platforms: [.macOS(.v13)],
     products: [
-        .executable(name: "graph-deps", targets: ["Main"])
+        .executable(name: "dependency-graph", targets: ["Main"])
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "1.2.0"),
