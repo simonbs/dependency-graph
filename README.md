@@ -124,7 +124,7 @@ These graphs provide a good way to get an overview of a package or the relations
 
 ## 🧐 ...but how?
 
-dependency-graph parses Xcode project using `XcodeProj` and interprets Package.swift files using the output from the `swift package dump-package` command. 
+dependency-graph parses Xcode project using [XcodeProj](https://github.com/tuist/XcodeProj) and interprets Package.swift files using the output from the `swift package dump-package` command. 
 
 This means that dependency-graph does not perform any package resolution or build the project, making it very fast to run the `dependency-graph` command but also produces a less detailed output that tools that rely on package resolution.
 
