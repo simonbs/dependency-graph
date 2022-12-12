@@ -3,7 +3,7 @@ import DirectedGraphXcodeHelpers
 import PackageGraphBuilder
 import PackageSwiftFile
 
-struct PackagesOnlyGraphBuilder {
+enum PackagesOnlyGraphBuilder {
     static func buildGraph(from packageSwiftFile: PackageSwiftFile) throws -> DirectedGraph {
         let graph = DirectedGraph()
         let node = graph.addUniqueNode(.package(labeled: packageSwiftFile.name))

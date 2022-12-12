@@ -3,7 +3,7 @@ import DirectedGraphXcodeHelpers
 import PackageGraphBuilder
 import PackageSwiftFile
 
-struct AllDependenciesGraphBuilder {
+enum AllDependenciesGraphBuilder {
     static func buildGraph(from packageSwiftFile: PackageSwiftFile) throws -> DirectedGraph {
         let dependencyGraphs = try packageSwiftFile.dependencies.compactMap(graph(from:))
         let graph = DirectedGraph()
@@ -29,7 +29,7 @@ struct AllDependenciesGraphBuilder {
                         let dependencyTargetNode = cluster.addUniqueNode(.target(labeled: parameters.name))
                         graph.addUniqueEdge(.from(targetNode, to: dependencyTargetNode))
                     }
-                 case .productInPackage(let parameters):
+                case .productInPackage(let parameters):
                     let packageClusterNode = graph.addPackageCluster(labeled: parameters.packageName)
                     let dependencyProductNode = packageClusterNode.addUniqueNode(.packageProduct(labeled: parameters.name))
                     graph.addUniqueEdge(.from(targetNode, to: dependencyProductNode))

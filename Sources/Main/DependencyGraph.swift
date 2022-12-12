@@ -21,7 +21,7 @@ Valid values are:
     var syntax: Syntax = .dot
 
     @Flag(name: .long, help: "Enable to only show packages in the graph, thus omitting products and targets.")
-    var packagesOnly: Bool = false
+    var packagesOnly = false
 
     // swiftlint:disable:next line_length
     @Option(name: .long, help: "Specifies the spacing between adjacement nodes in the same rank. Supported by the DOT and Mermaid.js syntaxes. Translates to the nodesep option in DOT and the nodeSpacing option in Mermaid.js.")
