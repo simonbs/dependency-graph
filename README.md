@@ -10,6 +10,8 @@ The graph below shows the relationship of the products and targets in this packa
 
 <img width="400" src="./sample-swift-package.png" alt="Example graph showing the dependencies of this package." />
 
+Nodes shaped as an ellipse represent products, e.g. the libraries in a Swift package, and the square nodes represent targets.
+
 ## 🚀 Getting Started
 
 Start off by installing the tool with [Homebrew](https://brew.sh).
