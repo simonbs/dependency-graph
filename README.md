@@ -111,7 +111,7 @@ dependency-graph --node-spacing 50 --rank-spacing 150 ~/Developer/Example | mmdc
 
 Pass the `--packages-only` flag to include only the Xcode project and Swift packages in the graph. This omits the libraries and targets within the Xcode project and Swift packages.
 
-<img width="400" src="./sample-swift-package.png" alt="Example graph showing only an Xcode project and Swift packages." />
+<img width="400" src="./sample-packages-only.png" alt="Example graph showing only an Xcode project and Swift packages." />
 
 ## 🤷‍♂️ OK, why?
 
