@@ -13,5 +13,9 @@ extension URL {
         static var examplePackageC: URL {
             return NSURL.fileURL(withPath: "/Users/simon/Developer/Example/ExamplePackageC/Package.swift")
         }
+
+        static var examplePackageD: URL {
+            return NSURL.fileURL(withPath: "/Users/simon/Developer/Example/ExamplePackageD/Package.swift")
+        }
     }
 }

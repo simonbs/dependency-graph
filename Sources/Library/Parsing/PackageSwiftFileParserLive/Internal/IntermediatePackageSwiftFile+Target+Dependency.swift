@@ -34,12 +34,12 @@ extension IntermediatePackageSwiftFile.Target {
 
 private extension IntermediatePackageSwiftFile.Target.Dependency {
     private static func decodeByName(using container: KeyedDecodingContainer<Self.CodingKeys>) throws -> Self {
-        let values = try container.decode([String?].self, forKey: .byName)
+        let values = try container.decode([ByNameComponent].self, forKey: .byName)
         guard values.count >= 1 else {
             let debugDescription = "Expected to decode at least 1 string but found \(values.count)"
             throw DecodingError.dataCorrupted(.init(codingPath: container.codingPath, debugDescription: debugDescription))
         }
-        guard case let .some(name) = values[0] else {
+        guard case let .string(name) = values[0] else {
             let debugDescription = "Expected library name to be non-null"
             throw DecodingError.dataCorrupted(.init(codingPath: container.codingPath, debugDescription: debugDescription))
         }
@@ -48,20 +48,63 @@ private extension IntermediatePackageSwiftFile.Target.Dependency {
     }
 
     private static func decodeProduct(using container: KeyedDecodingContainer<Self.CodingKeys>) throws -> Self {
-        let values = try container.decode([String?].self, forKey: .product)
+        let values = try container.decode([ProductComponent].self, forKey: .product)
         guard values.count >= 2 else {
             let debugDescription = "Expected to decode at least 2 strings but found \(values.count)"
             throw DecodingError.dataCorrupted(.init(codingPath: container.codingPath, debugDescription: debugDescription))
         }
-        guard case let .some(name) = values[0] else {
+        guard case let .string(name) = values[0] else {
             let debugDescription = "Expected library name to be non-null"
             throw DecodingError.dataCorrupted(.init(codingPath: container.codingPath, debugDescription: debugDescription))
         }
-        guard case let .some(package) = values[1] else {
+        guard case let .string(package) = values[1] else {
             let debugDescription = "Expected package name to be non-null"
             throw DecodingError.dataCorrupted(.init(codingPath: container.codingPath, debugDescription: debugDescription))
         }
         let parameters = ProductParameters(name: name, package: package)
         return .product(parameters)
+    }
+}
+
+extension IntermediatePackageSwiftFile.Target.Dependency {
+    private enum ByNameComponent: Decodable {
+        struct PlatformNamesContainer: Decodable {
+            let platformNames: [String]
+        }
+
+        case string(String)
+        case platformNamesContainer(PlatformNamesContainer)
+        case null
+
+        init(from decoder: Decoder) throws {
+            let container = try decoder.singleValueContainer()
+            if let str = try? container.decode(String.self) {
+                self = .string(str)
+            } else if let container = try? container.decode(PlatformNamesContainer.self) {
+                self = .platformNamesContainer(container)
+            } else if container.decodeNil() {
+                self = .null
+            } else {
+                let debugDescription = "Unexpected byName component"
+                throw DecodingError.dataCorrupted(.init(codingPath: container.codingPath, debugDescription: debugDescription))
+            }
+        }
+    }
+
+    private enum ProductComponent: Decodable {
+        case string(String)
+        case null
+
+        init(from decoder: Decoder) throws {
+            let container = try decoder.singleValueContainer()
+            if let str = try? container.decode(String.self) {
+                self = .string(str)
+            } else if container.decodeNil() {
+                self = .null
+            } else {
+                let debugDescription = "Unexpected product component"
+                throw DecodingError.dataCorrupted(.init(codingPath: container.codingPath, debugDescription: debugDescription))
+            }
+        }
     }
 }
