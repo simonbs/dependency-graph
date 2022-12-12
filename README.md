@@ -97,7 +97,7 @@ To generate an image with dot that is exactly 6000 pixels wide or 8000 pixels ta
 dependency-graph ~/Developer/norlys-ios/Features/Notes | dot -Tpng -Gsize=60,80\! -Gdpi=100 -o ~/Desktop/dot.png
 ```
 
-To generate an image that is exactly 6000 pixels wide with mermaid, do the following:
+To generate an image on a page that is 6000 pixels wide with mermaid, do the following:
 
 ```bash
 dependency-graph --syntax mermaid ~/Developer/Example | mmdc -o graph.png -w 6000
