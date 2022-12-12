@@ -1,0 +1,79 @@
+{
+  "cLanguageStandard" : null,
+  "cxxLanguageStandard" : null,
+  "dependencies" : [
+    {
+      "fileSystem" : [
+        {
+          "identity" : "examplepackagec",
+          "path" : "/Users/simon/Developer/Example/ExamplePackageC",
+          "productFilter" : null
+        }
+      ]
+    }
+  ],
+  "name" : "ExamplePackageD",
+  "packageKind" : {
+    "root" : [
+      "/Users/simon/Developer/Example/ExamplePackageD"
+    ]
+  },
+  "pkgConfig" : null,
+  "platforms" : [
+    {
+      "options" : [
+
+      ],
+      "platformName" : "ios",
+      "version" : "14.0"
+    }
+  ],
+  "products" : [
+    {
+      "name" : "ExampleLibraryD",
+      "settings" : [
+
+      ],
+      "targets" : [
+        "ExampleLibraryD"
+      ],
+      "type" : {
+        "library" : [
+          "automatic"
+        ]
+      }
+    }
+  ],
+  "providers" : null,
+  "swiftLanguageVersions" : null,
+  "targets" : [
+    {
+      "dependencies" : [
+        {
+          "byName" : [
+            "ExampleLibraryC",
+            {
+              "platformNames": [
+                "ios"
+              ]
+            }
+          ]
+        }
+      ],
+      "exclude" : [
+
+      ],
+      "name" : "ExampleLibraryD",
+      "resources" : [
+
+      ],
+      "settings" : [
+
+      ],
+      "type" : "regular"
+    }
+  ],
+  "toolsVersion" : {
+    "_version" : "5.7.0"
+  }
+}

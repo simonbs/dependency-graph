@@ -5,7 +5,8 @@ struct DumpPackageServiceMock: DumpPackageService {
     private let fileURLMap: [URL: URL] = [
         URL.Mock.examplePackageA: Bundle.module.url(forMockDumpPackageNamed: "example-package-a"),
         URL.Mock.examplePackageB: Bundle.module.url(forMockDumpPackageNamed: "example-package-b"),
-        URL.Mock.examplePackageC: Bundle.module.url(forMockDumpPackageNamed: "example-package-c")
+        URL.Mock.examplePackageC: Bundle.module.url(forMockDumpPackageNamed: "example-package-c"),
+        URL.Mock.examplePackageD: Bundle.module.url(forMockDumpPackageNamed: "example-package-d")
     ]
 
     func dumpPackageForSwiftPackageFile(at fileURL: URL) throws -> Data {
