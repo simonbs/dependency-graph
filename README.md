@@ -1,4 +1,4 @@
-# dependency-graph
+# 🕸️ dependency-graph
 
 [![Build and Test](https://github.com/simonbs/dependency-graph/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/simonbs/dependency-graph/actions/workflows/build_and_test.yml) [![SwiftLint](https://github.com/simonbs/dependency-graph/actions/workflows/swiftlint.yml/badge.svg)](https://github.com/simonbs/dependency-graph/actions/workflows/swiftlint.yml)
 
