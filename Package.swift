@@ -162,6 +162,9 @@ let package = Package(
         .target(name: "StringIndentHelpers", path: "Sources/Library/Utilities/StringIndentHelpers"),
 
         // Tests
+        .testTarget(name: "DirectedGraphTests", dependencies: [
+            "DirectedGraph"
+        ]),
         .testTarget(name: "DirectedGraphXcodeHelpersTests", dependencies: [
             "DirectedGraphXcodeHelpers"
         ]),

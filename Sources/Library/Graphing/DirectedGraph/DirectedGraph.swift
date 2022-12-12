@@ -23,7 +23,10 @@ public final class DirectedGraph: Equatable {
 
     @discardableResult
     public func addUniqueCluster(_ cluster: Cluster) -> Cluster {
-        if let cluster = clusters.first(where: { $0.name == cluster.name }) {
+        if let existingCluster = clusters.first(where: { $0.name == cluster.name }) {
+            for node in cluster.nodes {
+                existingCluster.addUniqueNode(node)
+            }
             return cluster
         } else {
             clusters.append(cluster)
