@@ -29,7 +29,7 @@ Valid values are:
     var rankSpacing: Float?
 
     static let configuration = CommandConfiguration(
-        abstract: "A Swift command-line tool to graph package dependencies"
+        abstract: "Generates graphs of the dependencies in an Xcode project or Swift package."
     )
 
     func run() throws {
