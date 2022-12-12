@@ -101,3 +101,9 @@ These graphs provide a good way to get an overview of a package or the relations
 <img width="400" src="./sample-xcodeproj.png" alt="Example graph showing the dependencies of an Xcode project." />
 
 ## 🧐 ...but how?
+
+dependency-graph parses Xcode project using `XcodeProj` and interprets Package.swift files using the output from the `swift package dump-package` command. 
+
+This means that dependency-graph does not perform any package resolution or build the project, making it very fast to run the `dependency-graph` command but also produces a less detailed output that tools that rely on package resolution.
+
+The tool has a focus on visualising local dependencies, that is, Swift packages stored locally in a project. dependency-graph will include remote dependencies in the visualisation but it will not clone those dependencies to deterine their dependency graph. It is technically possible to include this but it has not been necessary for my use cases.
