@@ -1,6 +1,6 @@
 import DirectedGraph
 import PackageSwiftFile
 
-public protocol PackageDependencyGraphBuilder {
+public protocol PackageGraphBuilder {
     func buildGraph(from packageSwiftFile: PackageSwiftFile) throws -> DirectedGraph
 }

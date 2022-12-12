@@ -16,13 +16,19 @@ public struct MermaidGraphMapper: DirectedGraphMapper {
 
 extension DirectedGraph {
     func stringRepresentation(withSettings settings: MermaidGraphSettings) -> String {
-        return [
-            "graph LR",
-            [
-                clusters.stringRepresentation(withSettings: settings),
-                edges.stringRepresentation
-            ].indented.joined(separator: "\n\n")
-        ].joined(separator: "\n")
+        var graphBodyLines: [String] = []
+        graphBodyLines.append(settings.stringRepresentation)
+        if !clusters.isEmpty {
+            graphBodyLines.append(clusters.stringRepresentation(withSettings: settings))
+        }
+        if !nodes.isEmpty {
+            graphBodyLines.append(nodes.stringRepresentation(withSettings: settings))
+        }
+        if !edges.isEmpty {
+            graphBodyLines.append(edges.stringRepresentation)
+        }
+        let graphBody = graphBodyLines.indented.joined(separator: "\n\n")
+        return ["graph LR", graphBody].joined(separator: "\n")
     }
 }
 
@@ -56,6 +62,12 @@ extension DirectedGraph.Edge {
 extension Array where Element == DirectedGraph.Cluster {
     func stringRepresentation(withSettings settings: MermaidGraphSettings) -> String {
         return map { $0.stringRepresentation(withSettings: settings) }.joined(separator: "\n\n")
+    }
+}
+
+extension Array where Element == DirectedGraph.Node {
+    func stringRepresentation(withSettings settings: MermaidGraphSettings) -> String {
+        return map(\.stringRepresentation).joined(separator: "\n")
     }
 }
 

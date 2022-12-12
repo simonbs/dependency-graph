@@ -1,8 +1,8 @@
 import DirectedGraph
 import XcodeProject
-import XcodeProjectDependencyGraphBuilder
+import XcodeProjectGraphBuilder
 
-struct XcodeProjectDependencyGraphBuilderMock: XcodeProjectDependencyGraphBuilder {
+struct XcodeProjectGraphBuilderMock: XcodeProjectGraphBuilder {
     func buildGraph(from xcodeProject: XcodeProject) throws -> DirectedGraph {
         return DirectedGraph()
     }

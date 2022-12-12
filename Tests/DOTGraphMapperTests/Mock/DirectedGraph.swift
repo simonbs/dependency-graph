@@ -17,4 +17,18 @@ extension DirectedGraph {
             DirectedGraph.Edge(from: fooNode, to: bazNode)
         ])
     }
+
+    static var mockWithRootNodes: DirectedGraph {
+        let fooNode = DirectedGraph.Node(name: "Foo", label: "Foo")
+        let barNode = DirectedGraph.Node(name: "Bar", label: "Bar")
+        let bazNode = DirectedGraph.Node(name: "Baz", label: "Baz", shape: .ellipse)
+        return DirectedGraph(nodes: [
+            fooNode,
+            barNode,
+            bazNode
+        ], edges: [
+            DirectedGraph.Edge(from: fooNode, to: barNode),
+            DirectedGraph.Edge(from: fooNode, to: bazNode)
+        ])
+    }
 }

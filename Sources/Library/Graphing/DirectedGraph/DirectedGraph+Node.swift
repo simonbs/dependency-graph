@@ -22,3 +22,20 @@ public extension DirectedGraph {
         }
     }
 }
+
+extension DirectedGraph.Node: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        return "\(name) [label=\(label), shape=\(shape.title)]"
+    }
+}
+
+private extension DirectedGraph.Node.Shape {
+    var title: String {
+        switch self {
+        case .box:
+            return "box"
+        case .ellipse:
+            return "ellipse"
+        }
+    }
+}

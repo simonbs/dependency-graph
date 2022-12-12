@@ -9,8 +9,8 @@ final class GraphCommandTests: XCTestCase {
         let command = GraphCommand(projectRootClassifier: ProjectRootClassifierMock(),
                                    packageSwiftFileParser: PackageSwiftFileParserMock(),
                                    xcodeProjectParser: XcodeProjectParserMock(),
-                                   packageDependencyGraphBuilder: PackageDependencyGraphBuilderMock(),
-                                   xcodeProjectDependencyGraphBuilder: XcodeProjectDependencyGraphBuilderMock(),
+                                   packageGraphBuilder: PackageGraphBuilderMock(),
+                                   xcodeProjectGraphBuilder: XcodeProjectGraphBuilderMock(),
                                    directedGraphWriterFactory: directedGraphWriterFactory)
         let fileURL = NSURL.fileURL(withPath: "/Users/simon/Developer/Example")
         try command.run(withInput: fileURL.path, syntax: .dot)
@@ -25,8 +25,8 @@ final class GraphCommandTests: XCTestCase {
         let command = GraphCommand(projectRootClassifier: ProjectRootClassifierMock(),
                                    packageSwiftFileParser: PackageSwiftFileParserMock(),
                                    xcodeProjectParser: XcodeProjectParserMock(),
-                                   packageDependencyGraphBuilder: PackageDependencyGraphBuilderMock(),
-                                   xcodeProjectDependencyGraphBuilder: XcodeProjectDependencyGraphBuilderMock(),
+                                   packageGraphBuilder: PackageGraphBuilderMock(),
+                                   xcodeProjectGraphBuilder: XcodeProjectGraphBuilderMock(),
                                    directedGraphWriterFactory: directedGraphWriterFactory)
         let fileURL = NSURL.fileURL(withPath: "/Users/simon/Developer/Example")
         try command.run(withInput: fileURL.path, syntax: .mermaid)

@@ -26,8 +26,8 @@ let package = Package(
             "GraphCommand",
             "MappingDirectedGraphWriter",
             "MermaidGraphMapper",
-            "PackageDependencyGraphBuilder",
-            "PackageDependencyGraphBuilderLive",
+            "PackageGraphBuilder",
+            "PackageGraphBuilderLive",
             "PackageSwiftFileParser",
             "PackageSwiftFileParserCache",
             "PackageSwiftFileParserCacheLive",
@@ -37,8 +37,8 @@ let package = Package(
             "ShellCommandRunner",
             "ShellCommandRunnerLive",
             "StdoutWriter",
-            "XcodeProjectDependencyGraphBuilder",
-            "XcodeProjectDependencyGraphBuilderLive",
+            "XcodeProjectGraphBuilder",
+            "XcodeProjectGraphBuilderLive",
             "XcodeProjectParser",
             "XcodeProjectParserLive"
         ]),
@@ -46,11 +46,11 @@ let package = Package(
         // Sources/Library/Commands
         .target(name: "GraphCommand", dependencies: [
             "DirectedGraphWriter",
-            "PackageDependencyGraphBuilder",
+            "PackageGraphBuilder",
             "PackageSwiftFileParser",
             "ProjectRootClassifier",
             "XcodeProjectParser",
-            "XcodeProjectDependencyGraphBuilder"
+            "XcodeProjectGraphBuilder"
         ], path: "Sources/Library/Commands/GraphCommand"),
 
         // Sources/Library/Graphing
@@ -71,30 +71,30 @@ let package = Package(
             "DirectedGraphMapper",
             "StringIndentHelpers"
         ], path: "Sources/Library/Graphing/MermaidGraphMapper"),
-        .target(name: "PackageDependencyGraphBuilder", dependencies: [
+        .target(name: "PackageGraphBuilder", dependencies: [
             "DirectedGraph",
             "PackageSwiftFile"
-        ], path: "Sources/Library/Graphing/PackageDependencyGraphBuilder"),
-        .target(name: "PackageDependencyGraphBuilderLive", dependencies: [
+        ], path: "Sources/Library/Graphing/PackageGraphBuilder"),
+        .target(name: "PackageGraphBuilderLive", dependencies: [
             "DirectedGraph",
             "DirectedGraphXcodeHelpers",
-            "PackageDependencyGraphBuilder",
+            "PackageGraphBuilder",
             "PackageSwiftFile"
-        ], path: "Sources/Library/Graphing/PackageDependencyGraphBuilderLive"),
-        .target(name: "XcodeProjectDependencyGraphBuilder", dependencies: [
+        ], path: "Sources/Library/Graphing/PackageGraphBuilderLive"),
+        .target(name: "XcodeProjectGraphBuilder", dependencies: [
             "DirectedGraph",
-            "PackageDependencyGraphBuilder",
+            "PackageGraphBuilder",
             "XcodeProject"
-        ], path: "Sources/Library/Graphing/XcodeProjectDependencyGraphBuilder"),
-        .target(name: "XcodeProjectDependencyGraphBuilderLive", dependencies: [
+        ], path: "Sources/Library/Graphing/XcodeProjectGraphBuilder"),
+        .target(name: "XcodeProjectGraphBuilderLive", dependencies: [
             "DirectedGraph",
             "DirectedGraphXcodeHelpers",
-            "PackageDependencyGraphBuilder",
+            "PackageGraphBuilder",
             "PackageSwiftFile",
             "PackageSwiftFileParser",
-            "XcodeProjectDependencyGraphBuilder",
+            "XcodeProjectGraphBuilder",
             "XcodeProject"
-        ], path: "Sources/Library/Graphing/XcodeProjectDependencyGraphBuilderLive"),
+        ], path: "Sources/Library/Graphing/XcodeProjectGraphBuilderLive"),
 
         // Sources/Library/Parsing
         .target(name: "DumpPackageService", path: "Sources/Library/Parsing/DumpPackageService"),
@@ -183,10 +183,10 @@ let package = Package(
             "DirectedGraph",
             "MermaidGraphMapper"
         ]),
-        .testTarget(name: "PackageDependencyGraphBuilderLiveTests", dependencies: [
+        .testTarget(name: "PackageGraphBuilderLiveTests", dependencies: [
             "DirectedGraph",
             "DirectedGraphXcodeHelpers",
-            "PackageDependencyGraphBuilderLive",
+            "PackageGraphBuilderLive",
             "PackageSwiftFile"
         ]),
         .testTarget(name: "PackageSwiftFileParserLiveTests", dependencies: [
@@ -202,12 +202,12 @@ let package = Package(
         .testTarget(name: "StringIndentHelpersTests", dependencies: [
             "StringIndentHelpers"
         ]),
-        .testTarget(name: "XcodeProjectDependencyGraphBuilderLiveTests", dependencies: [
+        .testTarget(name: "XcodeProjectGraphBuilderLiveTests", dependencies: [
             "DirectedGraph",
             "DirectedGraphXcodeHelpers",
-            "PackageDependencyGraphBuilder",
+            "PackageGraphBuilder",
             "PackageSwiftFileParser",
-            "XcodeProjectDependencyGraphBuilderLive",
+            "XcodeProjectGraphBuilderLive",
             "XcodeProject"
         ]),
         .testTarget(name: "XcodeProjectParserLiveTests", dependencies: [

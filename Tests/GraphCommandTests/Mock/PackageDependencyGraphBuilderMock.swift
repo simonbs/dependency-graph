@@ -1,8 +1,8 @@
 import DirectedGraph
-import PackageDependencyGraphBuilder
+import PackageGraphBuilder
 import PackageSwiftFile
 
-struct PackageDependencyGraphBuilderMock: PackageDependencyGraphBuilder {
+struct PackageGraphBuilderMock: PackageGraphBuilder {
     func buildGraph(from packageSwiftFile: PackageSwiftFile) throws -> DirectedGraph {
         return DirectedGraph()
     }
