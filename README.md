@@ -51,7 +51,7 @@ Library A in Package A depends on Library B in Package B
 
 The output of the tool would be a graph that looks like this:
 
-```
+```dot
 digraph g {
   subgraph cluster_packageA {
     label="Package A"
