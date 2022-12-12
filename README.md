@@ -89,6 +89,26 @@ npm install -g @mermaid-js/mermaid-cli
 dependency-graph --syntax mermaid ~/Developer/Example | mmdc -o graph.svg
 ```
 
+When rendering the graph to a PNG, you will likely want to specify the size of the output to ensure it is readable. You can do this with both the dot and mermaid CLIs.
+
+To generate an image with dot that is exactly 6000 pixels wide or 8000 pixels tall but not necessarily both, do the following:
+
+```bash
+dependency-graph ~/Developer/norlys-ios/Features/Notes | dot -Tpng -Gsize=60,80\! -Gdpi=100 -o ~/Desktop/dot.png
+```
+
+To generate an image that is exactly 6000 pixels wide with mermaid, do the following:
+
+```bash
+dependency-graph --syntax mermaid ~/Developer/Example | mmdc -o graph.png -w 6000
+```
+
+You may also want to play around with the values for `--node-spacing` and `--rank-spacing` to increase the readability of the graph.
+
+```bash
+dependency-graph --node-spacing 50 --rank-spacing 150 ~/Developer/Example | mmdc -o graph.png
+```
+
 ## 🤷‍♂️ OK, why?
 
 As I'm splitting my iOS and macOS applications into small Swift packages with several small targets, I started wishing for a way to visualise the relationship between the products and targets in my Swift packages. That's why I built this tool.
