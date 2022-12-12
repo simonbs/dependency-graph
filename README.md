@@ -1,4 +1,4 @@
-# dependency-graph
+# 🕸️ dependency-graph
 
 [![Build and Test](https://github.com/simonbs/dependency-graph/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/simonbs/dependency-graph/actions/workflows/build_and_test.yml) [![SwiftLint](https://github.com/simonbs/dependency-graph/actions/workflows/swiftlint.yml/badge.svg)](https://github.com/simonbs/dependency-graph/actions/workflows/swiftlint.yml)
 
@@ -17,7 +17,7 @@ Nodes shaped as an ellipse represent products, e.g. the libraries in a Swift pac
 Start off by installing the tool with [Homebrew](https://brew.sh).
 
 ```bash
-brew tap simonbs/dependency-graph git@github.com:simonbs/dependency-graph.git
+brew tap simonbs/dependency-graph https://github.com/simonbs/dependency-graph.git
 brew install dependency-graph
 ```
 
@@ -80,7 +80,7 @@ brew install graphviz
 dependency-graph ~/Developer/Example | dot -Tsvg -o graph.svg
 ```
 
-The output previous example output would look different but similar when using [the Mermaid diagram syntax](https://mermaid-js.github.io/mermaid/#/flowchart) instead. The syntax is used by passing the `--syntax mermaid` option.
+The previous example output would look different but similar when using [the Mermaid diagram syntax](https://mermaid-js.github.io/mermaid/#/flowchart) instead. The syntax is used by passing the `--syntax mermaid` option.
 
 Output in the Mermaid diagram syntax can be rendered to an image using the [the mermaid cli](https://github.com/mermaid-js/mermaid-cli).
 
@@ -109,6 +109,10 @@ You may also want to play around with the values for `--node-spacing` and `--ran
 dependency-graph --node-spacing 50 --rank-spacing 150 ~/Developer/Example | mmdc -o graph.png
 ```
 
+Pass the `--packages-only` flag to include only the Xcode project and Swift packages in the graph. This omits the libraries and targets within the Xcode project and Swift packages.
+
+<img width="400" src="./sample-swift-package.png" alt="Example graph showing only an Xcode project and Swift packages." />
+
 ## 🤷‍♂️ OK, why?
 
 As I'm splitting my iOS and macOS applications into small Swift packages with several small targets, I started wishing for a way to visualise the relationship between the products and targets in my Swift packages. That's why I built this tool.
@@ -124,7 +128,7 @@ These graphs provide a good way to get an overview of a package or the relations
 
 ## 🧐 ...but how?
 
-dependency-graph parses Xcode project using `XcodeProj` and interprets Package.swift files using the output from the `swift package dump-package` command. 
+dependency-graph parses Xcode project using [XcodeProj](https://github.com/tuist/XcodeProj) and interprets Package.swift files using the output from the `swift package dump-package` command. 
 
 This means that dependency-graph does not perform any package resolution or build the project, making it very fast to run the `dependency-graph` command but also produces a less detailed output that tools that rely on package resolution.
 
