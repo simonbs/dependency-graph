@@ -37,7 +37,7 @@ Generates graphs of the dependencies in an Xcode project or Swift package.
 
 Nodes shaped as an ellipse represent products, e.g. the libraries in a Swift package, and the square nodes represent targets.
 """,
-        version: "1.0.0"
+        version: "1.1.0"
     )
 
     func run() throws {
