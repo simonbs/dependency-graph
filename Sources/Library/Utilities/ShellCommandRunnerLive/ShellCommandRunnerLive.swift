@@ -13,8 +13,8 @@ public struct ShellCommandRunnerLive: ShellCommandRunner {
         task.launchPath = "/bin/zsh"
         task.standardInput = nil
         task.launch()
-        task.waitUntilExit()
         let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        task.waitUntilExit()
         let message = String(data: data, encoding: .utf8)!
         let status = task.terminationStatus
         return ShellCommandOutput(status: status, message: message)
