@@ -2,7 +2,7 @@
 
 [![Build and Test](https://github.com/simonbs/dependency-graph/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/simonbs/dependency-graph/actions/workflows/build_and_test.yml) [![SwiftLint](https://github.com/simonbs/dependency-graph/actions/workflows/swiftlint.yml/badge.svg)](https://github.com/simonbs/dependency-graph/actions/workflows/swiftlint.yml)
 
-dependency-graph is a command-line tool that can visualize the dependencies of packages. The tool takes the path to an Xcode project or a Package.swift file as input and outputs a graph that shows the dependencies of the packages in the project or file.
+dependency-graph is a command-line tool that can visualize the dependencies of packages. The tool takes the path to an Xcode project or a Package.swift file as input and outputs a graph that shows the dependencies of the packages in the project or package.
 
 ## 👀 Sample
 
