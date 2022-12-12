@@ -1,13 +1,12 @@
 import DirectedGraph
 import DirectedGraphXcodeHelpers
-@testable import PackageDependencyGraphBuilderLive
+@testable import PackageGraphBuilderLive
 import PackageSwiftFile
 import XCTest
 
-final class PackageDependencyGraphBuilderLiveTests: XCTestCase {
+final class PackageGraphBuilderLiveTests: XCTestCase {
     func testParsesPackageWithNoDependencies() throws {
-        let extractedExpr = PackageDependencyGraphBuilderLive()
-        let graphBuilder = extractedExpr
+        let graphBuilder = PackageGraphBuilderLive(packagesOnly: false)
         let graph = try graphBuilder.buildGraph(from: .noDependenciesMock)
         let packageProductNode: DirectedGraph.Node = .packageProduct(labeled: "ExampleLibraryA")
         let targetNode: DirectedGraph.Node = .target(labeled: "ExampleLibraryA")
@@ -23,7 +22,7 @@ final class PackageDependencyGraphBuilderLiveTests: XCTestCase {
     }
 
     func testParsesPackageWithDependencies() throws {
-        let graphBuilder = PackageDependencyGraphBuilderLive()
+        let graphBuilder = PackageGraphBuilderLive(packagesOnly: false)
         let graph = try graphBuilder.buildGraph(from: .withDependenciesMock)
 
         let packageProductNodeA: DirectedGraph.Node = .packageProduct(labeled: "ExampleLibraryA")
@@ -51,12 +50,25 @@ final class PackageDependencyGraphBuilderLiveTests: XCTestCase {
                 targetNodeA
             ])
         ], edges: [
-            .from(packageProductNodeA, to: targetNodeA),
-            .from(packageProductNodeA, to: packageProductNodeB),
+            .from(packageProductNodeC, to: targetNodeC),
             .from(packageProductNodeB, to: targetNodeB),
             .from(targetNodeB, to: targetNodeBFoo),
             .from(targetNodeB, to: packageProductNodeC),
-            .from(packageProductNodeC, to: targetNodeC)
+            .from(packageProductNodeA, to: targetNodeA),
+            .from(targetNodeA, to: packageProductNodeB)
+        ])
+        XCTAssertEqual(graph, expectedGraph)
+    }
+
+    func testBuildsGraphWithPackagesOnly() throws {
+        let graphBuilder = PackageGraphBuilderLive(packagesOnly: true)
+        let graph = try graphBuilder.buildGraph(from: .withDependenciesMock)
+        let nodeA: DirectedGraph.Node = .package(labeled: "ExamplePackageA")
+        let nodeB: DirectedGraph.Node = .package(labeled: "ExamplePackageB")
+        let nodeC: DirectedGraph.Node = .package(labeled: "ExamplePackageC")
+        let expectedGraph = DirectedGraph(nodes: [nodeA, nodeB, nodeC], edges: [
+            .from(nodeB, to: nodeC),
+            .from(nodeA, to: nodeB)
         ])
         XCTAssertEqual(graph, expectedGraph)
     }

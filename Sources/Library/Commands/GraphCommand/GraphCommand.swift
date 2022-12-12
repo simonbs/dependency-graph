@@ -1,10 +1,10 @@
 import DirectedGraphMapper
 import Foundation
-import PackageDependencyGraphBuilder
+import PackageGraphBuilder
 import PackageSwiftFileParser
 import ProjectRootClassifier
 import StdoutWriter
-import XcodeProjectDependencyGraphBuilder
+import XcodeProjectGraphBuilder
 import XcodeProjectParser
 
 private enum GraphCommandError: LocalizedError {
@@ -22,21 +22,21 @@ public struct GraphCommand {
     private let projectRootClassifier: ProjectRootClassifier
     private let packageSwiftFileParser: PackageSwiftFileParser
     private let xcodeProjectParser: XcodeProjectParser
-    private let packageDependencyGraphBuilder: PackageDependencyGraphBuilder
-    private let xcodeProjectDependencyGraphBuilder: XcodeProjectDependencyGraphBuilder
+    private let packageGraphBuilder: PackageGraphBuilder
+    private let xcodeProjectGraphBuilder: XcodeProjectGraphBuilder
     private let directedGraphWriterFactory: DirectedGraphWriterFactory
 
     public init(projectRootClassifier: ProjectRootClassifier,
                 packageSwiftFileParser: PackageSwiftFileParser,
                 xcodeProjectParser: XcodeProjectParser,
-                packageDependencyGraphBuilder: PackageDependencyGraphBuilder,
-                xcodeProjectDependencyGraphBuilder: XcodeProjectDependencyGraphBuilder,
+                packageGraphBuilder: PackageGraphBuilder,
+                xcodeProjectGraphBuilder: XcodeProjectGraphBuilder,
                 directedGraphWriterFactory: DirectedGraphWriterFactory) {
         self.projectRootClassifier = projectRootClassifier
         self.xcodeProjectParser = xcodeProjectParser
         self.packageSwiftFileParser = packageSwiftFileParser
-        self.packageDependencyGraphBuilder = packageDependencyGraphBuilder
-        self.xcodeProjectDependencyGraphBuilder = xcodeProjectDependencyGraphBuilder
+        self.packageGraphBuilder = packageGraphBuilder
+        self.xcodeProjectGraphBuilder = xcodeProjectGraphBuilder
         self.directedGraphWriterFactory = directedGraphWriterFactory
     }
 
@@ -47,11 +47,11 @@ public struct GraphCommand {
         switch projectRoot {
         case .xcodeproj(let xcodeprojFileURL):
             let xcodeProject = try xcodeProjectParser.parseProject(at: xcodeprojFileURL)
-            let graph = try xcodeProjectDependencyGraphBuilder.buildGraph(from: xcodeProject)
+            let graph = try xcodeProjectGraphBuilder.buildGraph(from: xcodeProject)
             try directedGraphWriter.write(graph)
         case .packageSwiftFile(let packageSwiftFileURL):
             let packageSwiftFile = try packageSwiftFileParser.parseFile(at: packageSwiftFileURL)
-            let graph = try packageDependencyGraphBuilder.buildGraph(from: packageSwiftFile)
+            let graph = try packageGraphBuilder.buildGraph(from: packageSwiftFile)
             try directedGraphWriter.write(graph)
         case .unknown:
             throw GraphCommandError.unknownProject(fileURL)

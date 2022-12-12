@@ -66,9 +66,6 @@ private extension PackageSwiftFile {
                 PackageSwiftFile.Product(name: "ExampleLibraryC", targets: ["ExampleLibraryC"])
             ],
             targets: [
-                PackageSwiftFile.Target(name: "ExampleLibraryC", dependencies: [
-                    .name("ExampleLibraryC")
-                ]),
                 PackageSwiftFile.Target(name: "ExampleLibraryC")
             ]
         )

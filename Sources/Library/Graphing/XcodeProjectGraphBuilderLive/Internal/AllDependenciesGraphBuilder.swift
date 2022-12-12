@@ -1,30 +1,19 @@
 import DirectedGraph
 import DirectedGraphXcodeHelpers
 import Foundation
-import PackageDependencyGraphBuilder
+import PackageGraphBuilder
 import PackageSwiftFile
 import PackageSwiftFileParser
 import XcodeProject
-import XcodeProjectDependencyGraphBuilder
+import XcodeProjectGraphBuilder
 
-public enum XcodeProjectDependencyGraphBuilderLiveError: LocalizedError {
-    case dependencyNotFound(dependency: String, dependant: String)
-
-    public var errorDescription: String? {
-        switch self {
-        case let .dependencyNotFound(dependency, dependant):
-            return "\(dependant) depends on \(dependency) but the dependency was not found in the graph."
-        }
-    }
-}
-
-public final class XcodeProjectDependencyGraphBuilderLive: XcodeProjectDependencyGraphBuilder {
+public struct AllDependenciesGraphBuilder {
     private let packageSwiftFileParser: PackageSwiftFileParser
-    private let packageDependencyGraphBuilder: PackageDependencyGraphBuilder
+    private let packageGraphBuilder: PackageGraphBuilder
 
-    public init(packageSwiftFileParser: PackageSwiftFileParser, packageDependencyGraphBuilder: PackageDependencyGraphBuilder) {
+    public init(packageSwiftFileParser: PackageSwiftFileParser, packageGraphBuilder: PackageGraphBuilder) {
         self.packageSwiftFileParser = packageSwiftFileParser
-        self.packageDependencyGraphBuilder = packageDependencyGraphBuilder
+        self.packageGraphBuilder = packageGraphBuilder
     }
 
     public func buildGraph(from xcodeProject: XcodeProject) throws -> DirectedGraph {
@@ -34,15 +23,12 @@ public final class XcodeProjectDependencyGraphBuilderLive: XcodeProjectDependenc
         }
         let projectCluster = graph.addProjectCluster(labeled: xcodeProject.name)
         for target in xcodeProject.targets {
-            let targetNode = projectCluster.addTargetNode(labeled: target.name)
+            let targetNode = projectCluster.addUniqueNode(.target(labeled: target.name))
             for dependency in target.packageProductDependencies {
                 if let destinationNode = graph.packageProductNode(labeled: dependency) {
                     graph.addUniqueEdge(.from(targetNode, to: destinationNode))
                 } else {
-                    throw XcodeProjectDependencyGraphBuilderLiveError.dependencyNotFound(
-                        dependency: dependency,
-                        dependant: target.name
-                    )
+                    throw XcodeProjectGraphBuilderLiveError.dependencyNotFound(dependency: dependency, dependant: target.name)
                 }
             }
         }
@@ -50,17 +36,17 @@ public final class XcodeProjectDependencyGraphBuilderLive: XcodeProjectDependenc
     }
 }
 
-private extension XcodeProjectDependencyGraphBuilderLive {
+private extension AllDependenciesGraphBuilder {
     private func process(_ swiftPackage: XcodeProject.SwiftPackage, into graph: DirectedGraph) throws {
         switch swiftPackage {
         case .local(let parameters):
             let packageSwiftFile = try packageSwiftFileParser.parseFile(at: parameters.fileURL)
-            let childGraph = try packageDependencyGraphBuilder.buildGraph(from: packageSwiftFile)
-            graph.addSubgraph(childGraph)
+            let childGraph = try packageGraphBuilder.buildGraph(from: packageSwiftFile)
+            graph.union(childGraph)
         case .remote(let parameters):
             let cluster = graph.addPackageCluster(labeled: parameters.name)
             for product in parameters.products {
-                cluster.addPackageProductNode(labeled: product)
+                cluster.addUniqueNode(.packageProduct(labeled: product))
             }
         }
     }

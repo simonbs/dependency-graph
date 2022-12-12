@@ -20,6 +20,9 @@ Valid values are:
 """)
     var syntax: Syntax = .dot
 
+    @Flag(name: .long, help: "Enable to only show packages in the graph, thus omitting products and targets.")
+    var packagesOnly = false
+
     // swiftlint:disable:next line_length
     @Option(name: .long, help: "Specifies the spacing between adjacement nodes in the same rank. Supported by the DOT and Mermaid.js syntaxes. Translates to the nodesep option in DOT and the nodeSpacing option in Mermaid.js.")
     var nodeSpacing: Float?
@@ -38,7 +41,7 @@ Nodes shaped as an ellipse represent products, e.g. the libraries in a Swift pac
     )
 
     func run() throws {
-        let command = CompositionRoot.graphCommand(nodeSpacing: nodeSpacing, rankSpacing: rankSpacing)
+        let command = CompositionRoot.graphCommand(packagesOnly: packagesOnly, nodeSpacing: nodeSpacing, rankSpacing: rankSpacing)
         try command.run(withInput: input, syntax: syntax)
     }
 }

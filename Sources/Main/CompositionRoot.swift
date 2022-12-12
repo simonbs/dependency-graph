@@ -8,8 +8,8 @@ import FileSystemLive
 import GraphCommand
 import MappingDirectedGraphWriter
 import MermaidGraphMapper
-import PackageDependencyGraphBuilder
-import PackageDependencyGraphBuilderLive
+import PackageGraphBuilder
+import PackageGraphBuilderLive
 import PackageSwiftFileParser
 import PackageSwiftFileParserCache
 import PackageSwiftFileParserCacheLive
@@ -19,19 +19,19 @@ import ProjectRootClassifierLive
 import ShellCommandRunner
 import ShellCommandRunnerLive
 import StdoutWriter
-import XcodeProjectDependencyGraphBuilder
-import XcodeProjectDependencyGraphBuilderLive
+import XcodeProjectGraphBuilder
+import XcodeProjectGraphBuilderLive
 import XcodeProjectParser
 import XcodeProjectParserLive
 
 public enum CompositionRoot {
-    static func graphCommand(nodeSpacing: Float?, rankSpacing: Float?) -> GraphCommand {
+    static func graphCommand(packagesOnly: Bool, nodeSpacing: Float?, rankSpacing: Float?) -> GraphCommand {
         let directedGraphWriterFactory = directedGraphWriterFactory(nodeSpacing: nodeSpacing, rankSpacing: rankSpacing)
         return GraphCommand(projectRootClassifier: projectRootClassifier,
                             packageSwiftFileParser: packageSwiftFileParser,
                             xcodeProjectParser: xcodeProjectParser,
-                            packageDependencyGraphBuilder: packageDependencyGraphBuilder,
-                            xcodeProjectDependencyGraphBuilder: xcodeProjectDependencyGraphBuilder,
+                            packageGraphBuilder: packageGraphBuilder(packagesOnly: packagesOnly),
+                            xcodeProjectGraphBuilder: xcodeProjectGraphBuilder(packagesOnly: packagesOnly),
                             directedGraphWriterFactory: directedGraphWriterFactory)
     }
 }
@@ -63,8 +63,8 @@ private extension CompositionRoot {
         return MappingDirectedGraphWriter(mapper: mapper, writer: stdoutWriter)
     }
 
-    private static var packageDependencyGraphBuilder: PackageDependencyGraphBuilder {
-        return PackageDependencyGraphBuilderLive()
+    private static func packageGraphBuilder(packagesOnly: Bool) -> PackageGraphBuilder {
+        return PackageGraphBuilderLive(packagesOnly: packagesOnly)
     }
 
     private static var packageSwiftFileParser: PackageSwiftFileParser {
@@ -85,9 +85,10 @@ private extension CompositionRoot {
         return StdoutWriter()
     }
 
-    private static var xcodeProjectDependencyGraphBuilder: XcodeProjectDependencyGraphBuilder {
-        return XcodeProjectDependencyGraphBuilderLive(packageSwiftFileParser: packageSwiftFileParser,
-                                                      packageDependencyGraphBuilder: packageDependencyGraphBuilder)
+    private static func xcodeProjectGraphBuilder(packagesOnly: Bool) -> XcodeProjectGraphBuilder {
+        return XcodeProjectGraphBuilderLive(packageSwiftFileParser: packageSwiftFileParser,
+                                            packageGraphBuilder: packageGraphBuilder(packagesOnly: packagesOnly),
+                                            packagesOnly: packagesOnly)
     }
 
     private static var xcodeProjectParser: XcodeProjectParser {

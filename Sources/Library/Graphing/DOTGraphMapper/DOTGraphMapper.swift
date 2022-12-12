@@ -16,15 +16,19 @@ public struct DOTGraphMapper: DirectedGraphMapper {
 
 extension DirectedGraph {
     func stringRepresentation(withSetings settings: DOTGraphSettings) -> String {
-        return [
-            "digraph g {",
-            [
-                settings.stringRepresentation,
-                clusters.stringRepresentation,
-                edges.stringRepresentation
-            ].indented.joined(separator: "\n\n"),
-            "}"
-        ].joined(separator: "\n")
+        var graphBodyLines: [String] = []
+        graphBodyLines.append(settings.stringRepresentation)
+        if !clusters.isEmpty {
+            graphBodyLines.append(clusters.stringRepresentation)
+        }
+        if !nodes.isEmpty {
+            graphBodyLines.append(nodes.stringRepresentation)
+        }
+        if !edges.isEmpty {
+            graphBodyLines.append(edges.stringRepresentation)
+        }
+        let graphBody = graphBodyLines.indented.joined(separator: "\n\n")
+        return ["digraph g {", graphBody, "}"].joined(separator: "\n")
     }
 }
 
@@ -60,6 +64,12 @@ extension DirectedGraph.Edge {
 extension Array where Element == DirectedGraph.Cluster {
     var stringRepresentation: String {
         return map(\.stringRepresentation).joined(separator: "\n\n")
+    }
+}
+
+extension Array where Element == DirectedGraph.Node {
+    var stringRepresentation: String {
+        return map(\.stringRepresentation).joined(separator: "\n")
     }
 }
 

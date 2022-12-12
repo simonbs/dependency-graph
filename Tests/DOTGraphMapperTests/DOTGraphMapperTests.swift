@@ -34,4 +34,26 @@ digraph g {
 """
         XCTAssertEqual(string, expectedString)
     }
+
+    func testMapsGraphWithRootNodesToDotSyntax() throws {
+        let settings = DOTGraphSettings(nodesep: 1.5, ranksep: 1.2)
+        let mapper = DOTGraphMapper(settings: settings)
+        let string = try mapper.map(.mockWithRootNodes)
+        let expectedString = """
+digraph g {
+  layout=dot
+  rankdir=LR
+  nodesep=1.5
+  ranksep=1.2
+
+  Foo [label="Foo", shape=box]
+  Bar [label="Bar", shape=box]
+  Baz [label="Baz", shape=ellipse]
+
+  Foo -> Bar
+  Foo -> Baz
+}
+"""
+        XCTAssertEqual(string, expectedString)
+    }
 }

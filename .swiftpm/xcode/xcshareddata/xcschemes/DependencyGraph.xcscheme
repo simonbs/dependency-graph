@@ -664,6 +664,132 @@
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DirectedGraphClustersOnlyMapper"
+               BuildableName = "DirectedGraphClustersOnlyMapper"
+               BlueprintName = "DirectedGraphClustersOnlyMapper"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DirectedGraphIdentityMapper"
+               BuildableName = "DirectedGraphIdentityMapper"
+               BlueprintName = "DirectedGraphIdentityMapper"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "GraphBuilder"
+               BuildableName = "GraphBuilder"
+               BlueprintName = "GraphBuilder"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "PackageGraphBuilderAllDependencies"
+               BuildableName = "PackageGraphBuilderAllDependencies"
+               BlueprintName = "PackageGraphBuilderAllDependencies"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "XcodeProjectGraphBuilderAllDependencies"
+               BuildableName = "XcodeProjectGraphBuilderAllDependencies"
+               BlueprintName = "XcodeProjectGraphBuilderAllDependencies"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "XcodeProjectGraphBuilder"
+               BuildableName = "XcodeProjectGraphBuilder"
+               BlueprintName = "XcodeProjectGraphBuilder"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "PackageGraphBuilder"
+               BuildableName = "PackageGraphBuilder"
+               BlueprintName = "PackageGraphBuilder"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "PackageGraphBuilderLive"
+               BuildableName = "PackageGraphBuilderLive"
+               BlueprintName = "PackageGraphBuilderLive"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "XcodeProjectGraphBuilderLive"
+               BuildableName = "XcodeProjectGraphBuilderLive"
+               BlueprintName = "XcodeProjectGraphBuilderLive"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -789,6 +915,86 @@
                BlueprintIdentifier = "XcodeProjectParserLiveTests"
                BuildableName = "XcodeProjectParserLiveTests"
                BlueprintName = "XcodeProjectParserLiveTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DirectedGraphIdentityMapperTests"
+               BuildableName = "DirectedGraphIdentityMapperTests"
+               BlueprintName = "DirectedGraphIdentityMapperTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DirectedGraphClustersOnlyMapperTests"
+               BuildableName = "DirectedGraphClustersOnlyMapperTests"
+               BlueprintName = "DirectedGraphClustersOnlyMapperTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "PackageDependencyGraphBuilderTests"
+               BuildableName = "PackageDependencyGraphBuilderTests"
+               BlueprintName = "PackageDependencyGraphBuilderTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "XcodeProjectDependencyGraphBuilderTests"
+               BuildableName = "XcodeProjectDependencyGraphBuilderTests"
+               BlueprintName = "XcodeProjectDependencyGraphBuilderTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "PackageGraphBuilderAllDependenciesTests"
+               BuildableName = "PackageGraphBuilderAllDependenciesTests"
+               BlueprintName = "PackageGraphBuilderAllDependenciesTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "XcodeProjectGraphBuilderAllDependenciesTests"
+               BuildableName = "XcodeProjectGraphBuilderAllDependenciesTests"
+               BlueprintName = "XcodeProjectGraphBuilderAllDependenciesTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "PackageGraphBuilderLiveTests"
+               BuildableName = "PackageGraphBuilderLiveTests"
+               BlueprintName = "PackageGraphBuilderLiveTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "XcodeProjectGraphBuilderLiveTests"
+               BuildableName = "XcodeProjectGraphBuilderLiveTests"
+               BlueprintName = "XcodeProjectGraphBuilderLiveTests"
                ReferencedContainer = "container:">
             </BuildableReference>
          </TestableReference>

@@ -19,3 +19,9 @@ public extension DirectedGraph {
         }
     }
 }
+
+extension DirectedGraph.Edge: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        return "\(sourceNode.name) -> \(destinationNode.name)"
+    }
+}

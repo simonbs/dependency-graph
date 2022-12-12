@@ -80,7 +80,7 @@ brew install graphviz
 dependency-graph ~/Developer/Example | dot -Tsvg -o graph.svg
 ```
 
-The output previous example output would look different but similar when using [the Mermaid diagram syntax](https://mermaid-js.github.io/mermaid/#/flowchart) instead. The syntax is used by passing the `--syntax mermaid` option.
+The previous example output would look different but similar when using [the Mermaid diagram syntax](https://mermaid-js.github.io/mermaid/#/flowchart) instead. The syntax is used by passing the `--syntax mermaid` option.
 
 Output in the Mermaid diagram syntax can be rendered to an image using the [the mermaid cli](https://github.com/mermaid-js/mermaid-cli).
 
@@ -108,6 +108,10 @@ You may also want to play around with the values for `--node-spacing` and `--ran
 ```bash
 dependency-graph --node-spacing 50 --rank-spacing 150 ~/Developer/Example | mmdc -o graph.png
 ```
+
+Pass the `--packages-only` flag to include only the Xcode project and Swift packages in the graph. This omits the libraries and targets within the Xcode project and Swift packages.
+
+<img width="400" src="./sample-swift-package.png" alt="Example graph showing only an Xcode project and Swift packages." />
 
 ## 🤷‍♂️ OK, why?
 
