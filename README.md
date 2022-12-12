@@ -17,7 +17,7 @@ Nodes shaped as an ellipse represent products, e.g. the libraries in a Swift pac
 Start off by installing the tool with [Homebrew](https://brew.sh).
 
 ```bash
-brew tap simonbs/dependency-graph git@github.com:simonbs/dependency-graph.git
+brew tap simonbs/dependency-graph https://github.com/simonbs/dependency-graph.git
 brew install dependency-graph
 ```
 
