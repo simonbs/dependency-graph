@@ -29,7 +29,11 @@ Valid values are:
     var rankSpacing: Float?
 
     static let configuration = CommandConfiguration(
-        abstract: "Generates graphs of the dependencies in an Xcode project or Swift package.",
+        abstract: """
+Generates graphs of the dependencies in an Xcode project or Swift package.
+
+Nodes shaped as an ellipse represent products, e.g. the libraries in a Swift package, and the square nodes represent targets.
+""",
         version: "1.0.0"
     )
 
