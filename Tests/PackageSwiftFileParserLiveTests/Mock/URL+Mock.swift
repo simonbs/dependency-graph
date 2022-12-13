@@ -2,20 +2,28 @@ import Foundation
 
 extension URL {
     enum Mock {
-        static var examplePackageA: URL {
-            return NSURL.fileURL(withPath: "/Users/simon/Developer/Example/ExamplePackageA/Package.swift")
+        enum Example {
+            static var packageA: URL {
+                return NSURL.fileURL(withPath: "/Users/simon/Developer/Example/PackageA/Package.swift")
+            }
+
+            static var packageB: URL {
+                return NSURL.fileURL(withPath: "/Users/simon/Developer/Example/PackageB/Package.swift")
+            }
+
+            static var packageC: URL {
+                return NSURL.fileURL(withPath: "/Users/simon/Developer/Example/PackageC/Package.swift")
+            }
         }
 
-        static var examplePackageB: URL {
-            return NSURL.fileURL(withPath: "/Users/simon/Developer/Example/ExamplePackageB/Package.swift")
-        }
+        enum DependencySyntax {
+            static var byNameWithPlatformNames: URL {
+                return NSURL.fileURL(withPath: "/Users/simon/Developer/DependencySyntax/ByNamePlatformNames/Package.swift")
+            }
 
-        static var examplePackageC: URL {
-            return NSURL.fileURL(withPath: "/Users/simon/Developer/Example/ExamplePackageC/Package.swift")
-        }
-
-        static var examplePackageD: URL {
-            return NSURL.fileURL(withPath: "/Users/simon/Developer/Example/ExamplePackageD/Package.swift")
+            static var target: URL {
+                return NSURL.fileURL(withPath: "/Users/simon/Developer/DependencySyntax/Target/Package.swift")
+            }
         }
     }
 }

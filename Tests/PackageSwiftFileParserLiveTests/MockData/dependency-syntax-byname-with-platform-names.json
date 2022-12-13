@@ -10,33 +10,12 @@
           "productFilter" : null
         }
       ]
-    },
-    {
-      "sourceControl" : [
-        {
-          "identity" : "keyboardtoolbar",
-          "location" : {
-            "remote" : [
-              "git@github.com:simonbs/KeyboardToolbar.git"
-            ]
-          },
-          "productFilter" : null,
-          "requirement" : {
-            "range" : [
-              {
-                "lowerBound" : "0.1.1",
-                "upperBound" : "1.0.0"
-              }
-            ]
-          }
-        }
-      ]
     }
   ],
-  "name" : "ExamplePackageB",
+  "name" : "DependencySyntaxByNameWithPlatformNames",
   "packageKind" : {
     "root" : [
-      "/Users/simon/Developer/Example/PackageB"
+      "/Users/simon/Developer/DependencySyntax/ByNameWithPlatformNames"
     ]
   },
   "pkgConfig" : null,
@@ -51,12 +30,12 @@
   ],
   "products" : [
     {
-      "name" : "ExampleLibraryB",
+      "name" : "ExampleLibraryD",
       "settings" : [
 
       ],
       "targets" : [
-        "ExampleLibraryB"
+        "ExampleLibraryD"
       ],
       "type" : {
         "library" : [
@@ -71,26 +50,20 @@
     {
       "dependencies" : [
         {
-          "product" : [
+          "byName" : [
             "ExampleLibraryC",
-            "ExamplePackageC",
-            null,
-            null
-          ]
-        },
-        {
-          "product" : [
-            "KeyboardToolbar",
-            "KeyboardToolbar",
-            null,
-            null
+            {
+              "platformNames": [
+                "ios"
+              ]
+            }
           ]
         }
       ],
       "exclude" : [
 
       ],
-      "name" : "ExampleLibraryB",
+      "name" : "ExampleLibraryD",
       "resources" : [
 
       ],

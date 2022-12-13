@@ -7,7 +7,7 @@
   "name" : "ExamplePackageA",
   "packageKind" : {
     "root" : [
-      "/Users/simon/Developer/Example/ExamplePackageA"
+      "/Users/simon/Developer/Example/PackageA"
     ]
   },
   "pkgConfig" : null,

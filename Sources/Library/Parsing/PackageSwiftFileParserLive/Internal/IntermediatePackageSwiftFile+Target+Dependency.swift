@@ -2,6 +2,7 @@ extension IntermediatePackageSwiftFile.Target {
     enum Dependency: Decodable {
         private enum CodingKeys: CodingKey {
             case byName
+            case target
             case product
         }
 
@@ -20,7 +21,9 @@ extension IntermediatePackageSwiftFile.Target {
         init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             if container.allKeys.contains(CodingKeys.byName) {
-                self = try .decodeByName(using: container)
+                self = try .decodeName(using: container, forKey: .byName)
+            } else if container.allKeys.contains(CodingKeys.target) {
+                self = try .decodeName(using: container, forKey: .target)
             } else if container.allKeys.contains(CodingKeys.product) {
                 self = try .decodeProduct(using: container)
             } else {
@@ -33,8 +36,8 @@ extension IntermediatePackageSwiftFile.Target {
 }
 
 private extension IntermediatePackageSwiftFile.Target.Dependency {
-    private static func decodeByName(using container: KeyedDecodingContainer<Self.CodingKeys>) throws -> Self {
-        let values = try container.decode([ByNameComponent].self, forKey: .byName)
+    private static func decodeName(using container: KeyedDecodingContainer<Self.CodingKeys>, forKey key: CodingKeys) throws -> Self {
+        let values = try container.decode([NameComponent].self, forKey: key)
         guard values.count >= 1 else {
             let debugDescription = "Expected to decode at least 1 string but found \(values.count)"
             throw DecodingError.dataCorrupted(.init(codingPath: container.codingPath, debugDescription: debugDescription))
@@ -67,7 +70,7 @@ private extension IntermediatePackageSwiftFile.Target.Dependency {
 }
 
 extension IntermediatePackageSwiftFile.Target.Dependency {
-    private enum ByNameComponent: Decodable {
+    private enum NameComponent: Decodable {
         struct PlatformNamesContainer: Decodable {
             let platformNames: [String]
         }
