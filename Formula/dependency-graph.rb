@@ -1,7 +1,7 @@
 class DependencyGraph < Formula
   desc "Generates graphs of the dependencies in an Xcode project or Swift package."
   homepage "https://github.com/simonbs/DependencyGraph"
-  url "https://github.com/simonbs/dependency-graph.git", tag: "1.1.0", using: :git
+  url "https://github.com/simonbs/dependency-graph.git", tag: "1.1.1", using: :git
   head "https://github.com/simonbs/dependency-graph", branch: "main"
 
   depends_on xcode: ["12.0", :build]
