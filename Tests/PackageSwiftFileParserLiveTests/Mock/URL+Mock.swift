@@ -6,11 +6,11 @@ extension URL {
             static var packageA: URL {
                 return NSURL.fileURL(withPath: "/Users/simon/Developer/Example/PackageA/Package.swift")
             }
-            
+
             static var packageB: URL {
                 return NSURL.fileURL(withPath: "/Users/simon/Developer/Example/PackageB/Package.swift")
             }
-            
+
             static var packageC: URL {
                 return NSURL.fileURL(withPath: "/Users/simon/Developer/Example/PackageC/Package.swift")
             }
