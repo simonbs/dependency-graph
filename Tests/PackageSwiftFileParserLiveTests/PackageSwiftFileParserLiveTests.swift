@@ -8,7 +8,7 @@ final class PackageSwiftFileParserLiveTests: XCTestCase {
         let cache = PackageSwiftFileParserCacheMock()
         let dumpPackageService = DumpPackageServiceMock()
         let parser = PackageSwiftFileParserLive(cache: cache, dumpPackageService: dumpPackageService)
-        let packageSwiftFile = try parser.parseFile(at: URL.Mock.examplePackageA)
+        let packageSwiftFile = try parser.parseFile(at: URL.Mock.Example.packageA)
         XCTAssertEqual(packageSwiftFile.name, "ExamplePackageA")
     }
 
@@ -16,7 +16,7 @@ final class PackageSwiftFileParserLiveTests: XCTestCase {
         let cache = PackageSwiftFileParserCacheMock()
         let dumpPackageService = DumpPackageServiceMock()
         let parser = PackageSwiftFileParserLive(cache: cache, dumpPackageService: dumpPackageService)
-        let packageSwiftFile = try parser.parseFile(at: URL.Mock.examplePackageA)
+        let packageSwiftFile = try parser.parseFile(at: URL.Mock.Example.packageA)
         XCTAssertEqual(packageSwiftFile.products, [
             PackageSwiftFile.Product(name: "ExampleLibraryA", targets: ["ExampleLibraryA"])
         ])
@@ -26,7 +26,7 @@ final class PackageSwiftFileParserLiveTests: XCTestCase {
         let cache = PackageSwiftFileParserCacheMock()
         let dumpPackageService = DumpPackageServiceMock()
         let parser = PackageSwiftFileParserLive(cache: cache, dumpPackageService: dumpPackageService)
-        let packageSwiftFile = try parser.parseFile(at: URL.Mock.examplePackageA)
+        let packageSwiftFile = try parser.parseFile(at: URL.Mock.Example.packageA)
         XCTAssertEqual(packageSwiftFile.targets, [
             PackageSwiftFile.Target(name: "ExampleLibraryA")
         ])
@@ -36,11 +36,11 @@ final class PackageSwiftFileParserLiveTests: XCTestCase {
         let cache = PackageSwiftFileParserCacheMock()
         let dumpPackageService = DumpPackageServiceMock()
         let parser = PackageSwiftFileParserLive(cache: cache, dumpPackageService: dumpPackageService)
-        let swiftPackageFile = try parser.parseFile(at: URL.Mock.examplePackageB)
+        let swiftPackageFile = try parser.parseFile(at: URL.Mock.Example.packageB)
         XCTAssertEqual(swiftPackageFile.dependencies, [
             .fileSystem(
                 identity: "examplepackagec",
-                path: "/Users/simon/Developer/Example/ExamplePackageC",
+                path: "/Users/simon/Developer/Example/PackageC",
                 packageSwiftFile: PackageSwiftFile(
                     name: "ExamplePackageC",
                     products: [
@@ -66,13 +66,13 @@ final class PackageSwiftFileParserLiveTests: XCTestCase {
         XCTAssertEqual(parsedPackageSwiftFile, cachedPackageSwiftFile)
     }
 
-    func testParsesByNameDependencyWithPlatformNames() throws {
+    func testParsesDependencySyntaxByNameDependencyWithPlatformNames() throws {
         let cache = PackageSwiftFileParserCacheMock()
         let dumpPackageService = DumpPackageServiceMock()
         let parser = PackageSwiftFileParserLive(cache: cache, dumpPackageService: dumpPackageService)
-        let packageSwiftFile = try parser.parseFile(at: URL.Mock.examplePackageD)
+        let packageSwiftFile = try parser.parseFile(at: URL.Mock.DependencySyntax.byNameWithPlatformNames)
         let expectedPackageSwiftFile = PackageSwiftFile(
-            name: "ExamplePackageD",
+            name: "DependencySyntaxByNameWithPlatformNames",
             products: [
                 PackageSwiftFile.Product(name: "ExampleLibraryD", targets: ["ExampleLibraryD"])
             ],
@@ -84,7 +84,40 @@ final class PackageSwiftFileParserLiveTests: XCTestCase {
             dependencies: [
                 .fileSystem(
                     identity: "examplepackagec",
-                    path: "/Users/simon/Developer/Example/ExamplePackageC",
+                    path: "/Users/simon/Developer/Example/PackageC",
+                    packageSwiftFile: PackageSwiftFile(
+                        name: "ExamplePackageC",
+                        products: [
+                            .init(name: "ExampleLibraryC", targets: ["ExampleLibraryC"])
+                        ],
+                        targets: [
+                            .init(name: "ExampleLibraryC")
+                        ]
+                    )
+                )
+            ])
+        XCTAssertEqual(packageSwiftFile, expectedPackageSwiftFile)
+    }
+
+    func testParsesDependencySyntaxTarget() throws {
+        let cache = PackageSwiftFileParserCacheMock()
+        let dumpPackageService = DumpPackageServiceMock()
+        let parser = PackageSwiftFileParserLive(cache: cache, dumpPackageService: dumpPackageService)
+        let packageSwiftFile = try parser.parseFile(at: URL.Mock.DependencySyntax.target)
+        let expectedPackageSwiftFile = PackageSwiftFile(
+            name: "DependencySyntaxTarget",
+            products: [
+                PackageSwiftFile.Product(name: "ExampleLibraryD", targets: ["ExampleLibraryD"])
+            ],
+            targets: [
+                PackageSwiftFile.Target(name: "ExampleLibraryD", dependencies: [
+                    .name("ExampleLibraryC")
+                ])
+            ],
+            dependencies: [
+                .fileSystem(
+                    identity: "examplepackagec",
+                    path: "/Users/simon/Developer/Example/PackageC",
                     packageSwiftFile: PackageSwiftFile(
                         name: "ExamplePackageC",
                         products: [

@@ -6,16 +6,16 @@
       "fileSystem" : [
         {
           "identity" : "examplepackagec",
-          "path" : "/Users/simon/Developer/Example/ExamplePackageC",
+          "path" : "/Users/simon/Developer/Example/PackageC",
           "productFilter" : null
         }
       ]
     }
   ],
-  "name" : "ExamplePackageD",
+  "name" : "DependencySyntaxTarget",
   "packageKind" : {
     "root" : [
-      "/Users/simon/Developer/Example/ExamplePackageD"
+      "/Users/simon/Developer/DependencySyntax/Target"
     ]
   },
   "pkgConfig" : null,
@@ -50,13 +50,9 @@
     {
       "dependencies" : [
         {
-          "byName" : [
+          "target" : [
             "ExampleLibraryC",
-            {
-              "platformNames": [
-                "ios"
-              ]
-            }
+            null
           ]
         }
       ],
