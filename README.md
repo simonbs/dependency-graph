@@ -14,7 +14,9 @@ Nodes shaped as an ellipse represent products, e.g. the libraries in a Swift pac
 
 ## 🚀 Getting Started
 
-Start off by installing the tool with [Homebrew](https://brew.sh).
+Start off by installing the tool.
+
+#### Using [Homebrew](https://brew.sh):
 
 ```bash
 brew tap simonbs/dependency-graph https://github.com/simonbs/dependency-graph.git
@@ -36,6 +38,14 @@ brew install dependency-graph
 > ```bash
 > arch -arm64 brew install dependency-graph
 > ```
+
+#### Using [Mint](https://github.com/yonaskolb/Mint):
+
+```bash
+mint install simonbs/dependency-graph
+```
+
+#### Confirm Installation
 
 You may now run the following command to verify that the tool was installed correctly. The following command should print information on how the tool can be used.
 
