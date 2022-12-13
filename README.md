@@ -21,6 +21,21 @@ brew tap simonbs/dependency-graph https://github.com/simonbs/dependency-graph.gi
 brew install dependency-graph
 ```
 
+> **Note**
+> if you got any error like this when running the above command on M1/M2 
+
+```bash
+Error: Cannot install under Rosetta 2 in ARM default prefix (/opt/homebrew)!
+To rerun under ARM use:
+    arch -arm64 brew install ...
+To install under x86_64, install Homebrew into /usr/local.
+```
+
+> You can use the following solution:
+```bash
+arch -arm64 brew install dependency-graph
+```
+
 You may now run the following command to verify that the tool was installed correctly. The following command should print information on how the tool can be used.
 
 ```
