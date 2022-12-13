@@ -106,7 +106,7 @@ dependency-graph --syntax mermaid ~/Developer/Example | mmdc -o graph.png -w 600
 You may also want to play around with the values for `--node-spacing` and `--rank-spacing` to increase the readability of the graph.
 
 ```bash
-dependency-graph --node-spacing 50 --rank-spacing 150 ~/Developer/Example | mmdc -o graph.png
+dependency-graph --syntax mermaid --node-spacing 50 --rank-spacing 150 ~/Developer/Example | mmdc -o graph.png
 ```
 
 Pass the `--packages-only` flag to include only the Xcode project and Swift packages in the graph. This omits the libraries and targets within the Xcode project and Swift packages.
