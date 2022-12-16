@@ -139,6 +139,12 @@ Pass the `--packages-only` flag to include only the Xcode project and Swift pack
 
 <img width="400" src="./sample-packages-only.png" alt="Example graph showing only an Xcode project and Swift packages." />
 
+For large projects the graph may become unreadable. Passing the output through Grahpviz' [unflatten](https://graphviz.org/docs/cli/unflatten/) command may improve the resutls.
+
+```bash
+dependency-graph ~/Developer/Example | unflatten -l 100 -c 100 -f | dot -Tpng -o graph.png
+```
+
 ## 🤷‍♂️ OK, why?
 
 As I'm splitting my iOS and macOS applications into small Swift packages with several small targets, I started wishing for a way to visualise the relationship between the products and targets in my Swift packages. That's why I built this tool.
