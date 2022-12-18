@@ -149,7 +149,7 @@ dependency-graph --syntax mermaid --node-spacing 50 --rank-spacing 150 ~/Develop
 
 #### D2
 
-<img width="400" src="./example-d2.png" alt="Example graph rendered with d2." />
+<img width="400" src="./example-d2.png" alt="Example graph rendered with D2." />
 
 Specify the `--syntax d2` option to have dependency-graph output a graph using [the d2 scripting language](https://d2lang.com/tour/intro).
 
@@ -159,6 +159,10 @@ The output be rendered to an image using the [the d2 cli](https://github.com/ter
 curl -fsSL https://d2lang.com/install.sh | sh -s --
 dependency-graph --syntax d2 ~/Developer/Example | d2 - graph.png
 ```
+
+The ELK layout engine renders some quite tidy graphs, as shown in the example below.
+
+<img width="400" src="./example-d2-elk.png" alt="Example graph rendered with D2 and the ELK layout engine." />
 
 ## Graphing Packages Only
 
