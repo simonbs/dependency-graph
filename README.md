@@ -91,7 +91,7 @@ The output can be rendered to an image by piping it to a renderer. See the follo
 
 #### DOT
 
-<img width="400" src="./example-d2.png" alt="Example graph rendered with dot." />
+<img width="400" src="./example-dot.png" alt="Example graph rendered with dot." />
 
 By default dependency-graph will use the DOT syntax which can be rendered by the [dot CLI](https://graphviz.org/doc/info/command.html), which is part of [Graphviz](https://graphviz.org).
 
@@ -122,7 +122,7 @@ dependency-graph ~/Developer/Example | unflatten -l 100 -c 100 -f | dot -Tpng -o
 
 #### Mermaid
 
-<img width="400" src="./example-d2.png" alt="Example graph rendered with mermaid." />
+<img width="400" src="./example-mermaid.png" alt="Example graph rendered with mermaid." />
 
 Specify the `--syntax mermaid` option to have dependency-graph output a graph using [the Mermaid diagram syntax](https://mermaid-js.github.io/mermaid/#/flowchart).
 
