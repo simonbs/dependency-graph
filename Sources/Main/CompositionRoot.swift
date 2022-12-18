@@ -1,3 +1,4 @@
+import D2GraphMapper
 import DirectedGraphMapper
 import DirectedGraphWriter
 import DOTGraphMapper
@@ -40,7 +41,12 @@ private extension CompositionRoot {
     private static func directedGraphWriterFactory(nodeSpacing: Float?, rankSpacing: Float?) -> DirectedGraphWriterFactory {
         let dotGraphWriter = dotGraphWriter(nodesep: nodeSpacing, ranksep: rankSpacing)
         let mermaidGraphWriter = mermaidGraphWriter(nodeSpacing: nodeSpacing.map(Int.init), rankSpacing: rankSpacing.map(Int.init))
-        return DirectedGraphWriterFactory(dotGraphWriter: dotGraphWriter, mermaidGraphWriter: mermaidGraphWriter)
+        return DirectedGraphWriterFactory(d2GraphWriter: d2GraphWriter, dotGraphWriter: dotGraphWriter, mermaidGraphWriter: mermaidGraphWriter)
+    }
+
+    private static var d2GraphWriter: some DirectedGraphWriter {
+        let mapper = D2GraphMapper()
+        return MappingDirectedGraphWriter(mapper: mapper, writer: stdoutWriter)
     }
 
     private static func dotGraphWriter(nodesep: Float?, ranksep: Float?) -> some DirectedGraphWriter {
@@ -49,40 +55,32 @@ private extension CompositionRoot {
         return MappingDirectedGraphWriter(mapper: mapper, writer: stdoutWriter)
     }
 
-    private static var dumpPackageService: DumpPackageService {
-        return DumpPackageServiceLive(shellCommandRunner: shellCommandRunner)
-    }
-
-    private static var fileSystem: FileSystem {
-        return FileSystemLive()
-    }
-
     private static func mermaidGraphWriter(nodeSpacing: Int?, rankSpacing: Int?) -> some DirectedGraphWriter {
         let settings = MermaidGraphSettings(nodeSpacing: nodeSpacing, rankSpacing: rankSpacing)
         let mapper = MermaidGraphMapper(settings: settings)
         return MappingDirectedGraphWriter(mapper: mapper, writer: stdoutWriter)
     }
 
-    private static func packageGraphBuilder(packagesOnly: Bool) -> PackageGraphBuilder {
-        return PackageGraphBuilderLive(packagesOnly: packagesOnly)
+    private static var projectRootClassifier: ProjectRootClassifier {
+        return ProjectRootClassifierLive(fileSystem: fileSystem)
+    }
+
+    private static var dumpPackageService: DumpPackageService {
+        return DumpPackageServiceLive(shellCommandRunner: shellCommandRunner)
     }
 
     private static var packageSwiftFileParser: PackageSwiftFileParser {
         return PackageSwiftFileParserLive(cache: packageSwiftFileParserCache, dumpPackageService: dumpPackageService)
     }
 
+    private static func packageGraphBuilder(packagesOnly: Bool) -> PackageGraphBuilder {
+        return PackageGraphBuilderLive(packagesOnly: packagesOnly)
+    }
+
     private static let packageSwiftFileParserCache: PackageSwiftFileParserCache = PackageSwiftFileParserCacheLive()
 
-    private static var projectRootClassifier: ProjectRootClassifier {
-        return ProjectRootClassifierLive(fileSystem: fileSystem)
-    }
-
-    private static var shellCommandRunner: ShellCommandRunner {
-        return ShellCommandRunnerLive()
-    }
-
-    private static var stdoutWriter: StdoutWriter {
-        return StdoutWriter()
+    private static var xcodeProjectParser: XcodeProjectParser {
+        return XcodeProjectParserLive(fileSystem: fileSystem)
     }
 
     private static func xcodeProjectGraphBuilder(packagesOnly: Bool) -> XcodeProjectGraphBuilder {
@@ -91,7 +89,15 @@ private extension CompositionRoot {
                                             packagesOnly: packagesOnly)
     }
 
-    private static var xcodeProjectParser: XcodeProjectParser {
-        return XcodeProjectParserLive(fileSystem: fileSystem)
+    private static var fileSystem: FileSystem {
+        return FileSystemLive()
+    }
+
+    private static var shellCommandRunner: ShellCommandRunner {
+        return ShellCommandRunnerLive()
+    }
+
+    private static var stdoutWriter: StdoutWriter {
+        return StdoutWriter()
     }
 }
