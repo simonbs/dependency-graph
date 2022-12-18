@@ -27,7 +27,7 @@ public final class DirectedGraph: Equatable {
             for node in cluster.nodes {
                 existingCluster.addUniqueNode(node)
             }
-            return cluster
+            return existingCluster
         } else {
             clusters.append(cluster)
             return cluster
