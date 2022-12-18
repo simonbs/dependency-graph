@@ -6,17 +6,15 @@ dependency-graph is a command-line tool that can visualize the dependencies of p
 
 ## 👀 Sample
 
-The graph below shows the relationship of the products and targets in this package as of December 11, 2022. Click on the image to see a larger version.
+The graph below shows the relationship of the products and targets in this package as of December 18, 2022. Click on the image to see a larger version.
 
-<img width="400" src="./sample-swift-package.png" alt="Example graph showing the dependencies of this package." />
+<img width="400" src="./example-swift-package.png" alt="Example graph showing the dependencies of this package." />
 
 Nodes shaped as an ellipse represent products, e.g. the libraries in a Swift package, and the square nodes represent targets.
 
 ## 🚀 Getting Started
 
-Start off by installing the tool.
-
-#### Using [Homebrew](https://brew.sh)
+Start off by installing the tool with [Homebrew](https://brew.sh).
 
 ```bash
 brew tap simonbs/dependency-graph https://github.com/simonbs/dependency-graph.git
@@ -38,14 +36,6 @@ brew install dependency-graph
 > ```bash
 > arch -arm64 brew install dependency-graph
 > ```
-
-#### Using [Mint](https://github.com/yonaskolb/Mint)
-
-```bash
-mint install simonbs/dependency-graph
-```
-
-#### Confirm Installation
 
 You may now run the following command to verify that the tool was installed correctly. The following command should print information on how the tool can be used.
 
@@ -97,7 +87,13 @@ digraph g {
 }
 ```
 
-The output can be rendered to an image by piping it to the [dot CLI](https://graphviz.org/doc/info/command.html), which is part of [Graphviz](https://graphviz.org).
+The output can be rendered to an image by piping it to a renderer. See the following sections for details on the supported renderers.
+
+#### DOT
+
+<img width="400" src="./example-d2.png" alt="Example graph rendered with dot." />
+
+By default dependency-graph will use the DOT syntax which can be rendered by the [dot CLI](https://graphviz.org/doc/info/command.html), which is part of [Graphviz](https://graphviz.org).
 
 Install Graphviz and run `dependency-graph` and pass the output to the newly installed `dot` CLI.
 
@@ -106,21 +102,35 @@ brew install graphviz
 dependency-graph ~/Developer/Example | dot -Tsvg -o graph.svg
 ```
 
-The previous example output would look different but similar when using [the Mermaid diagram syntax](https://mermaid-js.github.io/mermaid/#/flowchart) instead. The syntax is used by passing the `--syntax mermaid` option.
+When rendering the graph to a PNG, you will likely want to specify the size of the output to ensure it is readable. To generate an image with dot that is exactly 6000 pixels wide or 8000 pixels tall but not necessarily both, do the following:
 
-Output in the Mermaid diagram syntax can be rendered to an image using the [the mermaid cli](https://github.com/mermaid-js/mermaid-cli).
+```bash
+dependency-graph ~/Developer/Example | dot -Tpng -Gsize=60,80\! -Gdpi=100 -o graph.png
+```
+
+You may want to play around with the values for `--node-spacing` and `--rank-spacing` to increase the readability of the graph.
+
+```bash
+dependency-graph --node-spacing 50 --rank-spacing 150 ~/Developer/Example | dot -Tsvg -o graph.svg
+```
+
+For large projects the graph may become unreadable. Passing the output through Grahpviz' [unflatten](https://graphviz.org/docs/cli/unflatten/) command may improve the results.
+
+```bash
+dependency-graph ~/Developer/Example | unflatten -l 100 -c 100 -f | dot -Tpng -o graph.png
+```
+
+#### Mermaid
+
+<img width="400" src="./example-d2.png" alt="Example graph rendered with mermaid." />
+
+Specify the `--syntax mermaid` option to have dependency-graph output a graph using [the Mermaid diagram syntax](https://mermaid-js.github.io/mermaid/#/flowchart).
+
+The output be rendered to an image using the [the mermaid cli](https://github.com/mermaid-js/mermaid-cli).
 
 ```bash
 npm install -g @mermaid-js/mermaid-cli
 dependency-graph --syntax mermaid ~/Developer/Example | mmdc -o graph.svg
-```
-
-When rendering the graph to a PNG, you will likely want to specify the size of the output to ensure it is readable. You can do this with both the dot and mermaid CLIs.
-
-To generate an image with dot that is exactly 6000 pixels wide or 8000 pixels tall but not necessarily both, do the following:
-
-```bash
-dependency-graph ~/Developer/norlys-ios/Features/Notes | dot -Tpng -Gsize=60,80\! -Gdpi=100 -o ~/Desktop/dot.png
 ```
 
 To generate an image on a page that is 6000 pixels wide with mermaid, do the following:
@@ -135,15 +145,24 @@ You may also want to play around with the values for `--node-spacing` and `--ran
 dependency-graph --syntax mermaid --node-spacing 50 --rank-spacing 150 ~/Developer/Example | mmdc -o graph.png
 ```
 
-Pass the `--packages-only` flag to include only the Xcode project and Swift packages in the graph. This omits the libraries and targets within the Xcode project and Swift packages.
+#### D2
 
-<img width="400" src="./sample-packages-only.png" alt="Example graph showing only an Xcode project and Swift packages." />
+<img width="400" src="./example-d2.png" alt="Example graph rendered with d2." />
 
-For large projects the graph may become unreadable. Passing the output through Grahpviz' [unflatten](https://graphviz.org/docs/cli/unflatten/) command may improve the resutls.
+Specify the `--syntax d2` option to have dependency-graph output a graph using [the d2 scripting language](https://d2lang.com/tour/intro).
+
+The output be rendered to an image using the [the d2 cli](https://github.com/terrastruct/d2#install).
 
 ```bash
-dependency-graph ~/Developer/Example | unflatten -l 100 -c 100 -f | dot -Tpng -o graph.png
+curl -fsSL https://d2lang.com/install.sh | sh -s --
+dependency-graph --syntax d2 ~/Developer/Example | d2 - graph.png
 ```
+
+## Graphing Packages Only
+
+Pass the `--packages-only` flag to include only the Xcode project and Swift packages in the graph. This omits the libraries and targets within the Xcode project and Swift packages.
+
+<img width="400" src="./example-packages-only.png" alt="Example graph showing only an Xcode project and Swift packages." />
 
 ## 🤷‍♂️ OK, why?
 
@@ -156,7 +175,7 @@ Notice that the left-most subgraph represents an Xcode project named ScriptUIEdi
 
 These graphs provide a good way to get an overview of a package or the relationship between several packages. Sometimes it can be helpful to generate multiple graphs to get a good overview, for example, a graph of the entire project and graphs of selected packages. Fortunately, the `dependency-graph` cLI makes this easy as it can take either an Xcode project and a Package.swift file as input.
 
-<img width="400" src="./sample-xcodeproj.png" alt="Example graph showing the dependencies of an Xcode project." />
+<img width="400" src="./example-xcodeproj.png" alt="Example graph showing the dependencies of an Xcode project." />
 
 ## 🧐 ...but how?
 
