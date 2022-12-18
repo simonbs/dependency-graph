@@ -14,7 +14,9 @@ Nodes shaped as an ellipse represent products, e.g. the libraries in a Swift pac
 
 ## 🚀 Getting Started
 
-Start off by installing the tool with [Homebrew](https://brew.sh).
+Start off by installing the tool.
+
+#### Using [Homebrew](https://brew.sh)
 
 ```bash
 brew tap simonbs/dependency-graph https://github.com/simonbs/dependency-graph.git
@@ -36,6 +38,14 @@ brew install dependency-graph
 > ```bash
 > arch -arm64 brew install dependency-graph
 > ```
+
+#### Using [Mint](https://github.com/yonaskolb/Mint)
+
+```bash
+mint install simonbs/dependency-graph
+```
+
+#### Confirm Installation
 
 You may now run the following command to verify that the tool was installed correctly. The following command should print information on how the tool can be used.
 
@@ -128,6 +138,12 @@ dependency-graph --syntax mermaid --node-spacing 50 --rank-spacing 150 ~/Develop
 Pass the `--packages-only` flag to include only the Xcode project and Swift packages in the graph. This omits the libraries and targets within the Xcode project and Swift packages.
 
 <img width="400" src="./sample-packages-only.png" alt="Example graph showing only an Xcode project and Swift packages." />
+
+For large projects the graph may become unreadable. Passing the output through Grahpviz' [unflatten](https://graphviz.org/docs/cli/unflatten/) command may improve the resutls.
+
+```bash
+dependency-graph ~/Developer/Example | unflatten -l 100 -c 100 -f | dot -Tpng -o graph.png
+```
 
 ## 🤷‍♂️ OK, why?
 
