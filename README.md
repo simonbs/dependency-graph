@@ -4,13 +4,15 @@
 
 dependency-graph is a command-line tool that can visualize the dependencies of packages. The tool takes the path to an Xcode project or a Package.swift file as input and outputs a graph that shows the dependencies of the packages in the project or package.
 
-## 👀 Sample
+## 👀 Examples
 
-The graph below shows the relationship of the products and targets in this package as of December 18, 2022. Click on the image to see a larger version.
+The following graphs are examples of the graphs that dependency-graph can output. The first graph built by providing dependency-graph the path to a Package.swift file and the second graph was made by providing dependency-graph the path to an .xcodeproj file as input.
 
-<img width="400" src="./example-swift-package.png" alt="Example graph showing the dependencies of this package." />
+|Swift Package|Xcode Project|
+|-|-|
+|<img width="400" src="./example-swift-package.png" alt="Example graph showing the dependencies of this package." />|<img width="400" src="./example-xcodeproj.png" alt="Example graph showing the dependencies of an Xcode project." />|
 
-Nodes shaped as an ellipse represent products, e.g. the libraries in a Swift package, and the square nodes represent targets.
+Nodes shaped as ellipsis represent products, e.g. the libraries in a Swift package, and the square nodes represent targets.
 
 ## 🚀 Getting Started
 
@@ -173,9 +175,7 @@ Several other tools can visualise a Swift package, however, I wanted a tool that
 The example in the top of this README shows a visualization of a Swift package and the graph below shows a visualisation of an Xcode project.
 Notice that the left-most subgraph represents an Xcode project named ScriptUIEditor.xcodeproj and it has three targets: ScriptUIEditor, ScriptBrowserFeature, and ScriptBrowserFeatureUITests. Two of these depends on the Swift packages represented by the remaining subgraphs.
 
-These graphs provide a good way to get an overview of a package or the relationship between several packages. Sometimes it can be helpful to generate multiple graphs to get a good overview, for example, a graph of the entire project and graphs of selected packages. Fortunately, the `dependency-graph` cLI makes this easy as it can take either an Xcode project and a Package.swift file as input.
-
-<img width="400" src="./example-xcodeproj.png" alt="Example graph showing the dependencies of an Xcode project." />
+These graphs provide a good way to get an overview of a package or the relationship between several packages. Sometimes it can be helpful to generate multiple graphs to get a good overview, for example, a graph of the entire project and graphs of selected packages. Fortunately, the `dependency-graph` CLI makes this easy as it can take either an Xcode project and a Package.swift file as input.
 
 ## 🧐 ...but how?
 
