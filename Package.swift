@@ -16,6 +16,7 @@ let package = Package(
     targets: [
         .executableTarget(name: "Main", dependencies: [
             .product(name: "ArgumentParser", package: "swift-argument-parser"),
+            "D2GraphMapper",
             "DirectedGraphMapper",
             "DirectedGraphWriter",
             "DOTGraphMapper",
@@ -55,6 +56,11 @@ let package = Package(
         ], path: "Sources/Library/Commands/GraphCommand"),
 
         // Sources/Library/Graphing
+        .target(name: "D2GraphMapper", dependencies: [
+            "DirectedGraph",
+            "DirectedGraphMapper",
+            "StringIndentHelpers"
+        ], path: "Sources/Library/Graphing/D2GraphMapper"),
         .target(name: "DirectedGraph", path: "Sources/Library/Graphing/DirectedGraph"),
         .target(name: "DirectedGraphXcodeHelpers", dependencies: [
             "DirectedGraph"
@@ -163,6 +169,10 @@ let package = Package(
         .target(name: "StringIndentHelpers", path: "Sources/Library/Utilities/StringIndentHelpers"),
 
         // Tests
+        .testTarget(name: "D2GraphMapperTests", dependencies: [
+            "DirectedGraph",
+            "D2GraphMapper"
+        ]),
         .testTarget(name: "DirectedGraphTests", dependencies: [
             "DirectedGraph"
         ]),

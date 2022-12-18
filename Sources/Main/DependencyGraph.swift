@@ -12,6 +12,8 @@ The syntax of the output.
 
 Valid values are:
 
+- d2: D2 document to be passed to d2. More info: https://github.com/terrastruct/d2
+
 - dot: DOT document to be passed to GraphViz. More info: https://graphviz.org/doc/info/command.html
 
 - mermaid: Mermaid.js' diagram syntax. To be be passed to the Mermaid CLI. More info: https://github.com/mermaid-js/mermaid-cli.
