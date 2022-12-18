@@ -45,6 +45,7 @@ let package = Package(
 
         // Sources/Library/Commands
         .target(name: "GraphCommand", dependencies: [
+            "DirectedGraphMapper",
             "DirectedGraphWriter",
             "PackageGraphBuilder",
             "PackageSwiftFileParser",
