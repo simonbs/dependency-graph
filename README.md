@@ -187,4 +187,4 @@ dependency-graph parses Xcode project using [XcodeProj](https://github.com/tuist
 
 This means that dependency-graph does not perform any package resolution or build the project, making it very fast to run the `dependency-graph` command but also produces a less detailed output that tools that rely on package resolution.
 
-The tool has a focus on visualising local dependencies, that is, Swift packages stored locally in a project. dependency-graph will include remote dependencies in the visualisation but it will not clone those dependencies to deterine their dependency graph. It is technically possible to include this but it has not been necessary for my use cases.
+The tool has a focus on visualising local dependencies, that is, Swift packages stored locally in a project. dependency-graph will include remote dependencies in the visualisation but it will not clone those dependencies to determine their dependency graph. It is technically possible to include this but it has not been necessary for my use cases.
