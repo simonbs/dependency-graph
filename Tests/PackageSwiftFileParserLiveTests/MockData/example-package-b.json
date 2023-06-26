@@ -83,7 +83,11 @@
             "KeyboardToolbar",
             "KeyboardToolbar",
             null,
-            null
+            {
+              "platformNames" : [
+                "ios"
+              ]
+            }
           ]
         }
       ],
