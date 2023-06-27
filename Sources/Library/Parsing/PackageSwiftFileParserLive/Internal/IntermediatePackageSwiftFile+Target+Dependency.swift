@@ -96,12 +96,15 @@ extension IntermediatePackageSwiftFile.Target.Dependency {
 
     private enum ProductComponent: Decodable {
         case string(String)
+        case condition(Condition)
         case null
 
         init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             if let str = try? container.decode(String.self) {
                 self = .string(str)
+            } else if let condition = try? container.decode(Condition.self) {
+                self = .condition(condition)
             } else if container.decodeNil() {
                 self = .null
             } else {
@@ -109,5 +112,11 @@ extension IntermediatePackageSwiftFile.Target.Dependency {
                 throw DecodingError.dataCorrupted(.init(codingPath: container.codingPath, debugDescription: debugDescription))
             }
         }
+    }
+}
+
+extension IntermediatePackageSwiftFile.Target.Dependency {
+    struct Condition: Decodable {
+        let platformNames: [String]
     }
 }
